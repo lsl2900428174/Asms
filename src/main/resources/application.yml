@@ -1,0 +1,15 @@
+#服务配置
+server:
+  port: 8081
+#spring配置
+spring:
+  application:
+    name: asms
+  #数据库连接池配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/ihrm?characterEncoding=UTF8&autoReconnect=true&serverTimezone=Asia/Shanghai&allowMultiQueries=true
+    username: root
+    password: lishilong200009
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
