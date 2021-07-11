@@ -8,8 +8,8 @@ spring:
   #数据库连接池配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/ihrm?characterEncoding=UTF8&autoReconnect=true&serverTimezone=Asia/Shanghai&allowMultiQueries=true
-    username: root
-    password: lishilong200009
+    url: jdbc:mysql://rm-wz9uu8l22nm2mx5zdco.mysql.rds.aliyuncs.com:3306/asms?characterEncoding=UTF8&autoReconnect=true&serverTimezone=Asia/Shanghai&allowMultiQueries=true
+    username: root1
+    password: rootASMS@
 mybatis:
   mapper-locations: classpath:mapper/*.xml
