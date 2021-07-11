@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.asms.dao.WDeliveryorderDao">
+
+    <resultMap type="com.trkj.asms.entity.WDeliveryorder" id="WDeliveryorderMap">
+        <result property="doId" column="do_id" jdbcType="INTEGER"/>
+        <result property="billcode" column="billcode" jdbcType="VARCHAR"/>
+        <result property="pickingId" column="picking_id" jdbcType="INTEGER"/>
+        <result property="billdate" column="billdate" jdbcType="TIMESTAMP"/>
+        <result property="backreason" column="backreason" jdbcType="VARCHAR"/>
+        <result property="supplerId" column="suppler_id" jdbcType="INTEGER"/>
+        <result property="organizeId" column="organize_id" jdbcType="INTEGER"/>
+        <result property="state" column="state" jdbcType="INTEGER"/>
+        <result property="amount" column="amount" jdbcType="NUMERIC"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="WDeliveryorderMap">
+        select
+          do_id, billcode, picking_id, billdate, backreason, suppler_id, organize_id, state, amount
+        from asms.w_deliveryorder
+        where do_id = #{doId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="WDeliveryorderMap">
+        select
+          do_id, billcode, picking_id, billdate, backreason, suppler_id, organize_id, state, amount
+        from asms.w_deliveryorder
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="WDeliveryorderMap">
+        select
+        do_id, billcode, picking_id, billdate, backreason, suppler_id, organize_id, state, amount
+        from asms.w_deliveryorder
+        <where>
+            <if test="doId != null">
+                and do_id = #{doId}
+            </if>
+            <if test="billcode != null and billcode != ''">
+                and billcode = #{billcode}
+            </if>
+            <if test="pickingId != null">
+                and picking_id = #{pickingId}
+            </if>
+            <if test="billdate != null">
+                and billdate = #{billdate}
+            </if>
+            <if test="backreason != null and backreason != ''">
+                and backreason = #{backreason}
+            </if>
+            <if test="supplerId != null">
+                and suppler_id = #{supplerId}
+            </if>
+            <if test="organizeId != null">
+                and organize_id = #{organizeId}
+            </if>
+            <if test="state != null">
+                and state = #{state}
+            </if>
+            <if test="amount != null">
+                and amount = #{amount}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="doId" useGeneratedKeys="true">
+        insert into asms.w_deliveryorder(billcode, picking_id, billdate, backreason, suppler_id, organize_id, state, amount)
+        values (#{billcode}, #{pickingId}, #{billdate}, #{backreason}, #{supplerId}, #{organizeId}, #{state}, #{amount})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="doId" useGeneratedKeys="true">
+        insert into asms.w_deliveryorder(billcode, picking_id, billdate, backreason, suppler_id, organize_id, state,
+        amount)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.billcode}, #{entity.pickingId}, #{entity.billdate}, #{entity.backreason}, #{entity.supplerId},
+            #{entity.organizeId}, #{entity.state}, #{entity.amount})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="doId" useGeneratedKeys="true">
+        insert into asms.w_deliveryorder(billcode, picking_id, billdate, backreason, suppler_id, organize_id, state,
+        amount)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.billcode}, #{entity.pickingId}, #{entity.billdate}, #{entity.backreason}, #{entity.supplerId},
+            #{entity.organizeId}, #{entity.state}, #{entity.amount})
+        </foreach>
+        on duplicate key update
+        billcode = values(billcode) , picking_id = values(picking_id) , billdate = values(billdate) , backreason =
+        values(backreason) , suppler_id = values(suppler_id) , organize_id = values(organize_id) , state = values(state)
+        , amount = values(amount)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update asms.w_deliveryorder
+        <set>
+            <if test="billcode != null and billcode != ''">
+                billcode = #{billcode},
+            </if>
+            <if test="pickingId != null">
+                picking_id = #{pickingId},
+            </if>
+            <if test="billdate != null">
+                billdate = #{billdate},
+            </if>
+            <if test="backreason != null and backreason != ''">
+                backreason = #{backreason},
+            </if>
+            <if test="supplerId != null">
+                suppler_id = #{supplerId},
+            </if>
+            <if test="organizeId != null">
+                organize_id = #{organizeId},
+            </if>
+            <if test="state != null">
+                state = #{state},
+            </if>
+            <if test="amount != null">
+                amount = #{amount},
+            </if>
+        </set>
+        where do_id = #{doId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from asms.w_deliveryorder where do_id = #{doId}
+    </delete>
+
+</mapper>
+
