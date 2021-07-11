@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.asms.dao.StoreDao">
+
+    <resultMap type="com.trkj.asms.entity.Store" id="StoreMap">
+        <result property="sId" column="s_id" jdbcType="INTEGER"/>
+        <result property="sNumber" column="s_number" jdbcType="VARCHAR"/>
+        <result property="sName" column="s_name" jdbcType="VARCHAR"/>
+        <result property="sFullname" column="s_fullname" jdbcType="VARCHAR"/>
+        <result property="sLeader" column="s_leader" jdbcType="VARCHAR"/>
+        <result property="sAddress" column="s_address" jdbcType="VARCHAR"/>
+        <result property="sPhone" column="s_phone" jdbcType="VARCHAR"/>
+        <result property="sStatus" column="s_status" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="StoreMap">
+        select
+          s_id, s_number, s_name, s_fullname, s_leader, s_address, s_phone, s_status
+        from asms.store
+        where s_id = #{sId}
+    </select>
+
+    <!--查询所有的门店-->
+    <select id="selectAll" resultMap="StoreMap">
+        select * from store
+    </select>
+
+    <!--根据门店名称模糊查询-->
+    <select id="selectLikeByName" resultMap="StoreMap">
+        select * from store where s_name like CONCAT('%',#{name},'%')
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="StoreMap">
+        select
+          s_id, s_number, s_name, s_fullname, s_leader, s_address, s_phone, s_status
+        from asms.store
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="StoreMap">
+        select
+        s_id, s_number, s_name, s_fullname, s_leader, s_address, s_phone, s_status
+        from asms.store
+        <where>
+            <if test="sId != null">
+                and s_id = #{sId}
+            </if>
+            <if test="sNumber != null and sNumber != ''">
+                and s_number = #{sNumber}
+            </if>
+            <if test="sName != null and sName != ''">
+                and s_name = #{sName}
+            </if>
+            <if test="sFullname != null and sFullname != ''">
+                and s_fullname = #{sFullname}
+            </if>
+            <if test="sLeader != null and sLeader != ''">
+                and s_leader = #{sLeader}
+            </if>
+            <if test="sAddress != null and sAddress != ''">
+                and s_address = #{sAddress}
+            </if>
+            <if test="sPhone != null and sPhone != ''">
+                and s_phone = #{sPhone}
+            </if>
+            <if test="sStatus != null">
+                and s_status = #{sStatus}
+            </if>
+        </where>
+    </select>
+
+    <!--添加门店-->
+    <insert id="insert" keyProperty="sId" useGeneratedKeys="true">
+        insert into asms.store(s_number, s_name, s_fullname, s_leader, s_address, s_phone)
+        values (#{sNumber}, #{sName}, #{sFullname}, #{sLeader}, #{sAddress}, #{sPhone})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="sId" useGeneratedKeys="true">
+        insert into asms.store(s_number, s_name, s_fullname, s_leader, s_address, s_phone, s_status)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.sNumber}, #{entity.sName}, #{entity.sFullname}, #{entity.sLeader}, #{entity.sAddress},
+            #{entity.sPhone}, #{entity.sStatus})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="sId" useGeneratedKeys="true">
+        insert into asms.store(s_number, s_name, s_fullname, s_leader, s_address, s_phone, s_status)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.sNumber}, #{entity.sName}, #{entity.sFullname}, #{entity.sLeader}, #{entity.sAddress},
+            #{entity.sPhone}, #{entity.sStatus})
+        </foreach>
+        on duplicate key update
+        s_number = values(s_number) , s_name = values(s_name) , s_fullname = values(s_fullname) , s_leader =
+        values(s_leader) , s_address = values(s_address) , s_phone = values(s_phone) , s_status = values(s_status)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update asms.store
+        <set>
+            <if test="sNumber != null and sNumber != ''">
+                s_number = #{sNumber},
+            </if>
+            <if test="sName != null and sName != ''">
+                s_name = #{sName},
+            </if>
+            <if test="sFullname != null and sFullname != ''">
+                s_fullname = #{sFullname},
+            </if>
+            <if test="sLeader != null and sLeader != ''">
+                s_leader = #{sLeader},
+            </if>
+            <if test="sAddress != null and sAddress != ''">
+                s_address = #{sAddress},
+            </if>
+            <if test="sPhone != null and sPhone != ''">
+                s_phone = #{sPhone},
+            </if>
+            <if test="sStatus != null">
+                s_status = #{sStatus},
+            </if>
+        </set>
+        where s_id = #{sId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from asms.store where s_id = #{sId}
+    </delete>
+
+</mapper>
+
