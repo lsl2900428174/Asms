@@ -1,5 +1,10 @@
 package com.trkj.asms.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 import java.io.Serializable;
 import java.util.List;
@@ -10,6 +15,7 @@ import java.util.List;
  * @author makejava
  * @since 2021-07-11 20:23:16
  */
+@Data
 public class WMaterialorder implements Serializable {
     private static final long serialVersionUID = 490759297648878408L;
     /**
@@ -49,93 +55,11 @@ public class WMaterialorder implements Serializable {
      */
     private String billcode;
 
+    /**
+     * 物资
+     * @return
+     */
+    @JsonProperty(value = "wReturnedmaterials")
     private List<WReturnedmaterials> wReturnedmaterials;
 
-
-    public Integer getMoId() {
-        return moId;
-    }
-
-    public void setMoId(Integer moId) {
-        this.moId = moId;
-    }
-
-    public String getSuppliername() {
-        return suppliername;
-    }
-
-    public void setSuppliername(String suppliername) {
-        this.suppliername = suppliername;
-    }
-
-    public Date getBilldate() {
-        return billdate;
-    }
-
-    public void setBilldate(Date billdate) {
-        this.billdate = billdate;
-    }
-
-    public String getOrderuser() {
-        return orderuser;
-    }
-
-    public void setOrderuser(String orderuser) {
-        this.orderuser = orderuser;
-    }
-
-    public Date getEdate() {
-        return edate;
-    }
-
-    public void setEdate(Date edate) {
-        this.edate = edate;
-    }
-
-    public Double getAmout() {
-        return amout;
-    }
-
-    public void setAmout(Double amout) {
-        this.amout = amout;
-    }
-
-    public Integer getState() {
-        return state;
-    }
-
-    public void setState(Integer state) {
-        this.state = state;
-    }
-
-    public String getMoNumber() {
-        return moNumber;
-    }
-
-    public void setMoNumber(String moNumber) {
-        this.moNumber = moNumber;
-    }
-
-    public String getBillcode() {
-        return billcode;
-    }
-
-    public void setBillcode(String billcode) {
-        this.billcode = billcode;
-    }
-
-    @Override
-    public String toString() {
-        return "WMaterialorder{" +
-                "moId=" + moId +
-                ", suppliername='" + suppliername + '\'' +
-                ", billdate=" + billdate +
-                ", orderuser='" + orderuser + '\'' +
-                ", edate=" + edate +
-                ", amout=" + amout +
-                ", state=" + state +
-                ", moNumber='" + moNumber + '\'' +
-                ", billcode='" + billcode + '\'' +
-                '}';
-    }
 }

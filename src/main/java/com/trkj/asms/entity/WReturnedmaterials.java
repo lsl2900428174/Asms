@@ -1,5 +1,7 @@
 package com.trkj.asms.entity;
 
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -8,6 +10,7 @@ import java.io.Serializable;
  * @author makejava
  * @since 2021-07-12 09:00:26
  */
+@Data
 public class WReturnedmaterials implements Serializable {
     private static final long serialVersionUID = -20599084265383523L;
     /**
@@ -72,112 +75,5 @@ public class WReturnedmaterials implements Serializable {
         return rId;
     }
 
-    public void setRId(Integer rId) {
-        this.rId = rId;
-    }
-
-    public String getMaterialcode() {
-        return materialcode;
-    }
-
-    public void setMaterialcode(String materialcode) {
-        this.materialcode = materialcode;
-    }
-
-    public String getMaterialname() {
-        return materialname;
-    }
-
-    public void setMaterialname(String materialname) {
-        this.materialname = materialname;
-    }
-
-    public String getTypename() {
-        return typename;
-    }
-
-    public void setTypename(String typename) {
-        this.typename = typename;
-    }
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
-    public String getModelname() {
-        return modelname;
-    }
-
-    public void setModelname(String modelname) {
-        this.modelname = modelname;
-    }
-
-    public String getSitepartname() {
-        return sitepartname;
-    }
-
-    public void setSitepartname(String sitepartname) {
-        this.sitepartname = sitepartname;
-    }
-
-    public String getUnitname() {
-        return unitname;
-    }
-
-    public void setUnitname(String unitname) {
-        this.unitname = unitname;
-    }
-
-    public Integer getNumber() {
-        return number;
-    }
-
-    public void setNumber(Integer number) {
-        this.number = number;
-    }
-
-    public Integer getBacknumber() {
-        return backnumber;
-    }
-
-    public void setBacknumber(Integer backnumber) {
-        this.backnumber = backnumber;
-    }
-
-    public Double getUnitprice() {
-        return unitprice;
-    }
-
-    public void setUnitprice(Double unitprice) {
-        this.unitprice = unitprice;
-    }
-
-    public Double getAmountprice() {
-        return amountprice;
-    }
-
-    public void setAmountprice(Double amountprice) {
-        this.amountprice = amountprice;
-    }
-
-    public String getStorename() {
-        return storename;
-    }
-
-    public void setStorename(String storename) {
-        this.storename = storename;
-    }
-
-    public String getBillcode() {
-        return billcode;
-    }
-
-    public void setBillcode(String billcode) {
-        this.billcode = billcode;
-    }
 
 }
