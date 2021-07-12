@@ -13,12 +13,6 @@
     </resultMap>
 
     <!--查询单个-->
-    <select id="queryById" resultMap="BaseResultMap">
-        select
-          id, sale_code, c_id, e_id, sale_time, remarks
-        from asms.productsales
-        where  = #{}
-    </select>
 
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="BaseResultMap">
@@ -62,34 +56,7 @@
     </insert>
 
     <!--通过主键修改数据-->
-    <update id="update">
-        update asms.productsales
-        <set>
-            <if test="id != null">
-                id = #{id},
-            </if>
-            <if test="saleCode != null and saleCode != ''">
-                sale_code = #{saleCode},
-            </if>
-            <if test="cId != null">
-                c_id = #{cId},
-            </if>
-            <if test="eId != null">
-                e_id = #{eId},
-            </if>
-            <if test="saleTime != null">
-                sale_time = #{saleTime},
-            </if>
-            <if test="remarks != null and remarks != ''">
-                remarks = #{remarks},
-            </if>
-        </set>
-        where  = #{}
-    </update>
 
     <!--通过主键删除-->
-    <delete id="deleteById">
-        delete from asms.productsales where  = #{}
-    </delete>
 
 </mapper>

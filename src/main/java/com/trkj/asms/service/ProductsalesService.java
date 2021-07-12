@@ -12,14 +12,6 @@ import java.util.List;
 public interface ProductsalesService {
 
     /**
-     * 通过ID查询单条数据
-     *
-     * @param  主键
-     * @return 实例对象
-     */
-    Productsales queryById( );
-
-    /**
      * 查询多条数据
      *
      * @param offset 查询起始位置
@@ -36,20 +28,8 @@ public interface ProductsalesService {
      */
     Productsales insert(Productsales productsales);
 
-    /**
-     * 修改数据
-     *
-     * @param productsales 实例对象
-     * @return 实例对象
-     */
-    Productsales update(Productsales productsales);
 
-    /**
-     * 通过主键删除数据
-     *
-     * @param  主键
-     * @return 是否成功
-     */
-    boolean deleteById( );
+
+
 
 }

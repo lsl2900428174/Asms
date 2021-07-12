@@ -9,7 +9,8 @@ import javax.annotation.Resource;
 /**
  * 用品销售表(Productsales)表控制层
  *
- * @author makejava
+ * @author makejava    @Resource
+ *     private ProductsalesService productsalesService;
  * @since 2021-07-12 00:58:50
  */
 @RestController
@@ -18,18 +19,7 @@ public class ProductsalesController {
     /**
      * 服务对象
      */
-    @Resource
-    private ProductsalesService productsalesService;
 
-    /**
-     * 通过主键查询单条数据
-     *
-     * @param id 主键
-     * @return 单条数据
-     */
-    @GetMapping("selectOne")
-    public Productsales selectOne( id) {
-        return this.productsalesService.queryById(id);
-    }
+
 
 }

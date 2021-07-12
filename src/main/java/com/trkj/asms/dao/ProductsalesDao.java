@@ -1,6 +1,7 @@
 package com.trkj.asms.dao;
 
 import com.trkj.asms.entity.Productsales;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
@@ -10,15 +11,9 @@ import java.util.List;
  * @author makejava
  * @since 2021-07-12 00:58:50
  */
+@Mapper
 public interface ProductsalesDao {
 
-    /**
-     * 通过ID查询单条数据
-     *
-     * @param  主键
-     * @return 实例对象
-     */
-    Productsales queryById( );
 
     /**
      * 查询指定行数据
@@ -46,20 +41,6 @@ public interface ProductsalesDao {
      */
     int insert(Productsales productsales);
 
-    /**
-     * 修改数据
-     *
-     * @param productsales 实例对象
-     * @return 影响行数
-     */
-    int update(Productsales productsales);
 
-    /**
-     * 通过主键删除数据
-     *
-     * @param  主键
-     * @return 影响行数
-     */
-    int deleteById( );
 
 }
