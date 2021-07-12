@@ -2,6 +2,7 @@ package com.trkj.asms.entity;
 
 import java.util.Date;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 物资采购订单表和库存表(WMaterialorder)实体类
@@ -47,6 +48,8 @@ public class WMaterialorder implements Serializable {
      * 采购编号
      */
     private String billcode;
+
+    private List<WReturnedmaterials> wReturnedmaterials;
 
 
     public Integer getMoId() {
