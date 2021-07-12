@@ -1,267 +1,404 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.trkj.asms.dao.MainbillingDao">
+  <resultMap id="BaseResultMap" type="com.trkj.asms.entity.Mainbilling">
+    <id column="mainbillingid" jdbcType="INTEGER" property="mainbillingid" />
+    <result column="serviceid" jdbcType="INTEGER" property="serviceid" />
+    <result column="maintenanceappid" jdbcType="INTEGER" property="maintenanceappid" />
+    <result column="kehuid" jdbcType="INTEGER" property="kehuid" />
+    <result column="empid" jdbcType="INTEGER" property="empid" />
+    <result column="xiangmuid" jdbcType="INTEGER" property="xiangmuid" />
+    <result column="cailiaoid" jdbcType="INTEGER" property="cailiaoid" />
+    <result column="mendianid" jdbcType="INTEGER" property="mendianid" />
+    <result column="chepai" jdbcType="INTEGER" property="chepai" />
+    <result column="paigongsta" jdbcType="INTEGER" property="paigongsta" />
+    <result column="mainbillingno" jdbcType="VARCHAR" property="mainbillingno" />
+    <result column="mainorder" jdbcType="TIMESTAMP" property="mainorder" />
+    <result column="mainorderstuta" jdbcType="INTEGER" property="mainorderstuta" />
+    <result column="yujisetcar" jdbcType="TIMESTAMP" property="yujisetcar" />
+    <result column="yujisetcartime" jdbcType="TIMESTAMP" property="yujisetcartime" />
+    <result column="kehudepict" jdbcType="VARCHAR" property="kehudepict" />
+    <result column="suichewup" jdbcType="VARCHAR" property="suichewup" />
+    <result column="wangongsta" jdbcType="INTEGER" property="wangongsta" />
+    <result column="wangongtime" jdbcType="TIMESTAMP" property="wangongtime" />
+    <result column="favourable" jdbcType="DECIMAL" property="favourable" />
+    <result column="yujiallmony" jdbcType="DECIMAL" property="yujiallmony" />
+    <result column="overmonytime" jdbcType="TIMESTAMP" property="overmonytime" />
+    <result column="orfanxiu" jdbcType="INTEGER" property="orfanxiu" />
+    <result column="beizhu" jdbcType="VARCHAR" property="beizhu" />
+    <association javaType="com.trkj.asms.entity.Service" property="service">
+      <result property="serviceid" column="serviceid" jdbcType="INTEGER"/>
+      <result property="servicename" column="servicename" jdbcType="VARCHAR"/>
+      <result property="state" column="state" jdbcType="INTEGER"/>
+    </association>
+    <association javaType="com.trkj.asms.entity.Maintenanceapp" property="maintenanceapp">
+      <id column="maintenanceappid" jdbcType="INTEGER" property="maintenanceappid" />
+      <result column="serviceid" jdbcType="INTEGER" property="serviceid" />
+      <result column="kehuid" jdbcType="INTEGER" property="kehuid" />
+      <result column="empid" jdbcType="INTEGER" property="empid" />
+      <result column="carid" jdbcType="INTEGER" property="carid" />
+      <result column="xiangmuid" jdbcType="INTEGER" property="xiangmuid" />
+      <result column="cailiaoid" jdbcType="INTEGER" property="cailiaoid" />
+      <result column="mendianid" jdbcType="INTEGER" property="mendianid" />
+      <result column="appno" jdbcType="VARCHAR" property="appno" />
+      <result column="mainorder" jdbcType="TIMESTAMP" property="mainorder" />
+      <result column="mainorderstuta" jdbcType="INTEGER" property="mainorderstuta" />
+      <result column="yujiallmony" jdbcType="DECIMAL" property="yujiallmony" />
+      <result column="yujisetcar" jdbcType="TIMESTAMP" property="yujisetcar" />
+      <result column="yujisetcartime" jdbcType="TIMESTAMP" property="yujisetcartime" />
+      <result column="kehudepict" jdbcType="VARCHAR" property="kehudepict" />
+      <result column="shiyucause" jdbcType="VARCHAR" property="shiyucause" />
+      <result column="beizhu" jdbcType="VARCHAR" property="beizhu" />
+    </association>
+<!--    客户-->
+    <association javaType="com.trkj.asms.entity.Customer" property="customer">
+      <result property="cId" column="c_id" jdbcType="INTEGER"/>
+      <result property="cName" column="c_name" jdbcType="VARCHAR"/>
+      <result property="sId" column="s_id" jdbcType="INTEGER"/>
+      <result property="mId" column="m_id" jdbcType="INTEGER"/>
+      <result property="cGender" column="c_gender" jdbcType="VARCHAR"/>
+      <result property="cContacts" column="c_contacts" jdbcType="VARCHAR"/>
+      <result property="cPhone" column="c_phone" jdbcType="VARCHAR"/>
+      <result property="ctId" column="ct_id" jdbcType="INTEGER"/>
+      <result property="cAddress" column="c_address" jdbcType="VARCHAR"/>
+      <result property="cText" column="c_text" jdbcType="VARCHAR"/>
+      <result property="eId" column="e_id" jdbcType="INTEGER"/>
+      <result property="cDate" column="c_date" jdbcType="TIMESTAMP"/>
+    </association>
+<!--    员工-->
+    <association javaType="com.trkj.asms.entity.Emp" property="emp">
+      <result property="eId" column="e_Id" jdbcType="INTEGER"/>
+      <result property="sId" column="s_id" jdbcType="INTEGER"/>
+      <result property="pId" column="p_id" jdbcType="INTEGER"/>
+      <result property="dId" column="d_id" jdbcType="INTEGER"/>
+      <result property="sex" column="Sex" jdbcType="VARCHAR"/>
+      <result property="name" column="Name" jdbcType="VARCHAR"/>
+      <result property="loginid" column="LoginID" jdbcType="VARCHAR"/>
+      <result property="phone" column="Phone" jdbcType="VARCHAR"/>
+      <result property="updatetime" column="UpdateTime" jdbcType="TIMESTAMP"/>
+      <result property="updatename" column="UpdateName" jdbcType="VARCHAR"/>
+      <result property="deletetime" column="DeleteTime" jdbcType="TIMESTAMP"/>
+      <result property="deletename" column="DeleteName" jdbcType="VARCHAR"/>
+      <result property="timeliness" column="timeliness" jdbcType="INTEGER"/>
+      <result property="createusername" column="CreateUserName" jdbcType="VARCHAR"/>
+      <result property="addtime" column="addTime" jdbcType="TIMESTAMP"/>
+    </association>
+<!--    项目-->
+    <association javaType="com.trkj.asms.entity.Projectsettings" property="projectsettings">
+      <result property="pId" column="p_id" jdbcType="INTEGER"/>
+      <result property="servetypeid" column="Servetypeid" jdbcType="INTEGER"/>
+      <result property="siteid" column="Siteid" jdbcType="INTEGER"/>
+      <result property="sId" column="s_id" jdbcType="INTEGER"/>
+      <result property="projectcode" column="Projectcode" jdbcType="VARCHAR"/>
+      <result property="projectname" column="ProjectName" jdbcType="VARCHAR"/>
+      <result property="state" column="State" jdbcType="INTEGER"/>
+      <result property="remarks" column="Remarks" jdbcType="VARCHAR"/>
+      <result property="typeLabel" column="Type_Label" jdbcType="VARCHAR"/>
+      <result property="typeid" column="TypeId" jdbcType="INTEGER"/>
+      <result property="workhours" column="WorkHours" jdbcType="VARCHAR"/>
+      <result property="custaccountprcie" column="CustAccountPrcie" jdbcType="NUMERIC"/>
+      <result property="insideprice" column="InsidePrice" jdbcType="NUMERIC"/>
+      <result property="claimantprcie" column="ClaimantPrcie" jdbcType="NUMERIC"/>
+    </association>
+<!--    材料-->
+    <association javaType="com.trkj.asms.entity.Commodity" property="commodity">
+        <result property="rId" column="r_id" jdbcType="INTEGER"/>
+        <result property="materialcode" column="materialcode" jdbcType="VARCHAR"/>
+        <result property="materialname" column="materialname" jdbcType="VARCHAR"/>
+        <result property="typename" column="typename" jdbcType="VARCHAR"/>
+        <result property="brand" column="brand" jdbcType="VARCHAR"/>
+        <result property="modelname" column="modelname" jdbcType="VARCHAR"/>
+        <result property="sitepartname" column="sitepartname" jdbcType="VARCHAR"/>
+        <result property="unitname" column="unitname" jdbcType="VARCHAR"/>
+        <result property="number" column="number" jdbcType="INTEGER"/>
+        <result property="backnumber" column="backnumber" jdbcType="INTEGER"/>
+        <result property="unitprice" column="unitprice" jdbcType="NUMERIC"/>
+        <result property="amountprice" column="amountprice" jdbcType="NUMERIC"/>
+        <result property="storename" column="storename" jdbcType="VARCHAR"/>
+        <result property="billcode" column="billcode" jdbcType="VARCHAR"/>
+    </association>
+<!--    门店-->
 
-    <resultMap id="BaseResultMap" type="com.trkj.asms.entity.Mainbilling">
-        <!--@Table mainbilling-->
-        <result property="mainbillingid" column="mainbillingid" jdbcType="INTEGER"/>
-        <result property="serviceid" column="serviceid" jdbcType="INTEGER"/>
-        <result property="maintenanceappid" column="maintenanceappid" jdbcType="INTEGER"/>
-        <result property="kehuid" column="kehuid" jdbcType="INTEGER"/>
-        <result property="empid" column="empid" jdbcType="INTEGER"/>
-        <result property="xiangmuid" column="xiangmuid" jdbcType="INTEGER"/>
-        <result property="cailiaoid" column="cailiaoid" jdbcType="INTEGER"/>
-        <result property="mendianid" column="mendianid" jdbcType="INTEGER"/>
-        <result property="empids" column="empids" jdbcType="INTEGER"/>
-        <result property="paigongsta" column="paigongsta" jdbcType="INTEGER"/>
-        <result property="mainbillingno" column="mainbillingno" jdbcType="VARCHAR"/>
-        <result property="mainorder" column="mainorder" jdbcType="TIMESTAMP"/>
-        <result property="mainorderstuta" column="mainorderstuta" jdbcType="INTEGER"/>
-        <result property="yujisetcar" column="yujisetcar" jdbcType="TIMESTAMP"/>
-        <result property="yujisetcartime" column="yujisetcartime" jdbcType="TIMESTAMP"/>
-        <result property="kehudepict" column="kehudepict" jdbcType="VARCHAR"/>
-        <result property="suichewup" column="suichewup" jdbcType="VARCHAR"/>
-        <result property="wangongsta" column="wangongsta" jdbcType="INTEGER"/>
-        <result property="wangongtime" column="wangongtime" jdbcType="TIMESTAMP"/>
-        <result property="favourable" column="favourable" jdbcType="NUMERIC"/>
-        <result property="yujiallmony" column="yujiallmony" jdbcType="NUMERIC"/>
-        <result property="overmonytime" column="overmonytime" jdbcType="TIMESTAMP"/>
-        <result property="orfanxiu" column="orfanxiu" jdbcType="INTEGER"/>
-        <result property="beizhu" column="beizhu" jdbcType="VARCHAR"/>
-    </resultMap>
-    <sql id="Base_Column_List_mainb">
-        mainbillingid,serviceid,maintenanceappid,kehuid,empid,xiangmuid,cailiaoid,mendianid,empids,paigongsta,
-        mainbillingno,mainorder,mainorderstuta,yujisetcar,yujisetcartime,kehudepict,suichewup,wangongsta,
-        favourable,yujiallmony,overmonytime,orfanxiu,beizhu
-    </sql>
-    <sql id="Base_Column_List_service">
-        serviceid,servicename,state
-    </sql>
-    <sql id="Base_Column_List_maint">
-        maintenanceappid, serviceid, kehuid, empid, xiangmuid, cailiaoid, mendianid, carid , appno,
-    mainorder, mainorderstuta, yujiallmony, yujisetcar, yujisetcartime, kehudepict, shiyucause,
-    beizhu
-    </sql>
-    <sql id="Base_Column_List_kehu">
-        c_id,c_name,s_id,m_id,c_gender,c_contacts,c_phone,ct_id,c_address,c_text,e_id,c_date
-    </sql>
-    <sql id="Base_Column_List_xiangmu">
-        p_id,Servetypeid,Siteid,s_id,Projectcode,ProjectName,State,Remarks,Type_Label,TypeId,WorkHours,
-        CustAccountPrcie,InsidePrice,ClaimantPrcie
-    </sql>
-    <sql id="Base_Column_List_emp">
-        e_Id, s_id, p_id, d_id, Sex, Name, LoginID, Phone, UpdateTime, UpdateName, DeleteTime, DeleteName, timeliness, CreateUserName, addTime
-    </sql>
-    <sql id="Base_Column_List_cailiao">
-        co_id,co_name,co_code,s_id,ci_id,m_id,mu_id,barcode,applimodel,is_id,specialmodel,isinstall,
-        wh_id,wp_id,warning,co_retailprice,cusprice
-    </sql>
-    <sql id="Base_Column_List_mendian">
-        s_id,s_number,s_name,s_fullname,s_leader,s_address,s_phone,s_status
-    </sql>
-    <sql id="Base_Column_List_chepai">
-        carmagid,b_id,vs_id,v_id,i_id,bc_id,s_id,c_id,chepai,chejiano,fadongjino,zuoweinumber,buydate,daoqiyers,newlichen,
-        nextbytime,nextbylichen,yesorno,beizhu,jianyi,cjdate
-    </sql>
-    <!--查询单个-->
-    <select id="queryById" resultMap="BaseResultMap">
-        select
-          mainbillingid, serviceid, maintenanceappid, kehuid, empid, xiangmuid, cailiaoid, mendianid, empids, paigongsta, mainbillingno, mainorder, mainorderstuta, yujisetcar, yujisetcartime, kehudepict, suichewup, wangongsta, wangongtime, favourable, yujiallmony, overmonytime, orfanxiu, beizhu
-        from asms.mainbilling
-        where mainbillingid = #{mainbillingid}
-    </select>
-
-    <!--查询指定行数据-->
-    <select id="queryAllByLimit" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List_mainb" />,
-        <include refid="Base_Column_List_service" />,
-        <include refid="Base_Column_List_maint" />,
-        <include refid="Base_Column_List_kehu" />,
-        <include refid="Base_Column_List_xiangmu" />,
-        <include refid="Base_Column_List_emp" />,
-        <include refid="Base_Column_List_cailiao" />,
-        <include refid="Base_Column_List_mendian" />,
-        <include refid="Base_Column_List_chepai" />
-        from mainbilling mai
-        inner join service se on ma.serviceid = se.serviceid
-        inner join customer cu on ma.kehuid = cu.c_id
-        inner join emp em on ma.empid = em.e_Id
-        inner join projectsettings pr on ma.xiangmuid = pr.p_id
-        inner join commodity co on ma.cailiaoid = co.co_id
-        inner join store st on ma.mendianid = st.s_id
-        inner join carmanagement ca on ma.carid = ca.carmagid
-        inner join maintenanceapp mat on ma.maintenanceappid = mat.maintenanceappid
-        where cu.c_name like CONCAT('%' ,#{c_name , jdbcType=VARCHAR}, '%')
-    </select>
-
-    <!--通过实体作为筛选条件查询-->
-    <select id="queryAll" resultMap="BaseResultMap">
-        select
-          mainbillingid, serviceid, maintenanceappid, kehuid, empid, xiangmuid, cailiaoid, mendianid, empids, paigongsta, mainbillingno, mainorder, mainorderstuta, yujisetcar, yujisetcartime, kehudepict, suichewup, wangongsta, wangongtime, favourable, yujiallmony, overmonytime, orfanxiu, beizhu
-        from asms.mainbilling
-        <where>
-            <if test="mainbillingid != null">
-                and mainbillingid = #{mainbillingid}
-            </if>
-            <if test="serviceid != null">
-                and serviceid = #{serviceid}
-            </if>
-            <if test="maintenanceappid != null">
-                and maintenanceappid = #{maintenanceappid}
-            </if>
-            <if test="kehuid != null">
-                and kehuid = #{kehuid}
-            </if>
-            <if test="empid != null">
-                and empid = #{empid}
-            </if>
-            <if test="xiangmuid != null">
-                and xiangmuid = #{xiangmuid}
-            </if>
-            <if test="cailiaoid != null">
-                and cailiaoid = #{cailiaoid}
-            </if>
-            <if test="mendianid != null">
-                and mendianid = #{mendianid}
-            </if>
-            <if test="empids != null">
-                and empids = #{empids}
-            </if>
-            <if test="paigongsta != null">
-                and paigongsta = #{paigongsta}
-            </if>
-            <if test="mainbillingno != null and mainbillingno != ''">
-                and mainbillingno = #{mainbillingno}
-            </if>
-            <if test="mainorder != null">
-                and mainorder = #{mainorder}
-            </if>
-            <if test="mainorderstuta != null">
-                and mainorderstuta = #{mainorderstuta}
-            </if>
-            <if test="yujisetcar != null">
-                and yujisetcar = #{yujisetcar}
-            </if>
-            <if test="yujisetcartime != null">
-                and yujisetcartime = #{yujisetcartime}
-            </if>
-            <if test="kehudepict != null and kehudepict != ''">
-                and kehudepict = #{kehudepict}
-            </if>
-            <if test="suichewup != null and suichewup != ''">
-                and suichewup = #{suichewup}
-            </if>
-            <if test="wangongsta != null">
-                and wangongsta = #{wangongsta}
-            </if>
-            <if test="wangongtime != null">
-                and wangongtime = #{wangongtime}
-            </if>
-            <if test="favourable != null">
-                and favourable = #{favourable}
-            </if>
-            <if test="yujiallmony != null">
-                and yujiallmony = #{yujiallmony}
-            </if>
-            <if test="overmonytime != null">
-                and overmonytime = #{overmonytime}
-            </if>
-            <if test="orfanxiu != null">
-                and orfanxiu = #{orfanxiu}
-            </if>
-            <if test="beizhu != null and beizhu != ''">
-                and beizhu = #{beizhu}
-            </if>
-        </where>
-    </select>
-
-    <!--新增所有列-->
-    <insert id="insert" keyProperty="mainbillingid" useGeneratedKeys="true">
-        insert into asms.mainbilling(serviceid, maintenanceappid, kehuid, empid, xiangmuid, cailiaoid, mendianid, empids, paigongsta, mainbillingno, mainorder, mainorderstuta, yujisetcar, yujisetcartime, kehudepict, suichewup, wangongsta, wangongtime, favourable, yujiallmony, overmonytime, orfanxiu, beizhu)
-        values (#{serviceid}, #{maintenanceappid}, #{kehuid}, #{empid}, #{xiangmuid}, #{cailiaoid}, #{mendianid}, #{empids}, #{paigongsta}, #{mainbillingno}, #{mainorder}, #{mainorderstuta}, #{yujisetcar}, #{yujisetcartime}, #{kehudepict}, #{suichewup}, #{wangongsta}, #{wangongtime}, #{favourable}, #{yujiallmony}, #{overmonytime}, #{orfanxiu}, #{beizhu})
-    </insert>
-
-    <!--通过主键修改数据-->
-    <update id="update">
-        update asms.mainbilling
-        <set>
-            <if test="serviceid != null">
-                serviceid = #{serviceid},
-            </if>
-            <if test="maintenanceappid != null">
-                maintenanceappid = #{maintenanceappid},
-            </if>
-            <if test="kehuid != null">
-                kehuid = #{kehuid},
-            </if>
-            <if test="empid != null">
-                empid = #{empid},
-            </if>
-            <if test="xiangmuid != null">
-                xiangmuid = #{xiangmuid},
-            </if>
-            <if test="cailiaoid != null">
-                cailiaoid = #{cailiaoid},
-            </if>
-            <if test="mendianid != null">
-                mendianid = #{mendianid},
-            </if>
-            <if test="empids != null">
-                empids = #{empids},
-            </if>
-            <if test="paigongsta != null">
-                paigongsta = #{paigongsta},
-            </if>
-            <if test="mainbillingno != null and mainbillingno != ''">
-                mainbillingno = #{mainbillingno},
-            </if>
-            <if test="mainorder != null">
-                mainorder = #{mainorder},
-            </if>
-            <if test="mainorderstuta != null">
-                mainorderstuta = #{mainorderstuta},
-            </if>
-            <if test="yujisetcar != null">
-                yujisetcar = #{yujisetcar},
-            </if>
-            <if test="yujisetcartime != null">
-                yujisetcartime = #{yujisetcartime},
-            </if>
-            <if test="kehudepict != null and kehudepict != ''">
-                kehudepict = #{kehudepict},
-            </if>
-            <if test="suichewup != null and suichewup != ''">
-                suichewup = #{suichewup},
-            </if>
-            <if test="wangongsta != null">
-                wangongsta = #{wangongsta},
-            </if>
-            <if test="wangongtime != null">
-                wangongtime = #{wangongtime},
-            </if>
-            <if test="favourable != null">
-                favourable = #{favourable},
-            </if>
-            <if test="yujiallmony != null">
-                yujiallmony = #{yujiallmony},
-            </if>
-            <if test="overmonytime != null">
-                overmonytime = #{overmonytime},
-            </if>
-            <if test="orfanxiu != null">
-                orfanxiu = #{orfanxiu},
-            </if>
-            <if test="beizhu != null and beizhu != ''">
-                beizhu = #{beizhu},
-            </if>
-        </set>
-        where mainbillingid = #{mainbillingid}
-    </update>
-
-    <!--通过主键删除-->
-    <delete id="deleteById">
-        delete from asms.mainbilling where mainbillingid = #{mainbillingid}
-    </delete>
-
+  </resultMap>
+  <sql id="Base_Column_List">
+    mainbillingid, serviceid, maintenanceappid, kehuid, empid, xiangmuid, cailiaoid, 
+    mendianid, empids, paigongsta, mainbillingno, mainorder, mainorderstuta, yujisetcar, 
+    yujisetcartime, kehudepict, suichewup, wangongsta, wangongtime, favourable, yujiallmony, 
+    overmonytime, orfanxiu, beizhu
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mainbilling
+    where mainbillingid = #{mainbillingid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from mainbilling
+    where mainbillingid = #{mainbillingid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="mainbillingid" keyProperty="mainbillingid" parameterType="com.trkj.asms.entity.Mainbilling" useGeneratedKeys="true">
+    insert into mainbilling (serviceid, maintenanceappid, kehuid, 
+      empid, xiangmuid, cailiaoid, 
+      mendianid, empids, paigongsta, 
+      mainbillingno, mainorder, mainorderstuta, 
+      yujisetcar, yujisetcartime, kehudepict, 
+      suichewup, wangongsta, wangongtime, 
+      favourable, yujiallmony, overmonytime, 
+      orfanxiu, beizhu)
+    values (#{serviceid,jdbcType=INTEGER}, #{maintenanceappid,jdbcType=INTEGER}, #{kehuid,jdbcType=INTEGER}, 
+      #{empid,jdbcType=INTEGER}, #{xiangmuid,jdbcType=INTEGER}, #{cailiaoid,jdbcType=INTEGER}, 
+      #{mendianid,jdbcType=INTEGER}, #{empids,jdbcType=INTEGER}, #{paigongsta,jdbcType=INTEGER}, 
+      #{mainbillingno,jdbcType=VARCHAR}, #{mainorder,jdbcType=TIMESTAMP}, #{mainorderstuta,jdbcType=INTEGER}, 
+      #{yujisetcar,jdbcType=TIMESTAMP}, #{yujisetcartime,jdbcType=TIMESTAMP}, #{kehudepict,jdbcType=VARCHAR}, 
+      #{suichewup,jdbcType=VARCHAR}, #{wangongsta,jdbcType=INTEGER}, #{wangongtime,jdbcType=TIMESTAMP}, 
+      #{favourable,jdbcType=DECIMAL}, #{yujiallmony,jdbcType=DECIMAL}, #{overmonytime,jdbcType=TIMESTAMP}, 
+      #{orfanxiu,jdbcType=INTEGER}, #{beizhu,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="mainbillingid" keyProperty="mainbillingid" parameterType="com.trkj.asms.entity.Mainbilling" useGeneratedKeys="true">
+    insert into mainbilling
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="serviceid != null">
+        serviceid,
+      </if>
+      <if test="maintenanceappid != null">
+        maintenanceappid,
+      </if>
+      <if test="kehuid != null">
+        kehuid,
+      </if>
+      <if test="empid != null">
+        empid,
+      </if>
+      <if test="xiangmuid != null">
+        xiangmuid,
+      </if>
+      <if test="cailiaoid != null">
+        cailiaoid,
+      </if>
+      <if test="mendianid != null">
+        mendianid,
+      </if>
+      <if test="empids != null">
+        empids,
+      </if>
+      <if test="paigongsta != null">
+        paigongsta,
+      </if>
+      <if test="mainbillingno != null">
+        mainbillingno,
+      </if>
+      <if test="mainorder != null">
+        mainorder,
+      </if>
+      <if test="mainorderstuta != null">
+        mainorderstuta,
+      </if>
+      <if test="yujisetcar != null">
+        yujisetcar,
+      </if>
+      <if test="yujisetcartime != null">
+        yujisetcartime,
+      </if>
+      <if test="kehudepict != null">
+        kehudepict,
+      </if>
+      <if test="suichewup != null">
+        suichewup,
+      </if>
+      <if test="wangongsta != null">
+        wangongsta,
+      </if>
+      <if test="wangongtime != null">
+        wangongtime,
+      </if>
+      <if test="favourable != null">
+        favourable,
+      </if>
+      <if test="yujiallmony != null">
+        yujiallmony,
+      </if>
+      <if test="overmonytime != null">
+        overmonytime,
+      </if>
+      <if test="orfanxiu != null">
+        orfanxiu,
+      </if>
+      <if test="beizhu != null">
+        beizhu,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="serviceid != null">
+        #{serviceid,jdbcType=INTEGER},
+      </if>
+      <if test="maintenanceappid != null">
+        #{maintenanceappid,jdbcType=INTEGER},
+      </if>
+      <if test="kehuid != null">
+        #{kehuid,jdbcType=INTEGER},
+      </if>
+      <if test="empid != null">
+        #{empid,jdbcType=INTEGER},
+      </if>
+      <if test="xiangmuid != null">
+        #{xiangmuid,jdbcType=INTEGER},
+      </if>
+      <if test="cailiaoid != null">
+        #{cailiaoid,jdbcType=INTEGER},
+      </if>
+      <if test="mendianid != null">
+        #{mendianid,jdbcType=INTEGER},
+      </if>
+      <if test="empids != null">
+        #{empids,jdbcType=INTEGER},
+      </if>
+      <if test="paigongsta != null">
+        #{paigongsta,jdbcType=INTEGER},
+      </if>
+      <if test="mainbillingno != null">
+        #{mainbillingno,jdbcType=VARCHAR},
+      </if>
+      <if test="mainorder != null">
+        #{mainorder,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mainorderstuta != null">
+        #{mainorderstuta,jdbcType=INTEGER},
+      </if>
+      <if test="yujisetcar != null">
+        #{yujisetcar,jdbcType=TIMESTAMP},
+      </if>
+      <if test="yujisetcartime != null">
+        #{yujisetcartime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="kehudepict != null">
+        #{kehudepict,jdbcType=VARCHAR},
+      </if>
+      <if test="suichewup != null">
+        #{suichewup,jdbcType=VARCHAR},
+      </if>
+      <if test="wangongsta != null">
+        #{wangongsta,jdbcType=INTEGER},
+      </if>
+      <if test="wangongtime != null">
+        #{wangongtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="favourable != null">
+        #{favourable,jdbcType=DECIMAL},
+      </if>
+      <if test="yujiallmony != null">
+        #{yujiallmony,jdbcType=DECIMAL},
+      </if>
+      <if test="overmonytime != null">
+        #{overmonytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orfanxiu != null">
+        #{orfanxiu,jdbcType=INTEGER},
+      </if>
+      <if test="beizhu != null">
+        #{beizhu,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.trkj.asms.entity.Mainbilling">
+    update mainbilling
+    <set>
+      <if test="serviceid != null">
+        serviceid = #{serviceid,jdbcType=INTEGER},
+      </if>
+      <if test="maintenanceappid != null">
+        maintenanceappid = #{maintenanceappid,jdbcType=INTEGER},
+      </if>
+      <if test="kehuid != null">
+        kehuid = #{kehuid,jdbcType=INTEGER},
+      </if>
+      <if test="empid != null">
+        empid = #{empid,jdbcType=INTEGER},
+      </if>
+      <if test="xiangmuid != null">
+        xiangmuid = #{xiangmuid,jdbcType=INTEGER},
+      </if>
+      <if test="cailiaoid != null">
+        cailiaoid = #{cailiaoid,jdbcType=INTEGER},
+      </if>
+      <if test="mendianid != null">
+        mendianid = #{mendianid,jdbcType=INTEGER},
+      </if>
+      <if test="empids != null">
+        empids = #{empids,jdbcType=INTEGER},
+      </if>
+      <if test="paigongsta != null">
+        paigongsta = #{paigongsta,jdbcType=INTEGER},
+      </if>
+      <if test="mainbillingno != null">
+        mainbillingno = #{mainbillingno,jdbcType=VARCHAR},
+      </if>
+      <if test="mainorder != null">
+        mainorder = #{mainorder,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mainorderstuta != null">
+        mainorderstuta = #{mainorderstuta,jdbcType=INTEGER},
+      </if>
+      <if test="yujisetcar != null">
+        yujisetcar = #{yujisetcar,jdbcType=TIMESTAMP},
+      </if>
+      <if test="yujisetcartime != null">
+        yujisetcartime = #{yujisetcartime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="kehudepict != null">
+        kehudepict = #{kehudepict,jdbcType=VARCHAR},
+      </if>
+      <if test="suichewup != null">
+        suichewup = #{suichewup,jdbcType=VARCHAR},
+      </if>
+      <if test="wangongsta != null">
+        wangongsta = #{wangongsta,jdbcType=INTEGER},
+      </if>
+      <if test="wangongtime != null">
+        wangongtime = #{wangongtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="favourable != null">
+        favourable = #{favourable,jdbcType=DECIMAL},
+      </if>
+      <if test="yujiallmony != null">
+        yujiallmony = #{yujiallmony,jdbcType=DECIMAL},
+      </if>
+      <if test="overmonytime != null">
+        overmonytime = #{overmonytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orfanxiu != null">
+        orfanxiu = #{orfanxiu,jdbcType=INTEGER},
+      </if>
+      <if test="beizhu != null">
+        beizhu = #{beizhu,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where mainbillingid = #{mainbillingid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.trkj.asms.entity.Mainbilling">
+    update mainbilling
+    set serviceid = #{serviceid,jdbcType=INTEGER},
+      maintenanceappid = #{maintenanceappid,jdbcType=INTEGER},
+      kehuid = #{kehuid,jdbcType=INTEGER},
+      empid = #{empid,jdbcType=INTEGER},
+      xiangmuid = #{xiangmuid,jdbcType=INTEGER},
+      cailiaoid = #{cailiaoid,jdbcType=INTEGER},
+      mendianid = #{mendianid,jdbcType=INTEGER},
+      empids = #{empids,jdbcType=INTEGER},
+      paigongsta = #{paigongsta,jdbcType=INTEGER},
+      mainbillingno = #{mainbillingno,jdbcType=VARCHAR},
+      mainorder = #{mainorder,jdbcType=TIMESTAMP},
+      mainorderstuta = #{mainorderstuta,jdbcType=INTEGER},
+      yujisetcar = #{yujisetcar,jdbcType=TIMESTAMP},
+      yujisetcartime = #{yujisetcartime,jdbcType=TIMESTAMP},
+      kehudepict = #{kehudepict,jdbcType=VARCHAR},
+      suichewup = #{suichewup,jdbcType=VARCHAR},
+      wangongsta = #{wangongsta,jdbcType=INTEGER},
+      wangongtime = #{wangongtime,jdbcType=TIMESTAMP},
+      favourable = #{favourable,jdbcType=DECIMAL},
+      yujiallmony = #{yujiallmony,jdbcType=DECIMAL},
+      overmonytime = #{overmonytime,jdbcType=TIMESTAMP},
+      orfanxiu = #{orfanxiu,jdbcType=INTEGER},
+      beizhu = #{beizhu,jdbcType=VARCHAR}
+    where mainbillingid = #{mainbillingid,jdbcType=INTEGER}
+  </update>
 </mapper>

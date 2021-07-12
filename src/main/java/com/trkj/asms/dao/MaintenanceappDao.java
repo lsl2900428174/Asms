@@ -9,7 +9,7 @@ import java.util.List;
 public interface MaintenanceappDao {
     int deleteByPrimaryKey(Integer maintenanceappid);
 
-    int insert(Maintenanceapp record);
+    Maintenanceapp insert(Maintenanceapp maintenanceapp);
 
     int insertSelective(Maintenanceapp record);
 //查询显示

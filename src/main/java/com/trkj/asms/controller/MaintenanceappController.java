@@ -2,13 +2,12 @@ package com.trkj.asms.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.trkj.asms.entity.Maintenanceapp;
 import com.trkj.asms.service.MaintenanceappService;
 import com.trkj.asms.vo.MaintenanceappVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,5 +24,11 @@ public class MaintenanceappController {
         List<MaintenanceappVo> maintenPage = maintenanceappService.selectmaintenanceapp(c_name);
         PageInfo<MaintenanceappVo> maintenPageInfo = new PageInfo<>(maintenPage);
         return maintenPageInfo;
+    }
+//    增加
+    @PostMapping("/addRegister")
+    public Maintenanceapp addRegister(@RequestBody Maintenanceapp maintenanceapp){
+        maintenanceappService.insert(maintenanceapp);
+        return maintenanceapp;
     }
 }
