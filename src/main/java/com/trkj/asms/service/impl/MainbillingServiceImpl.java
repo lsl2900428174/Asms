@@ -3,6 +3,7 @@ package com.trkj.asms.service.impl;
 import com.trkj.asms.entity.Mainbilling;
 import com.trkj.asms.dao.MainbillingDao;
 import com.trkj.asms.service.MainbillingService;
+import com.trkj.asms.vo.MainbillingVo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -30,16 +31,10 @@ public class MainbillingServiceImpl implements MainbillingService {
         return this.mainbillingDao.queryById(mainbillingid);
     }
 
-    /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
+//    模糊查询显示
     @Override
-    public List<Mainbilling> queryAllByLimit(int offset, int limit) {
-        return this.mainbillingDao.queryAllByLimit(offset, limit);
+    public List<MainbillingVo> queryAllByLimit(String c_name) {
+        return this.mainbillingDao.queryAllByLimit(c_name);
     }
 
     /**

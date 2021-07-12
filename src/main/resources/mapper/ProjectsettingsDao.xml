@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.asms.dao.ProjectsettingsDao">
+
+    <resultMap id="BaseResultMap" type="com.trkj.asms.entity.Projectsettings">
+        <!--@Table projectsettings-->
+        <result property="pId" column="p_id" jdbcType="INTEGER"/>
+        <result property="servetypeid" column="Servetypeid" jdbcType="INTEGER"/>
+        <result property="siteid" column="Siteid" jdbcType="INTEGER"/>
+        <result property="sId" column="s_id" jdbcType="INTEGER"/>
+        <result property="projectcode" column="Projectcode" jdbcType="VARCHAR"/>
+        <result property="projectname" column="ProjectName" jdbcType="VARCHAR"/>
+        <result property="state" column="State" jdbcType="INTEGER"/>
+        <result property="remarks" column="Remarks" jdbcType="VARCHAR"/>
+        <result property="typeLabel" column="Type_Label" jdbcType="VARCHAR"/>
+        <result property="typeid" column="TypeId" jdbcType="INTEGER"/>
+        <result property="workhours" column="WorkHours" jdbcType="VARCHAR"/>
+        <result property="custaccountprcie" column="CustAccountPrcie" jdbcType="NUMERIC"/>
+        <result property="insideprice" column="InsidePrice" jdbcType="NUMERIC"/>
+        <result property="claimantprcie" column="ClaimantPrcie" jdbcType="NUMERIC"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select
+          p_id, Servetypeid, Siteid, s_id, Projectcode, ProjectName, State, Remarks, Type_Label, TypeId, WorkHours, CustAccountPrcie, InsidePrice, ClaimantPrcie
+        from asms.projectsettings
+        where p_id = #{pId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select
+          p_id, Servetypeid, Siteid, s_id, Projectcode, ProjectName, State, Remarks, Type_Label, TypeId, WorkHours, CustAccountPrcie, InsidePrice, ClaimantPrcie
+        from asms.projectsettings
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+          p_id, Servetypeid, Siteid, s_id, Projectcode, ProjectName, State, Remarks, Type_Label, TypeId, WorkHours, CustAccountPrcie, InsidePrice, ClaimantPrcie
+        from asms.projectsettings
+        <where>
+            <if test="pId != null">
+                and p_id = #{pId}
+            </if>
+            <if test="servetypeid != null">
+                and Servetypeid = #{servetypeid}
+            </if>
+            <if test="siteid != null">
+                and Siteid = #{siteid}
+            </if>
+            <if test="sId != null">
+                and s_id = #{sId}
+            </if>
+            <if test="projectcode != null and projectcode != ''">
+                and Projectcode = #{projectcode}
+            </if>
+            <if test="projectname != null and projectname != ''">
+                and ProjectName = #{projectname}
+            </if>
+            <if test="state != null">
+                and State = #{state}
+            </if>
+            <if test="remarks != null and remarks != ''">
+                and Remarks = #{remarks}
+            </if>
+            <if test="typeLabel != null and typeLabel != ''">
+                and Type_Label = #{typeLabel}
+            </if>
+            <if test="typeid != null">
+                and TypeId = #{typeid}
+            </if>
+            <if test="workhours != null and workhours != ''">
+                and WorkHours = #{workhours}
+            </if>
+            <if test="custaccountprcie != null">
+                and CustAccountPrcie = #{custaccountprcie}
+            </if>
+            <if test="insideprice != null">
+                and InsidePrice = #{insideprice}
+            </if>
+            <if test="claimantprcie != null">
+                and ClaimantPrcie = #{claimantprcie}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="pId" useGeneratedKeys="true">
+        insert into asms.projectsettings(Servetypeid, Siteid, s_id, Projectcode, ProjectName, State, Remarks, Type_Label, TypeId, WorkHours, CustAccountPrcie, InsidePrice, ClaimantPrcie)
+        values (#{servetypeid}, #{siteid}, #{sId}, #{projectcode}, #{projectname}, #{state}, #{remarks}, #{typeLabel}, #{typeid}, #{workhours}, #{custaccountprcie}, #{insideprice}, #{claimantprcie})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update asms.projectsettings
+        <set>
+            <if test="servetypeid != null">
+                Servetypeid = #{servetypeid},
+            </if>
+            <if test="siteid != null">
+                Siteid = #{siteid},
+            </if>
+            <if test="sId != null">
+                s_id = #{sId},
+            </if>
+            <if test="projectcode != null and projectcode != ''">
+                Projectcode = #{projectcode},
+            </if>
+            <if test="projectname != null and projectname != ''">
+                ProjectName = #{projectname},
+            </if>
+            <if test="state != null">
+                State = #{state},
+            </if>
+            <if test="remarks != null and remarks != ''">
+                Remarks = #{remarks},
+            </if>
+            <if test="typeLabel != null and typeLabel != ''">
+                Type_Label = #{typeLabel},
+            </if>
+            <if test="typeid != null">
+                TypeId = #{typeid},
+            </if>
+            <if test="workhours != null and workhours != ''">
+                WorkHours = #{workhours},
+            </if>
+            <if test="custaccountprcie != null">
+                CustAccountPrcie = #{custaccountprcie},
+            </if>
+            <if test="insideprice != null">
+                InsidePrice = #{insideprice},
+            </if>
+            <if test="claimantprcie != null">
+                ClaimantPrcie = #{claimantprcie},
+            </if>
+        </set>
+        where p_id = #{pId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from asms.projectsettings where p_id = #{pId}
+    </delete>
+
+</mapper>
