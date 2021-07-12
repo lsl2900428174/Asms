@@ -4,7 +4,6 @@ import com.trkj.asms.entity.Pendingpayment;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
-
 @Mapper
 public interface PendingpaymentDao {
     int deleteByPrimaryKey(Integer id);
@@ -18,6 +17,7 @@ public interface PendingpaymentDao {
     int updateByPrimaryKeySelective(Pendingpayment record);
 
     int updateByPrimaryKey(Pendingpayment record);
-//查询所以：客户
+    //查询所以：客户
     List<Pendingpayment> selectAll();
+
 }
