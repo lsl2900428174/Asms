@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.asms.dao.ServiceDao">
+
+    <resultMap id="BaseResultMap" type="com.trkj.asms.entity.Service">
+        <!--@Table service-->
+        <result property="serviceid" column="serviceid" jdbcType="INTEGER"/>
+        <result property="servicename" column="servicename" jdbcType="VARCHAR"/>
+        <result property="state" column="state" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select
+          serviceid, servicename, state
+        from asms.service
+        where serviceid = #{serviceid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select
+          serviceid, servicename, state
+        from asms.service
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+          serviceid, servicename, state
+        from asms.service
+        <where>
+            <if test="serviceid != null">
+                and serviceid = #{serviceid}
+            </if>
+            <if test="servicename != null and servicename != ''">
+                and servicename = #{servicename}
+            </if>
+            <if test="state != null">
+                and state = #{state}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="serviceid" useGeneratedKeys="true">
+        insert into asms.service(servicename, state)
+        values (#{servicename}, #{state})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update asms.service
+        <set>
+            <if test="servicename != null and servicename != ''">
+                servicename = #{servicename},
+            </if>
+            <if test="state != null">
+                state = #{state},
+            </if>
+        </set>
+        where serviceid = #{serviceid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from asms.service where serviceid = #{serviceid}
+    </delete>
+
+</mapper>

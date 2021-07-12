@@ -3,6 +3,7 @@ package com.trkj.asms.service.impl;
 import com.trkj.asms.entity.Savings;
 import com.trkj.asms.dao.SavingsDao;
 import com.trkj.asms.service.SavingsService;
+import com.trkj.asms.vo.SavingVo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -18,6 +19,12 @@ import java.util.List;
 public class SavingsServiceImpl implements SavingsService {
     @Resource
     private SavingsDao savingsDao;
+
+    @Override
+    public List<SavingVo> findall() {
+        
+        return this.savingsDao.findall();
+    }
 
     /**
      * 通过ID查询单条数据

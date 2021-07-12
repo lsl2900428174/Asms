@@ -1,6 +1,7 @@
 package com.trkj.asms.dao;
 
 import com.trkj.asms.entity.Mainbilling;
+import com.trkj.asms.vo.MainbillingVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
@@ -22,14 +23,8 @@ public interface MainbillingDao {
      */
     Mainbilling queryById(Integer mainbillingid);
 
-    /**
-     * 查询指定行数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
-    List<Mainbilling> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
+//模糊查询显示
+    List<MainbillingVo> queryAllByLimit(String c_name);
 
 
     /**
