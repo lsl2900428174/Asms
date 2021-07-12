@@ -10,7 +10,7 @@ import javax.annotation.Resource;
  * (Carwaslist)表控制层
  *
  * @author makejava
- * @since 2021-07-11 10:55:53
+ * @since 2021-07-12 00:05:42
  */
 @RestController
 @RequestMapping("carwaslist")

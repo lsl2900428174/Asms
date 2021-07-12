@@ -7,61 +7,61 @@ import java.io.Serializable;
  * (Carwaslist)实体类
  *
  * @author makejava
- * @since 2021-07-11 10:55:48
+ * @since 2021-07-12 00:05:35
  */
 public class Carwaslist implements Serializable {
-    private static final long serialVersionUID = 377246538456668572L;
+    private static final long serialVersionUID = -94535289670507132L;
     /**
-     * 编号
-     */
+    * 编号
+    */
     private Integer carid;
     /**
-     * 所属门店id
-     */
+    * 所属门店id
+    */
     private Integer sId;
     /**
-     * 单据编号
-     */
+    * 单据编号
+    */
     private String documentnumber;
     /**
-     * 单据日期
-     */
+    * 单据日期
+    */
     private Date documentdate;
     /**
-     * 单据状态(0表示已登录，1表示已付款)
-     */
+    * 单据状态(0表示已登录，1表示已付款)
+    */
     private Integer documentstatus;
     /**
-     * 车辆id
-     */
+    * 车辆id
+    */
     private Integer carmagid;
     /**
-     * 联系电话
-     */
+    * 联系电话
+    */
     private String phone;
     /**
-     * 应收金额
-     */
+    * 应收金额
+    */
     private Double amountreceivable;
     /**
-     * 派工状态
-     */
+    * 派工状态
+    */
     private String deliverystatus;
     /**
-     * 完工状态
-     */
+    * 完工状态
+    */
     private String completionstatus;
     /**
-     * 服务顾问编号
-     */
+    * 服务顾问编号
+    */
     private Integer eId;
     /**
-     * 备注
-     */
+    * 备注
+    */
     private String remarks;
     /**
-     * 项目编号
-     */
+    * 项目编号
+    */
     private Integer pId;
 
 

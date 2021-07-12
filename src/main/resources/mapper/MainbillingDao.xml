@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.asms.dao.MainbillingDao">
+
+    <resultMap id="BaseResultMap" type="com.trkj.asms.entity.Mainbilling">
+        <!--@Table mainbilling-->
+        <result property="mainbillingid" column="mainbillingid" jdbcType="INTEGER"/>
+        <result property="serviceid" column="serviceid" jdbcType="INTEGER"/>
+        <result property="maintenanceappid" column="maintenanceappid" jdbcType="INTEGER"/>
+        <result property="kehuid" column="kehuid" jdbcType="INTEGER"/>
+        <result property="empid" column="empid" jdbcType="INTEGER"/>
+        <result property="xiangmuid" column="xiangmuid" jdbcType="INTEGER"/>
+        <result property="cailiaoid" column="cailiaoid" jdbcType="INTEGER"/>
+        <result property="mendianid" column="mendianid" jdbcType="INTEGER"/>
+        <result property="empids" column="empids" jdbcType="INTEGER"/>
+        <result property="paigongsta" column="paigongsta" jdbcType="INTEGER"/>
+        <result property="mainbillingno" column="mainbillingno" jdbcType="VARCHAR"/>
+        <result property="mainorder" column="mainorder" jdbcType="TIMESTAMP"/>
+        <result property="mainorderstuta" column="mainorderstuta" jdbcType="INTEGER"/>
+        <result property="yujisetcar" column="yujisetcar" jdbcType="TIMESTAMP"/>
+        <result property="yujisetcartime" column="yujisetcartime" jdbcType="TIMESTAMP"/>
+        <result property="kehudepict" column="kehudepict" jdbcType="VARCHAR"/>
+        <result property="suichewup" column="suichewup" jdbcType="VARCHAR"/>
+        <result property="wangongsta" column="wangongsta" jdbcType="INTEGER"/>
+        <result property="wangongtime" column="wangongtime" jdbcType="TIMESTAMP"/>
+        <result property="favourable" column="favourable" jdbcType="NUMERIC"/>
+        <result property="yujiallmony" column="yujiallmony" jdbcType="NUMERIC"/>
+        <result property="overmonytime" column="overmonytime" jdbcType="TIMESTAMP"/>
+        <result property="orfanxiu" column="orfanxiu" jdbcType="INTEGER"/>
+        <result property="beizhu" column="beizhu" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select
+          mainbillingid, serviceid, maintenanceappid, kehuid, empid, xiangmuid, cailiaoid, mendianid, empids, paigongsta, mainbillingno, mainorder, mainorderstuta, yujisetcar, yujisetcartime, kehudepict, suichewup, wangongsta, wangongtime, favourable, yujiallmony, overmonytime, orfanxiu, beizhu
+        from asms.mainbilling
+        where mainbillingid = #{mainbillingid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select
+          mainbillingid, serviceid, maintenanceappid, kehuid, empid, xiangmuid, cailiaoid, mendianid, empids, paigongsta, mainbillingno, mainorder, mainorderstuta, yujisetcar, yujisetcartime, kehudepict, suichewup, wangongsta, wangongtime, favourable, yujiallmony, overmonytime, orfanxiu, beizhu
+        from asms.mainbilling
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+          mainbillingid, serviceid, maintenanceappid, kehuid, empid, xiangmuid, cailiaoid, mendianid, empids, paigongsta, mainbillingno, mainorder, mainorderstuta, yujisetcar, yujisetcartime, kehudepict, suichewup, wangongsta, wangongtime, favourable, yujiallmony, overmonytime, orfanxiu, beizhu
+        from asms.mainbilling
+        <where>
+            <if test="mainbillingid != null">
+                and mainbillingid = #{mainbillingid}
+            </if>
+            <if test="serviceid != null">
+                and serviceid = #{serviceid}
+            </if>
+            <if test="maintenanceappid != null">
+                and maintenanceappid = #{maintenanceappid}
+            </if>
+            <if test="kehuid != null">
+                and kehuid = #{kehuid}
+            </if>
+            <if test="empid != null">
+                and empid = #{empid}
+            </if>
+            <if test="xiangmuid != null">
+                and xiangmuid = #{xiangmuid}
+            </if>
+            <if test="cailiaoid != null">
+                and cailiaoid = #{cailiaoid}
+            </if>
+            <if test="mendianid != null">
+                and mendianid = #{mendianid}
+            </if>
+            <if test="empids != null">
+                and empids = #{empids}
+            </if>
+            <if test="paigongsta != null">
+                and paigongsta = #{paigongsta}
+            </if>
+            <if test="mainbillingno != null and mainbillingno != ''">
+                and mainbillingno = #{mainbillingno}
+            </if>
+            <if test="mainorder != null">
+                and mainorder = #{mainorder}
+            </if>
+            <if test="mainorderstuta != null">
+                and mainorderstuta = #{mainorderstuta}
+            </if>
+            <if test="yujisetcar != null">
+                and yujisetcar = #{yujisetcar}
+            </if>
+            <if test="yujisetcartime != null">
+                and yujisetcartime = #{yujisetcartime}
+            </if>
+            <if test="kehudepict != null and kehudepict != ''">
+                and kehudepict = #{kehudepict}
+            </if>
+            <if test="suichewup != null and suichewup != ''">
+                and suichewup = #{suichewup}
+            </if>
+            <if test="wangongsta != null">
+                and wangongsta = #{wangongsta}
+            </if>
+            <if test="wangongtime != null">
+                and wangongtime = #{wangongtime}
+            </if>
+            <if test="favourable != null">
+                and favourable = #{favourable}
+            </if>
+            <if test="yujiallmony != null">
+                and yujiallmony = #{yujiallmony}
+            </if>
+            <if test="overmonytime != null">
+                and overmonytime = #{overmonytime}
+            </if>
+            <if test="orfanxiu != null">
+                and orfanxiu = #{orfanxiu}
+            </if>
+            <if test="beizhu != null and beizhu != ''">
+                and beizhu = #{beizhu}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="mainbillingid" useGeneratedKeys="true">
+        insert into asms.mainbilling(serviceid, maintenanceappid, kehuid, empid, xiangmuid, cailiaoid, mendianid, empids, paigongsta, mainbillingno, mainorder, mainorderstuta, yujisetcar, yujisetcartime, kehudepict, suichewup, wangongsta, wangongtime, favourable, yujiallmony, overmonytime, orfanxiu, beizhu)
+        values (#{serviceid}, #{maintenanceappid}, #{kehuid}, #{empid}, #{xiangmuid}, #{cailiaoid}, #{mendianid}, #{empids}, #{paigongsta}, #{mainbillingno}, #{mainorder}, #{mainorderstuta}, #{yujisetcar}, #{yujisetcartime}, #{kehudepict}, #{suichewup}, #{wangongsta}, #{wangongtime}, #{favourable}, #{yujiallmony}, #{overmonytime}, #{orfanxiu}, #{beizhu})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update asms.mainbilling
+        <set>
+            <if test="serviceid != null">
+                serviceid = #{serviceid},
+            </if>
+            <if test="maintenanceappid != null">
+                maintenanceappid = #{maintenanceappid},
+            </if>
+            <if test="kehuid != null">
+                kehuid = #{kehuid},
+            </if>
+            <if test="empid != null">
+                empid = #{empid},
+            </if>
+            <if test="xiangmuid != null">
+                xiangmuid = #{xiangmuid},
+            </if>
+            <if test="cailiaoid != null">
+                cailiaoid = #{cailiaoid},
+            </if>
+            <if test="mendianid != null">
+                mendianid = #{mendianid},
+            </if>
+            <if test="empids != null">
+                empids = #{empids},
+            </if>
+            <if test="paigongsta != null">
+                paigongsta = #{paigongsta},
+            </if>
+            <if test="mainbillingno != null and mainbillingno != ''">
+                mainbillingno = #{mainbillingno},
+            </if>
+            <if test="mainorder != null">
+                mainorder = #{mainorder},
+            </if>
+            <if test="mainorderstuta != null">
+                mainorderstuta = #{mainorderstuta},
+            </if>
+            <if test="yujisetcar != null">
+                yujisetcar = #{yujisetcar},
+            </if>
+            <if test="yujisetcartime != null">
+                yujisetcartime = #{yujisetcartime},
+            </if>
+            <if test="kehudepict != null and kehudepict != ''">
+                kehudepict = #{kehudepict},
+            </if>
+            <if test="suichewup != null and suichewup != ''">
+                suichewup = #{suichewup},
+            </if>
+            <if test="wangongsta != null">
+                wangongsta = #{wangongsta},
+            </if>
+            <if test="wangongtime != null">
+                wangongtime = #{wangongtime},
+            </if>
+            <if test="favourable != null">
+                favourable = #{favourable},
+            </if>
+            <if test="yujiallmony != null">
+                yujiallmony = #{yujiallmony},
+            </if>
+            <if test="overmonytime != null">
+                overmonytime = #{overmonytime},
+            </if>
+            <if test="orfanxiu != null">
+                orfanxiu = #{orfanxiu},
+            </if>
+            <if test="beizhu != null and beizhu != ''">
+                beizhu = #{beizhu},
+            </if>
+        </set>
+        where mainbillingid = #{mainbillingid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from asms.mainbilling where mainbillingid = #{mainbillingid}
+    </delete>
+
+</mapper>

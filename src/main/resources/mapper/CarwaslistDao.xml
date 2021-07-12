@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.trkj.asms.dao.CarwaslistDao">
 
-    <resultMap type="com.trkj.asms.entity.Carwaslist" id="CarwaslistMap">
+    <resultMap id="BaseResultMap" type="com.trkj.asms.entity.Carwaslist">
+        <!--@Table carwaslist-->
         <result property="carid" column="CarId" jdbcType="INTEGER"/>
         <result property="sId" column="s_id" jdbcType="INTEGER"/>
         <result property="documentnumber" column="DocumentNumber" jdbcType="VARCHAR"/>
@@ -19,7 +20,7 @@
     </resultMap>
 
     <!--查询单个-->
-    <select id="queryById" resultMap="CarwaslistMap">
+    <select id="queryById" resultMap="BaseResultMap">
         select
           CarId, s_id, DocumentNumber, Documentdate, Documentstatus, carmagid, Phone, Amountreceivable, Deliverystatus, Completionstatus, e_id, remarks, p_id
         from asms.carwaslist
@@ -27,7 +28,7 @@
     </select>
 
     <!--查询指定行数据-->
-    <select id="queryAllByLimit" resultMap="CarwaslistMap">
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
         select
           CarId, s_id, DocumentNumber, Documentdate, Documentstatus, carmagid, Phone, Amountreceivable, Deliverystatus, Completionstatus, e_id, remarks, p_id
         from asms.carwaslist
@@ -35,10 +36,9 @@
     </select>
 
     <!--通过实体作为筛选条件查询-->
-    <select id="queryAll" resultMap="CarwaslistMap">
+    <select id="queryAll" resultMap="BaseResultMap">
         select
-        CarId, s_id, DocumentNumber, Documentdate, Documentstatus, carmagid, Phone, Amountreceivable, Deliverystatus,
-        Completionstatus, e_id, remarks, p_id
+          CarId, s_id, DocumentNumber, Documentdate, Documentstatus, carmagid, Phone, Amountreceivable, Deliverystatus, Completionstatus, e_id, remarks, p_id
         from asms.carwaslist
         <where>
             <if test="carid != null">
@@ -87,33 +87,6 @@
     <insert id="insert" keyProperty="carid" useGeneratedKeys="true">
         insert into asms.carwaslist(s_id, DocumentNumber, Documentdate, Documentstatus, carmagid, Phone, Amountreceivable, Deliverystatus, Completionstatus, e_id, remarks, p_id)
         values (#{sId}, #{documentnumber}, #{documentdate}, #{documentstatus}, #{carmagid}, #{phone}, #{amountreceivable}, #{deliverystatus}, #{completionstatus}, #{eId}, #{remarks}, #{pId})
-    </insert>
-
-    <insert id="insertBatch" keyProperty="carid" useGeneratedKeys="true">
-        insert into asms.carwaslist(s_id, DocumentNumber, Documentdate, Documentstatus, carmagid, Phone,
-        Amountreceivable, Deliverystatus, Completionstatus, e_id, remarks, p_id)
-        values
-        <foreach collection="entities" item="entity" separator=",">
-            (#{entity.sId}, #{entity.documentnumber}, #{entity.documentdate}, #{entity.documentstatus},
-            #{entity.carmagid}, #{entity.phone}, #{entity.amountreceivable}, #{entity.deliverystatus},
-            #{entity.completionstatus}, #{entity.eId}, #{entity.remarks}, #{entity.pId})
-        </foreach>
-    </insert>
-
-    <insert id="insertOrUpdateBatch" keyProperty="carid" useGeneratedKeys="true">
-        insert into asms.carwaslist(s_id, DocumentNumber, Documentdate, Documentstatus, carmagid, Phone,
-        Amountreceivable, Deliverystatus, Completionstatus, e_id, remarks, p_id)
-        values
-        <foreach collection="entities" item="entity" separator=",">
-            (#{entity.sId}, #{entity.documentnumber}, #{entity.documentdate}, #{entity.documentstatus},
-            #{entity.carmagid}, #{entity.phone}, #{entity.amountreceivable}, #{entity.deliverystatus},
-            #{entity.completionstatus}, #{entity.eId}, #{entity.remarks}, #{entity.pId})
-        </foreach>
-        on duplicate key update
-        s_id = values(s_id) , DocumentNumber = values(DocumentNumber) , Documentdate = values(Documentdate) ,
-        Documentstatus = values(Documentstatus) , carmagid = values(carmagid) , Phone = values(Phone) , Amountreceivable
-        = values(Amountreceivable) , Deliverystatus = values(Deliverystatus) , Completionstatus =
-        values(Completionstatus) , e_id = values(e_id) , remarks = values(remarks) , p_id = values(p_id)
     </insert>
 
     <!--通过主键修改数据-->
@@ -166,4 +139,3 @@
     </delete>
 
 </mapper>
-
