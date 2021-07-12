@@ -9,7 +9,7 @@
         <result property="cPhone" column="c_phone" jdbcType="VARCHAR"/>
         <result property="savingsno" column="savingsno" jdbcType="VARCHAR"/>
         <result property="symony" column="symony" jdbcType="NUMERIC"/>
-        <result property="cjdate" column="cjdate" jdbcType="timestamp"/>
+        <result property="cjdate" column="cjdate" jdbcType="TIMESTAMP"/>
     </resultMap>
     <resultMap id="SavingsVo" type="com.trkj.asms.vo.SavingVo">
         <result property="sname" column="s_name" jdbcType="VARCHAR"/>
@@ -17,7 +17,7 @@
         <result property="cphone" column="c_phone" jdbcType="VARCHAR"/>
         <result property="savingsno" column="savingsno" jdbcType="VARCHAR"/>
         <result property="symony" column="symony" jdbcType="NUMERIC"/>
-        <result property="cjdate" column="cjdate" jdbcType="timestamp"/>
+        <result property="cjdate" column="cjdate" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <update id="updatemoney">
