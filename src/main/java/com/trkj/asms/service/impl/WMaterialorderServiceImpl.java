@@ -1,14 +1,21 @@
 package com.trkj.asms.service.impl;
 
+import com.trkj.asms.dao.DueinDao;
+import com.trkj.asms.dao.PendingpaymentDao;
 import com.trkj.asms.dao.WReturnedmaterialsDao;
+import com.trkj.asms.entity.Duein;
+import com.trkj.asms.entity.Pendingpayment;
 import com.trkj.asms.entity.WMaterialorder;
 import com.trkj.asms.dao.WMaterialorderDao;
 import com.trkj.asms.service.WMaterialorderService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,6 +31,8 @@ public class WMaterialorderServiceImpl implements WMaterialorderService {
     private WMaterialorderDao wMaterialorderDao;
     @Resource
     private WReturnedmaterialsDao wReturnedmaterialsDao;
+    @Resource
+    private PendingpaymentDao pendingpaymentDao;
 
     /**
      * 通过ID查询单条数据
@@ -61,7 +70,22 @@ public class WMaterialorderServiceImpl implements WMaterialorderService {
             if(add >= 1){
                 int addlist = this.wReturnedmaterialsDao.insertBatch(wMaterialorder.getWReturnedmaterials());
                 if(addlist >= 1){
-                    return true;
+                    Pendingpayment duein = new Pendingpayment();
+
+                    duein.setSId(1);//门店
+                    duein.setDocumentnumber(wMaterialorder.getBillcode());//单据编号
+                    duein.setDocumenttype("物资采购入库单");
+                    duein.setDocumentstatus(1);//已登记
+                    duein.setDocumentdate(new Date());
+                    duein.setRelationship("供应商");
+                    duein.setCustomerid(1);//往来客户编号
+                    duein.setOrderamount(wMaterialorder.getAmout().longValue());//付款金额
+                    duein.setBrokerage(wMaterialorder.getOrderuser());//经手人
+                    duein.setTimeliness(0);//时效性 0未失效
+                    int addduein = pendingpaymentDao.insertSelective(duein);
+                    if(addduein >= 1){
+                        return true;
+                    }
                 }
             }
         }catch (Exception e){

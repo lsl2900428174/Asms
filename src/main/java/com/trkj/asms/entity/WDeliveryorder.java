@@ -27,7 +27,7 @@ public class WDeliveryorder implements Serializable {
     /**
      * 经手人ID
      */
-    private Integer pickingId;
+    private String pickingId;
     /**
      * 创建时间
      */
@@ -39,11 +39,11 @@ public class WDeliveryorder implements Serializable {
     /**
      * 供应商ID
      */
-    private Integer supplerId;
+    private String supplerId;
     /**
      * 所属门店ID
      */
-    private Integer organizeId;
+    private String organizeId;
     /**
      * 状态
      */

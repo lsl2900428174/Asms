@@ -8,7 +8,7 @@ import java.util.List;
  * 物资采购退货出库单(WDeliveryorder)表服务接口
  *
  * @author makejava
- * @since 2021-07-11 10:59:30
+ * @since 2021-07-12 15:42:32
  */
 public interface WDeliveryorderService {
 
