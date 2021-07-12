@@ -1,6 +1,7 @@
 package com.trkj.asms.dao;
 
 import com.trkj.asms.entity.Mainbilling;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import java.util.List;
  * @author makejava
  * @since 2021-07-11 23:53:59
  */
+@Mapper
 public interface MainbillingDao {
 
     /**

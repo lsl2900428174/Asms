@@ -19,16 +19,7 @@ public class ProductsalesServiceImpl implements ProductsalesService {
     @Resource
     private ProductsalesDao productsalesDao;
 
-    /**
-     * 通过ID查询单条数据
-     *
-     * @param  主键
-     * @return 实例对象
-     */
-    @Override
-    public Productsales queryById( ) {
-        return this.productsalesDao.queryById();
-    }
+
 
     /**
      * 查询多条数据
@@ -54,26 +45,7 @@ public class ProductsalesServiceImpl implements ProductsalesService {
         return productsales;
     }
 
-    /**
-     * 修改数据
-     *
-     * @param productsales 实例对象
-     * @return 实例对象
-     */
-    @Override
-    public Productsales update(Productsales productsales) {
-        this.productsalesDao.update(productsales);
-        return this.queryById(productsales.get());
-    }
 
-    /**
-     * 通过主键删除数据
-     *
-     * @param  主键
-     * @return 是否成功
-     */
-    @Override
-    public boolean deleteById( ) {
-        return this.productsalesDao.deleteById() > 0;
-    }
+
+
 }

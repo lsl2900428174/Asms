@@ -53,7 +53,7 @@ public class CustomerController {
      * @param
      * @return
      */
-    @GetMapping("findall")
+    @GetMapping("findalls")
     public List<Customer> findall2(){
         List<Customer> info = customerService.findall();
         return info;
