@@ -36,12 +36,12 @@
  </association>
   </resultMap>
   <sql id="Base_Column_List">
-    Id, s_id, customerId, materialorderId, DocumentNumber, DocumentType, Documentstatus, 
-    DocumentDate, Relationship, Orderamount, YFAmount, FreeAmout, WFAmount, Brokerage, 
-    Remarks, DeleteName, DeleteTime, timeliness
+    p.Id,  p.s_id,  p.customerId,  p.materialorderId,  p.DocumentNumber,  p.DocumentType,  p.Documentstatus,
+     p.DocumentDate,  p.Relationship,  p.Orderamount,  p.YFAmount,  p.FreeAmout,  p.WFAmount,  p.Brokerage,
+     p.Remarks,  p.DeleteName,  p.DeleteTime,  p.timeliness
   </sql>
   <sql id="customer">
-    c.c_name,c.c_phone,c.c_gender,c.c_contacts,st.ct_name,sa.savingsno,c.c_address,c.c_text,c.c_date
+    c.c_name,c.c_phone,c.c_gender,c.c_contacts,c.c_address,c.c_text,c.c_date
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
