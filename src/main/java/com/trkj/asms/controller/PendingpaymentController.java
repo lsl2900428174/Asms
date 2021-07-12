@@ -2,8 +2,6 @@ package com.trkj.asms.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.trkj.asms.entity.Duein;
-import com.trkj.asms.entity.Pendingpayment;
 import com.trkj.asms.service.PendingpaymentService;
 import com.trkj.asms.vo.AjaxResponse;
 import lombok.extern.slf4j.Slf4j;

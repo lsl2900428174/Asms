@@ -5,7 +5,7 @@
     <id column="Id" jdbcType="INTEGER" property="id" />
     <result column="s_id" jdbcType="INTEGER" property="sId" />
     <result column="customerId" jdbcType="INTEGER" property="customerid" />
-    <result column="materialorderId" jdbcType="INTEGER" property="materialorderid" />
+    <result column="materialorderId" jdbcType="VARCHAR" property="materialorderid" />
     <result column="DocumentNumber" jdbcType="VARCHAR" property="documentnumber" />
     <result column="DocumentType" jdbcType="VARCHAR" property="documenttype" />
     <result column="Documentstatus" jdbcType="INTEGER" property="documentstatus" />
@@ -20,41 +20,41 @@
     <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
     <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
     <result column="timeliness" jdbcType="INTEGER" property="timeliness" />
-    <association property="customer" javaType="com.trkj.asms.entity.Customer">
-      <result property="cId" column="c_id" jdbcType="INTEGER"/>
-      <result property="cName" column="c_name" jdbcType="VARCHAR"/>
-      <result property="sId" column="s_id" jdbcType="INTEGER"/>
-      <result property="mId" column="m_id" jdbcType="INTEGER"/>
-      <result property="cGender" column="c_gender" jdbcType="VARCHAR"/>
-      <result property="cContacts" column="c_contacts" jdbcType="VARCHAR"/>
-      <result property="cPhone" column="c_phone" jdbcType="VARCHAR"/>
-      <result property="ctId" column="ct_id" jdbcType="INTEGER"/>
-      <result property="cAddress" column="c_address" jdbcType="VARCHAR"/>
-      <result property="cText" column="c_text" jdbcType="VARCHAR"/>
-      <result property="eId" column="e_id" jdbcType="INTEGER"/>
-      <result property="cDate" column="c_date" jdbcType="TIMESTAMP"/>
-    </association>
+ <association property="customer" javaType="com.trkj.asms.entity.Customer">
+   <result property="cId" column="c_id" jdbcType="INTEGER"/>
+   <result property="cName" column="c_name" jdbcType="VARCHAR"/>
+   <result property="sId" column="s_id" jdbcType="INTEGER"/>
+   <result property="mId" column="m_id" jdbcType="INTEGER"/>
+   <result property="cGender" column="c_gender" jdbcType="VARCHAR"/>
+   <result property="cContacts" column="c_contacts" jdbcType="VARCHAR"/>
+   <result property="cPhone" column="c_phone" jdbcType="VARCHAR"/>
+   <result property="ctId" column="ct_id" jdbcType="INTEGER"/>
+   <result property="cAddress" column="c_address" jdbcType="VARCHAR"/>
+   <result property="cText" column="c_text" jdbcType="VARCHAR"/>
+   <result property="eId" column="e_id" jdbcType="INTEGER"/>
+   <result property="cDate" column="c_date" jdbcType="TIMESTAMP"/>
+ </association>
   </resultMap>
   <sql id="Base_Column_List">
-    p.Id, p.s_id, p.customerId,  p.materialorderId,  p.DocumentNumber,  p.DocumentType,  p.Documentstatus,
-     p.DocumentDate,  p.Relationship,  p.Orderamount,  p.YFAmount,  p.FreeAmout,  p.WFAmount,  p.Brokerage,
-     p.Remarks,  p.DeleteName,  p.DeleteTime,  p.timeliness
+    Id, s_id, customerId, materialorderId, DocumentNumber, DocumentType, Documentstatus, 
+    DocumentDate, Relationship, Orderamount, YFAmount, FreeAmout, WFAmount, Brokerage, 
+    Remarks, DeleteName, DeleteTime, timeliness
   </sql>
- <sql id="customer">
-    c.c_id,c.c_name,c.c_phone,c.c_gender,c.c_contacts,c.c_address,c.c_text,c.c_date
- </sql>
+  <sql id="customer">
+    c.c_name,c.c_phone,c.c_gender,c.c_contacts,st.ct_name,sa.savingsno,c.c_address,c.c_text,c.c_date
+  </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from pendingpayment
     where Id = #{id,jdbcType=INTEGER}
   </select>
-<!--  查询-->
   <select id="selectAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />,<include refid="customer"/>
     from pendingpayment p inner join customer c on p.customerId=c.c_id
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from pendingpayment
     where Id = #{id,jdbcType=INTEGER}
@@ -66,7 +66,7 @@
       YFAmount, FreeAmout, WFAmount, 
       Brokerage, Remarks, DeleteName, 
       DeleteTime, timeliness)
-    values (#{sId,jdbcType=INTEGER}, #{customerid,jdbcType=INTEGER}, #{materialorderid,jdbcType=INTEGER}, 
+    values (#{sId,jdbcType=INTEGER}, #{customerid,jdbcType=INTEGER}, #{materialorderid,jdbcType=VARCHAR}, 
       #{documentnumber,jdbcType=VARCHAR}, #{documenttype,jdbcType=VARCHAR}, #{documentstatus,jdbcType=INTEGER}, 
       #{documentdate,jdbcType=TIMESTAMP}, #{relationship,jdbcType=VARCHAR}, #{orderamount,jdbcType=DECIMAL}, 
       #{yfamount,jdbcType=DECIMAL}, #{freeamout,jdbcType=DECIMAL}, #{wfamount,jdbcType=DECIMAL}, 
@@ -136,7 +136,7 @@
         #{customerid,jdbcType=INTEGER},
       </if>
       <if test="materialorderid != null">
-        #{materialorderid,jdbcType=INTEGER},
+        #{materialorderid,jdbcType=VARCHAR},
       </if>
       <if test="documentnumber != null">
         #{documentnumber,jdbcType=VARCHAR},
@@ -192,7 +192,7 @@
         customerId = #{customerid,jdbcType=INTEGER},
       </if>
       <if test="materialorderid != null">
-        materialorderId = #{materialorderid,jdbcType=INTEGER},
+        materialorderId = #{materialorderid,jdbcType=VARCHAR},
       </if>
       <if test="documentnumber != null">
         DocumentNumber = #{documentnumber,jdbcType=VARCHAR},
@@ -243,7 +243,7 @@
     update pendingpayment
     set s_id = #{sId,jdbcType=INTEGER},
       customerId = #{customerid,jdbcType=INTEGER},
-      materialorderId = #{materialorderid,jdbcType=INTEGER},
+      materialorderId = #{materialorderid,jdbcType=VARCHAR},
       DocumentNumber = #{documentnumber,jdbcType=VARCHAR},
       DocumentType = #{documenttype,jdbcType=VARCHAR},
       Documentstatus = #{documentstatus,jdbcType=INTEGER},
