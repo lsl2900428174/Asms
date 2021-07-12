@@ -1,6 +1,8 @@
 package com.trkj.asms.service;
 
 import com.trkj.asms.entity.Mainbilling;
+import com.trkj.asms.vo.MainbillingVo;
+
 import java.util.List;
 
 /**
@@ -19,14 +21,8 @@ public interface MainbillingService {
      */
     Mainbilling queryById(Integer mainbillingid);
 
-    /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
-    List<Mainbilling> queryAllByLimit(int offset, int limit);
+//    模糊查询显示
+    List<MainbillingVo> queryAllByLimit(String c_name);
 
     /**
      * 新增数据
