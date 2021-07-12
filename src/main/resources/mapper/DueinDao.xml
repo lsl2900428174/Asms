@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.asms.dao.DueinDao">
+  <resultMap id="BaseResultMap" type="com.trkj.asms.entity.Duein">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="s_id" jdbcType="INTEGER" property="sId" />
+    <result column="DocumentNumber" jdbcType="VARCHAR" property="documentnumber" />
+    <result column="DocumentType" jdbcType="VARCHAR" property="documenttype" />
+    <result column="Documentstatus" jdbcType="INTEGER" property="documentstatus" />
+    <result column="DocumentDate" jdbcType="TIMESTAMP" property="documentdate" />
+    <result column="Relationship" jdbcType="VARCHAR" property="relationship" />
+    <result column="CustomerId" jdbcType="INTEGER" property="customerid" />
+    <result column="carmagId" jdbcType="VARCHAR" property="carmagid" />
+    <result column="Orderamount" jdbcType="DECIMAL" property="orderamount" />
+    <result column="Operator" jdbcType="VARCHAR" property="operator" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="Deletename" jdbcType="VARCHAR" property="deletename" />
+    <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+    <result column="Timeliness" jdbcType="INTEGER" property="timeliness" />
+    <result column="carId" jdbcType="INTEGER" property="carid" />
+    <result column="materialcodeId" jdbcType="INTEGER" property="materialcodeid" />
+    <result column="mainbillingId" jdbcType="INTEGER" property="mainbillingid" />
+    <association property="customer" javaType="com.trkj.asms.entity.Customer">
+      <result property="cId" column="c_id" jdbcType="INTEGER"/>
+      <result property="cName" column="c_name" jdbcType="VARCHAR"/>
+      <result property="sId" column="s_id" jdbcType="INTEGER"/>
+      <result property="mId" column="m_id" jdbcType="INTEGER"/>
+      <result property="cGender" column="c_gender" jdbcType="VARCHAR"/>
+      <result property="cContacts" column="c_contacts" jdbcType="VARCHAR"/>
+      <result property="cPhone" column="c_phone" jdbcType="VARCHAR"/>
+      <result property="ctId" column="ct_id" jdbcType="INTEGER"/>
+      <result property="cAddress" column="c_address" jdbcType="VARCHAR"/>
+      <result property="cText" column="c_text" jdbcType="VARCHAR"/>
+      <result property="eId" column="e_id" jdbcType="INTEGER"/>
+      <result property="cDate" column="c_date" jdbcType="TIMESTAMP"/>
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List">
+    d.id, d.s_id, d.DocumentNumber, d.DocumentType, d.Documentstatus, d.DocumentDate, d.Relationship,
+    d.CustomerId, d.carmagId, d.Orderamount, d.`Operator`, d.remarks, d.Deletename, d.DeleteTime, d.Timeliness,
+    d.carId, d.materialcodeId, d.mainbillingId
+  </sql>
+  <sql id="customer">
+    c.c_id,c.c_name,c.c_phone,c.c_gender,c.c_contacts,c.c_address,c.c_text,c.c_date
+ </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from duein
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="findduein" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />,<include refid="customer"/>
+    from duein d inner join customer c on d.CustomerId=c.c_id
+
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from duein
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.trkj.asms.entity.Duein" useGeneratedKeys="true">
+    insert into duein (s_id, DocumentNumber, DocumentType, 
+      Documentstatus, DocumentDate, Relationship, 
+      CustomerId, carmagId, Orderamount, 
+      `Operator`, remarks, Deletename, 
+      DeleteTime, Timeliness, carId, 
+      materialcodeId, mainbillingId)
+    values (#{sId,jdbcType=INTEGER}, #{documentnumber,jdbcType=VARCHAR}, #{documenttype,jdbcType=VARCHAR}, 
+      #{documentstatus,jdbcType=INTEGER}, #{documentdate,jdbcType=TIMESTAMP}, #{relationship,jdbcType=VARCHAR}, 
+      #{customerid,jdbcType=INTEGER}, #{carmagid,jdbcType=VARCHAR}, #{orderamount,jdbcType=DECIMAL}, 
+      #{operator,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{deletename,jdbcType=VARCHAR}, 
+      #{deletetime,jdbcType=TIMESTAMP}, #{timeliness,jdbcType=INTEGER}, #{carid,jdbcType=INTEGER}, 
+      #{materialcodeid,jdbcType=INTEGER}, #{mainbillingid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.trkj.asms.entity.Duein" useGeneratedKeys="true">
+    insert into duein
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sId != null">
+        s_id,
+      </if>
+      <if test="documentnumber != null">
+        DocumentNumber,
+      </if>
+      <if test="documenttype != null">
+        DocumentType,
+      </if>
+      <if test="documentstatus != null">
+        Documentstatus,
+      </if>
+      <if test="documentdate != null">
+        DocumentDate,
+      </if>
+      <if test="relationship != null">
+        Relationship,
+      </if>
+      <if test="customerid != null">
+        CustomerId,
+      </if>
+      <if test="carmagid != null">
+        carmagId,
+      </if>
+      <if test="orderamount != null">
+        Orderamount,
+      </if>
+      <if test="operator != null">
+        `Operator`,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="deletename != null">
+        Deletename,
+      </if>
+      <if test="deletetime != null">
+        DeleteTime,
+      </if>
+      <if test="timeliness != null">
+        Timeliness,
+      </if>
+      <if test="carid != null">
+        carId,
+      </if>
+      <if test="materialcodeid != null">
+        materialcodeId,
+      </if>
+      <if test="mainbillingid != null">
+        mainbillingId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sId != null">
+        #{sId,jdbcType=INTEGER},
+      </if>
+      <if test="documentnumber != null">
+        #{documentnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="documenttype != null">
+        #{documenttype,jdbcType=VARCHAR},
+      </if>
+      <if test="documentstatus != null">
+        #{documentstatus,jdbcType=INTEGER},
+      </if>
+      <if test="documentdate != null">
+        #{documentdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="relationship != null">
+        #{relationship,jdbcType=VARCHAR},
+      </if>
+      <if test="customerid != null">
+        #{customerid,jdbcType=INTEGER},
+      </if>
+      <if test="carmagid != null">
+        #{carmagid,jdbcType=VARCHAR},
+      </if>
+      <if test="orderamount != null">
+        #{orderamount,jdbcType=DECIMAL},
+      </if>
+      <if test="operator != null">
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="deletename != null">
+        #{deletename,jdbcType=VARCHAR},
+      </if>
+      <if test="deletetime != null">
+        #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeliness != null">
+        #{timeliness,jdbcType=INTEGER},
+      </if>
+      <if test="carid != null">
+        #{carid,jdbcType=INTEGER},
+      </if>
+      <if test="materialcodeid != null">
+        #{materialcodeid,jdbcType=INTEGER},
+      </if>
+      <if test="mainbillingid != null">
+        #{mainbillingid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.trkj.asms.entity.Duein">
+    update duein
+    <set>
+      <if test="sId != null">
+        s_id = #{sId,jdbcType=INTEGER},
+      </if>
+      <if test="documentnumber != null">
+        DocumentNumber = #{documentnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="documenttype != null">
+        DocumentType = #{documenttype,jdbcType=VARCHAR},
+      </if>
+      <if test="documentstatus != null">
+        Documentstatus = #{documentstatus,jdbcType=INTEGER},
+      </if>
+      <if test="documentdate != null">
+        DocumentDate = #{documentdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="relationship != null">
+        Relationship = #{relationship,jdbcType=VARCHAR},
+      </if>
+      <if test="customerid != null">
+        CustomerId = #{customerid,jdbcType=INTEGER},
+      </if>
+      <if test="carmagid != null">
+        carmagId = #{carmagid,jdbcType=VARCHAR},
+      </if>
+      <if test="orderamount != null">
+        Orderamount = #{orderamount,jdbcType=DECIMAL},
+      </if>
+      <if test="operator != null">
+        `Operator` = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="deletename != null">
+        Deletename = #{deletename,jdbcType=VARCHAR},
+      </if>
+      <if test="deletetime != null">
+        DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeliness != null">
+        Timeliness = #{timeliness,jdbcType=INTEGER},
+      </if>
+      <if test="carid != null">
+        carId = #{carid,jdbcType=INTEGER},
+      </if>
+      <if test="materialcodeid != null">
+        materialcodeId = #{materialcodeid,jdbcType=INTEGER},
+      </if>
+      <if test="mainbillingid != null">
+        mainbillingId = #{mainbillingid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.trkj.asms.entity.Duein">
+    update duein
+    set s_id = #{sId,jdbcType=INTEGER},
+      DocumentNumber = #{documentnumber,jdbcType=VARCHAR},
+      DocumentType = #{documenttype,jdbcType=VARCHAR},
+      Documentstatus = #{documentstatus,jdbcType=INTEGER},
+      DocumentDate = #{documentdate,jdbcType=TIMESTAMP},
+      Relationship = #{relationship,jdbcType=VARCHAR},
+      CustomerId = #{customerid,jdbcType=INTEGER},
+      carmagId = #{carmagid,jdbcType=VARCHAR},
+      Orderamount = #{orderamount,jdbcType=DECIMAL},
+      `Operator` = #{operator,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      Deletename = #{deletename,jdbcType=VARCHAR},
+      DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      Timeliness = #{timeliness,jdbcType=INTEGER},
+      carId = #{carid,jdbcType=INTEGER},
+      materialcodeId = #{materialcodeid,jdbcType=INTEGER},
+      mainbillingId = #{mainbillingid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

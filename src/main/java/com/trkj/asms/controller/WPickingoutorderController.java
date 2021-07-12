@@ -1,10 +1,9 @@
 package com.trkj.asms.controller;
 
-import com.trkj.asms.dao.WReturnedmaterialsDao;
 import com.trkj.asms.entity.WDeliveryorder;
-import com.trkj.asms.entity.WMaterialorder;
+import com.trkj.asms.entity.WPickingoutorder;
 import com.trkj.asms.entity.WReturnedmaterials;
-import com.trkj.asms.service.WDeliveryorderService;
+import com.trkj.asms.service.WPickingoutorderService;
 import com.trkj.asms.service.WReturnedmaterialsService;
 import com.trkj.asms.vo.AjaxResponse;
 import org.springframework.web.bind.annotation.*;
@@ -13,31 +12,31 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * 物资采购退货出库单(WDeliveryorder)表控制层
+ * 维修领料出库单(WPickingoutorder)表控制层
  *
  * @author makejava
- * @since 2021-07-11 10:59:38
+ * @since 2021-07-12 13:29:19
  */
 @RestController
-@RequestMapping("wDeliveryorder")
-public class WDeliveryorderController {
+@RequestMapping("wPickingoutorder")
+public class WPickingoutorderController {
     /**
      * 服务对象
      */
     @Resource
-    private WDeliveryorderService wDeliveryorderService;
+    private WPickingoutorderService wPickingoutorderService;
     @Resource
     private WReturnedmaterialsService wReturnedmaterialsService;
 
     /**
-     * 新增出库记录
+     * 新增维修出库记录
      */
     @PostMapping("insert")
-    public AjaxResponse insert(@RequestBody WDeliveryorder wDeliveryorder){
+    public AjaxResponse insert(@RequestBody WPickingoutorder wPickingoutorder){
         String message = "";
-        System.out.println(wDeliveryorder.toString());
-        System.out.println(wDeliveryorder.getWReturnedmaterials().toString());
-        Boolean add = wDeliveryorderService.insert(wDeliveryorder);
+        System.out.println(wPickingoutorder.toString());
+        System.out.println(wPickingoutorder.getWReturnedmaterials().toString());
+        Boolean add = wPickingoutorderService.insert(wPickingoutorder);
         if(add == true){
             message = "新增成功";
         }else{
@@ -51,15 +50,15 @@ public class WDeliveryorderController {
      */
     @GetMapping("selectAll")
     public AjaxResponse selectAll(){
-        List<WDeliveryorder> wDeliveryorders = wDeliveryorderService.queryAllByLimit(1,10);
-        for (WDeliveryorder item:wDeliveryorders) {
+        List<WPickingoutorder> wPickingoutorder = wPickingoutorderService.queryAllByLimit(1,10);
+        for (WPickingoutorder item:wPickingoutorder) {
             WReturnedmaterials wReturnedmaterials = new WReturnedmaterials();
 
             wReturnedmaterials.setBillcode(item.getBillcode());
             List<WReturnedmaterials> list = wReturnedmaterialsService.queryAll(wReturnedmaterials);
             item.setWReturnedmaterials(list);
         }
-        return AjaxResponse.success(wDeliveryorders);
+        return AjaxResponse.success(wPickingoutorder);
     }
 
 }

@@ -1,26 +1,24 @@
 package com.trkj.asms.service;
 
-import com.trkj.asms.entity.Savings;
-import com.trkj.asms.vo.SavingVo;
+import com.trkj.asms.entity.TMemberprices;
 
 import java.util.List;
 
 /**
- * (Savings)表服务接口
+ * (TMemberprices)表服务接口
  *
  * @author makejava
- * @since 2021-07-12 02:41:58
+ * @since 2021-07-12 11:02:26
  */
-public interface SavingsService {
+public interface TMemberpricesService {
 
-    List<SavingVo> findall();
     /**
      * 通过ID查询单条数据
      *
-     * @param savingsid 主键
+     * @param mId 主键
      * @return 实例对象
      */
-    Savings queryById(Integer savingsid);
+    TMemberprices queryById(Integer mId);
 
     /**
      * 查询多条数据
@@ -29,30 +27,30 @@ public interface SavingsService {
      * @param limit  查询条数
      * @return 对象列表
      */
-    List<Savings> queryAllByLimit(int offset, int limit);
+    List<TMemberprices> queryAllByLimit(int offset, int limit);
 
     /**
      * 新增数据
      *
-     * @param savings 实例对象
+     * @param tMemberprices 实例对象
      * @return 实例对象
      */
-    Savings insert(Savings savings);
+    Boolean insert(TMemberprices tMemberprices);
 
     /**
      * 修改数据
      *
-     * @param savings 实例对象
+     * @param tMemberprices 实例对象
      * @return 实例对象
      */
-    Savings update(Savings savings);
+    TMemberprices update(TMemberprices tMemberprices);
 
     /**
      * 通过主键删除数据
      *
-     * @param savingsid 主键
+     * @param mId 主键
      * @return 是否成功
      */
-    boolean deleteById(Integer savingsid);
+    boolean deleteById(Integer mId);
 
 }

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.asms.dao.Stock2Dao">
+
+    <resultMap type="com.trkj.asms.entity.Stock2" id="Stock2Map">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="coName" column="co_name" jdbcType="VARCHAR"/>
+        <result property="coCode" column="co_code" jdbcType="VARCHAR"/>
+        <result property="mName" column="m_name" jdbcType="VARCHAR"/>
+        <result property="mdTitle" column="md_title" jdbcType="VARCHAR"/>
+        <result property="isName" column="is_name" jdbcType="VARCHAR"/>
+        <result property="ciName" column="ci_name" jdbcType="VARCHAR"/>
+        <result property="coRetailprice" column="co_retailprice" jdbcType="NUMERIC"/>
+        <result property="cusprice" column="cusprice" jdbcType="NUMERIC"/>
+        <result property="number" column="number" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="Stock2Map">
+        select
+          id, co_id, w_id, s_id, number
+        from asms.stock2
+        where id = #{id}
+    </select>
+
+    <!--查询所有数据-->
+    <select id="selectAll" resultMap="Stock2Map">
+        SELECT f.id,f.number,g.co_name,g.co_code,g.m_name,g.md_title,g.is_name,g.ci_name,g.co_retailprice,g.cusprice FROM stock2 AS f LEFT JOIN
+	(SELECT a.co_id,a.co_code,a.co_name,a.co_retailprice,a.cusprice,b.m_name,c.md_title,d.is_name,e.ci_name FROM commodity AS a
+	LEFT JOIN materialbrand AS b ON a.m_id = b.m_id
+	LEFT JOIN measuringunit AS c ON a.mu_id = c.mu_id
+	LEFT JOIN installationsites AS d ON a.is_id = d.is_id
+	LEFT JOIN materialclassification AS e ON a.ci_id = e.ci_id) AS g ON f.co_id = g.co_id
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="Stock2Map">
+        select
+        id, co_id, w_id, s_id, number
+        from asms.stock2
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="coId != null">
+                and co_id = #{coId}
+            </if>
+            <if test="wId != null">
+                and w_id = #{wId}
+            </if>
+            <if test="sId != null">
+                and s_id = #{sId}
+            </if>
+            <if test="number != null">
+                and number = #{number}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into asms.stock2(co_id, w_id, s_id, number)
+        values (#{coId}, #{wId}, #{sId}, #{number})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into asms.stock2(co_id, w_id, s_id, number)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.coId}, #{entity.wId}, #{entity.sId}, #{entity.number})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into asms.stock2(co_id, w_id, s_id, number)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.coId}, #{entity.wId}, #{entity.sId}, #{entity.number})
+        </foreach>
+        on duplicate key update
+        co_id = values(co_id) , w_id = values(w_id) , s_id = values(s_id) , number = values(number)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update asms.stock2
+        <set>
+            <if test="coId != null">
+                co_id = #{coId},
+            </if>
+            <if test="wId != null">
+                w_id = #{wId},
+            </if>
+            <if test="sId != null">
+                s_id = #{sId},
+            </if>
+            <if test="number != null">
+                number = #{number},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from asms.stock2 where id = #{id}
+    </delete>
+
+</mapper>
+
