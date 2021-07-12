@@ -1,9 +1,9 @@
 package com.trkj.asms.service.impl;
 
 import com.trkj.asms.dao.WReturnedmaterialsDao;
-import com.trkj.asms.entity.WMaterialorder;
-import com.trkj.asms.dao.WMaterialorderDao;
-import com.trkj.asms.service.WMaterialorderService;
+import com.trkj.asms.entity.WPickingoutorder;
+import com.trkj.asms.dao.WPickingoutorderDao;
+import com.trkj.asms.service.WPickingoutorderService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
@@ -12,28 +12,28 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * 物资采购订单表和库存表(WMaterialorder)表服务实现类
+ * 维修领料出库单(WPickingoutorder)表服务实现类
  *
  * @author makejava
- * @since 2021-07-11 20:23:17
+ * @since 2021-07-12 13:29:19
  */
+@Service("wPickingoutorderService")
 @Transactional
-@Service("wMaterialorderService")
-public class WMaterialorderServiceImpl implements WMaterialorderService {
+public class WPickingoutorderServiceImpl implements WPickingoutorderService {
     @Resource
-    private WMaterialorderDao wMaterialorderDao;
+    private WPickingoutorderDao wPickingoutorderDao;
     @Resource
     private WReturnedmaterialsDao wReturnedmaterialsDao;
 
     /**
      * 通过ID查询单条数据
      *
-     * @param moId 主键
+     * @param poId 主键
      * @return 实例对象
      */
     @Override
-    public WMaterialorder queryById(Integer moId) {
-        return this.wMaterialorderDao.queryById(moId);
+    public WPickingoutorder queryById(Integer poId) {
+        return this.wPickingoutorderDao.queryById(poId);
     }
 
     /**
@@ -44,22 +44,22 @@ public class WMaterialorderServiceImpl implements WMaterialorderService {
      * @return 对象列表
      */
     @Override
-    public List<WMaterialorder> queryAllByLimit(int offset, int limit) {
-        return this.wMaterialorderDao.queryAllByLimit(offset, limit);
+    public List<WPickingoutorder> queryAllByLimit(int offset, int limit) {
+        return this.wPickingoutorderDao.queryAllByLimit(offset, limit);
     }
 
     /**
      * 新增数据
      *
-     * @param wMaterialorder 实例对象
+     * @param wPickingoutorder 实例对象
      * @return 实例对象
      */
     @Override
-    public Boolean insert(WMaterialorder wMaterialorder) {
+    public boolean insert(WPickingoutorder wPickingoutorder) {
         try {
-            int add = this.wMaterialorderDao.insert(wMaterialorder);
+            int add = this.wPickingoutorderDao.insert(wPickingoutorder);
             if(add >= 1){
-                int addlist = this.wReturnedmaterialsDao.insertBatch(wMaterialorder.getWReturnedmaterials());
+                int addlist = this.wReturnedmaterialsDao.insertBatch(wPickingoutorder.getWReturnedmaterials());
                 if(addlist >= 1){
                     return true;
                 }
@@ -72,30 +72,28 @@ public class WMaterialorderServiceImpl implements WMaterialorderService {
         }finally {
             return false;
         }
-
-
     }
 
     /**
      * 修改数据
      *
-     * @param wMaterialorder 实例对象
+     * @param wPickingoutorder 实例对象
      * @return 实例对象
      */
     @Override
-    public WMaterialorder update(WMaterialorder wMaterialorder) {
-        this.wMaterialorderDao.update(wMaterialorder);
-        return this.queryById(wMaterialorder.getMoId());
+    public WPickingoutorder update(WPickingoutorder wPickingoutorder) {
+        this.wPickingoutorderDao.update(wPickingoutorder);
+        return this.queryById(wPickingoutorder.getPoId());
     }
 
     /**
      * 通过主键删除数据
      *
-     * @param moId 主键
+     * @param poId 主键
      * @return 是否成功
      */
     @Override
-    public boolean deleteById(Integer moId) {
-        return this.wMaterialorderDao.deleteById(moId) > 0;
+    public boolean deleteById(Integer poId) {
+        return this.wPickingoutorderDao.deleteById(poId) > 0;
     }
 }

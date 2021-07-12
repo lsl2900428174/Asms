@@ -35,7 +35,7 @@ public interface WMaterialorderService {
      * @param wMaterialorder 实例对象
      * @return 实例对象
      */
-    WMaterialorder insert(WMaterialorder wMaterialorder);
+    Boolean insert(WMaterialorder wMaterialorder);
 
     /**
      * 修改数据
