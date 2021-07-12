@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.asms.dao.TCommodityDao">
+
+    <resultMap type="com.trkj.asms.entity.TCommodity" id="TCommodityMap">
+        <result property="coId" column="co_id" jdbcType="INTEGER"/>
+        <result property="coName" column="co_name" jdbcType="VARCHAR"/>
+        <result property="coCode" column="co_code" jdbcType="VARCHAR"/>
+        <result property="sId" column="s_id" jdbcType="INTEGER"/>
+        <result property="ciId" column="ci_id" jdbcType="INTEGER"/>
+        <result property="mId" column="m_id" jdbcType="INTEGER"/>
+        <result property="muId" column="mu_id" jdbcType="INTEGER"/>
+        <result property="barcode" column="barcode" jdbcType="VARCHAR"/>
+        <result property="applimodel" column="applimodel" jdbcType="VARCHAR"/>
+        <result property="isId" column="is_id" jdbcType="INTEGER"/>
+        <result property="specialmodel" column="specialmodel" jdbcType="VARCHAR"/>
+        <result property="isinstall" column="isinstall" jdbcType="INTEGER"/>
+        <result property="whId" column="wh_id" jdbcType="INTEGER"/>
+        <result property="wpId" column="wp_id" jdbcType="INTEGER"/>
+        <result property="warning" column="warning" jdbcType="INTEGER"/>
+        <result property="coRetailprice" column="co_retailprice" jdbcType="NUMERIC"/>
+        <result property="cusprice" column="cusprice" jdbcType="NUMERIC"/>
+    </resultMap>
+    <resultMap type="com.trkj.asms.vo.wzVo" id="wzVo">
+        <result property="coName" column="co_name" jdbcType="VARCHAR"/>
+        <result property="coCode" column="co_code" jdbcType="VARCHAR"/>
+        <result property="name" column="Name" jdbcType="VARCHAR"/>
+        <result property="number" column="number" jdbcType="INTEGER"/>
+        <result property="paidMoney" column="Paid_money" jdbcType="NUMERIC"/>
+        <result property="backNumber" column="backnumber" jdbcType="INTEGER"/>
+        <result property="amountPrice" column="amountprice" jdbcType="NUMERIC"/>
+        <result property="hjje" column="hjje" jdbcType="INTEGER"/>
+        <result property="hjsl" column="hjsl" jdbcType="NUMERIC"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="TCommodityMap">
+        select
+          co_id, co_name, co_code, s_id, ci_id, m_id, mu_id, barcode, applimodel, is_id, specialmodel, isinstall, wh_id, wp_id, warning, co_retailprice, cusprice
+        from asms.t_commodity
+        where co_id = #{coId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="TCommodityMap">
+        select
+          co_id, co_name, co_code, s_id, ci_id, m_id, mu_id, barcode, applimodel, is_id, specialmodel, isinstall, wh_id, wp_id, warning, co_retailprice, cusprice
+        from asms.t_commodity
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="TCommodityMap">
+        select
+        co_id, co_name, co_code, s_id, ci_id, m_id, mu_id, barcode, applimodel, is_id, specialmodel, isinstall, wh_id,
+        wp_id, warning, co_retailprice, cusprice
+        from asms.t_commodity
+        <where>
+            <if test="coId != null">
+                and co_id = #{coId}
+            </if>
+            <if test="coName != null and coName != ''">
+                and co_name = #{coName}
+            </if>
+            <if test="coCode != null and coCode != ''">
+                and co_code = #{coCode}
+            </if>
+            <if test="sId != null">
+                and s_id = #{sId}
+            </if>
+            <if test="ciId != null">
+                and ci_id = #{ciId}
+            </if>
+            <if test="mId != null">
+                and m_id = #{mId}
+            </if>
+            <if test="muId != null">
+                and mu_id = #{muId}
+            </if>
+            <if test="barcode != null and barcode != ''">
+                and barcode = #{barcode}
+            </if>
+            <if test="applimodel != null and applimodel != ''">
+                and applimodel = #{applimodel}
+            </if>
+            <if test="isId != null">
+                and is_id = #{isId}
+            </if>
+            <if test="specialmodel != null and specialmodel != ''">
+                and specialmodel = #{specialmodel}
+            </if>
+            <if test="isinstall != null">
+                and isinstall = #{isinstall}
+            </if>
+            <if test="whId != null">
+                and wh_id = #{whId}
+            </if>
+            <if test="wpId != null">
+                and wp_id = #{wpId}
+            </if>
+            <if test="warning != null">
+                and warning = #{warning}
+            </if>
+            <if test="coRetailprice != null">
+                and co_retailprice = #{coRetailprice}
+            </if>
+            <if test="cusprice != null">
+                and cusprice = #{cusprice}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="coId" useGeneratedKeys="true">
+        insert into asms.t_commodity(co_name, co_code, s_id, ci_id, m_id, mu_id, barcode, applimodel, is_id, specialmodel, isinstall, wh_id, wp_id, warning, co_retailprice, cusprice)
+        values (#{coName}, #{coCode}, #{sId}, #{ciId}, #{mId}, #{muId}, #{barcode}, #{applimodel}, #{isId}, #{specialmodel}, #{isinstall}, #{whId}, #{wpId}, #{warning}, #{coRetailprice}, #{cusprice})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="coId" useGeneratedKeys="true">
+        insert into asms.t_commodity(co_name, co_code, s_id, ci_id, m_id, mu_id, barcode, applimodel, is_id,
+        specialmodel, isinstall, wh_id, wp_id, warning, co_retailprice, cusprice)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.coName}, #{entity.coCode}, #{entity.sId}, #{entity.ciId}, #{entity.mId}, #{entity.muId},
+            #{entity.barcode}, #{entity.applimodel}, #{entity.isId}, #{entity.specialmodel}, #{entity.isinstall},
+            #{entity.whId}, #{entity.wpId}, #{entity.warning}, #{entity.coRetailprice}, #{entity.cusprice})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="coId" useGeneratedKeys="true">
+        insert into asms.t_commodity(co_name, co_code, s_id, ci_id, m_id, mu_id, barcode, applimodel, is_id,
+        specialmodel, isinstall, wh_id, wp_id, warning, co_retailprice, cusprice)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.coName}, #{entity.coCode}, #{entity.sId}, #{entity.ciId}, #{entity.mId}, #{entity.muId},
+            #{entity.barcode}, #{entity.applimodel}, #{entity.isId}, #{entity.specialmodel}, #{entity.isinstall},
+            #{entity.whId}, #{entity.wpId}, #{entity.warning}, #{entity.coRetailprice}, #{entity.cusprice})
+        </foreach>
+        on duplicate key update
+        co_name = values(co_name) , co_code = values(co_code) , s_id = values(s_id) , ci_id = values(ci_id) , m_id =
+        values(m_id) , mu_id = values(mu_id) , barcode = values(barcode) , applimodel = values(applimodel) , is_id =
+        values(is_id) , specialmodel = values(specialmodel) , isinstall = values(isinstall) , wh_id = values(wh_id) ,
+        wp_id = values(wp_id) , warning = values(warning) , co_retailprice = values(co_retailprice) , cusprice =
+        values(cusprice)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update asms.t_commodity
+        <set>
+            <if test="coName != null and coName != ''">
+                co_name = #{coName},
+            </if>
+            <if test="coCode != null and coCode != ''">
+                co_code = #{coCode},
+            </if>
+            <if test="sId != null">
+                s_id = #{sId},
+            </if>
+            <if test="ciId != null">
+                ci_id = #{ciId},
+            </if>
+            <if test="mId != null">
+                m_id = #{mId},
+            </if>
+            <if test="muId != null">
+                mu_id = #{muId},
+            </if>
+            <if test="barcode != null and barcode != ''">
+                barcode = #{barcode},
+            </if>
+            <if test="applimodel != null and applimodel != ''">
+                applimodel = #{applimodel},
+            </if>
+            <if test="isId != null">
+                is_id = #{isId},
+            </if>
+            <if test="specialmodel != null and specialmodel != ''">
+                specialmodel = #{specialmodel},
+            </if>
+            <if test="isinstall != null">
+                isinstall = #{isinstall},
+            </if>
+            <if test="whId != null">
+                wh_id = #{whId},
+            </if>
+            <if test="wpId != null">
+                wp_id = #{wpId},
+            </if>
+            <if test="warning != null">
+                warning = #{warning},
+            </if>
+            <if test="coRetailprice != null">
+                co_retailprice = #{coRetailprice},
+            </if>
+            <if test="cusprice != null">
+                cusprice = #{cusprice},
+            </if>
+        </set>
+        where co_id = #{coId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from asms.t_commodity where co_id = #{coId}
+    </delete>
+    <select id="cllyhz" resultMap="wzVo">
+     SELECT c.co_name,c.co_code,e.Name,e.Name,wr.number,s.Paid_money,wr.backnumber,wr.amountprice,SUM(number+backnumber) AS hjsl,SUM(amountprice+Paid_money)AS hjje
+        FROM `commodity` c
+        LEFT JOIN `emp` e ON c.s_id = e.s_id
+        LEFT JOIN `w_returnedmaterials` wr ON c.co_code = wr.materialcode
+        LEFT JOIN `supplier` s ON c.s_id = s.s_id
+         GROUP BY co_name,co_code,NAME,number,Paid_money,backnumber,amountprice
+        </select>
+</mapper>
+
