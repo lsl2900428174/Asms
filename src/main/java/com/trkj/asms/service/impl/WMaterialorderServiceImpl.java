@@ -79,7 +79,7 @@ public class WMaterialorderServiceImpl implements WMaterialorderService {
                     duein.setDocumentdate(new Date());
                     duein.setRelationship("供应商");
                     duein.setCustomerid(1);//往来客户编号
-                    duein.setOrderamount(wMaterialorder.getAmout());//付款金额
+                    duein.setOrderamount(wMaterialorder.getAmout().longValue());//付款金额
                     duein.setBrokerage(wMaterialorder.getOrderuser());//经手人
                     duein.setTimeliness(0);//时效性 0未失效
                     int addduein = pendingpaymentDao.insertSelective(duein);

@@ -2,7 +2,6 @@ package com.trkj.asms.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.trkj.asms.entity.Duein;
 import com.trkj.asms.entity.Pendingpayment;
 import com.trkj.asms.service.PendingpaymentService;
 import com.trkj.asms.vo.AjaxResponse;
@@ -30,13 +29,14 @@ public class PendingpaymentController {
 
     //    查询待付款列表或付款单
     @GetMapping("/findAll")
-    public AjaxResponse findAll(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize){
-        PageHelper.startPage(currentPage,pagesize);
+    public AjaxResponse findAll(){
+//        @RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize
+//        PageHelper.startPage(currentPage,pagesize);
         List<Pendingpayment> pendingpaymentList=pendingpaymentService.findAllpending();
-        PageInfo<Pendingpayment> dueinPageInfo=new PageInfo<>(pendingpaymentList);
+//        PageInfo<Pendingpayment> dueinPageInfo=new PageInfo<>(pendingpaymentList);
 
-        log.debug("hhh"+pendingpaymentList.toString());
-        return AjaxResponse.success(dueinPageInfo);
+//        log.debug("hhh"+pendingpaymentList.toString());
+        return AjaxResponse.success(pendingpaymentList);
     }
     //新增待付列表获知是付款单：获取采购订单编号（  获取采购入库编号）
     @PostMapping("/AddAll")

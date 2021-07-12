@@ -4,7 +4,6 @@ import com.trkj.asms.entity.Duein;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
-
 @Mapper
 public interface DueinDao {
     int deleteByPrimaryKey(Integer id);
