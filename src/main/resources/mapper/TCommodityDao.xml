@@ -25,7 +25,7 @@
         <result property="coName" column="co_name" jdbcType="VARCHAR"/>
         <result property="coCode" column="co_code" jdbcType="VARCHAR"/>
         <result property="name" column="Name" jdbcType="VARCHAR"/>
-        <result property="number" column="number" jdbcType="INTEGER"/>
+        <result property="numberd" column="numberd" jdbcType="INTEGER"/>
         <result property="paidMoney" column="Paid_money" jdbcType="NUMERIC"/>
         <result property="backNumber" column="backnumber" jdbcType="INTEGER"/>
         <result property="amountPrice" column="amountprice" jdbcType="NUMERIC"/>
@@ -205,12 +205,12 @@
         delete from asms.t_commodity where co_id = #{coId}
     </delete>
     <select id="cllyhz" resultMap="wzVo">
-     SELECT c.co_name,c.co_code,e.Name,e.Name,wr.number,s.Paid_money,wr.backnumber,wr.amountprice,SUM(number+backnumber) AS hjsl,SUM(amountprice+Paid_money)AS hjje
+                 SELECT c.co_name,c.co_code,e.Name,e.Name,wr.numberd,s.Paid_money,wr.backnumber,wr.amountprice,SUM(numberd+backnumber) AS hjsl,SUM(amountprice+Paid_money)AS hjje
         FROM `commodity` c
         LEFT JOIN `emp` e ON c.s_id = e.s_id
         LEFT JOIN `w_returnedmaterials` wr ON c.co_code = wr.materialcode
         LEFT JOIN `supplier` s ON c.s_id = s.s_id
-         GROUP BY co_name,co_code,NAME,number,Paid_money,backnumber,amountprice
+         GROUP BY co_name,co_code,NAME,numberd,Paid_money,backnumber,amountprice
         </select>
 </mapper>
 

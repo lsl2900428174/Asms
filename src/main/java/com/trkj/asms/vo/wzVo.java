@@ -7,7 +7,7 @@ public class wzVo {
     private String coName;
     private String coCode;
     private String name;
-    private int number;
+    private int numberd;
     private double paidMoney;
     private int backNumber;
     private double amountPrice;

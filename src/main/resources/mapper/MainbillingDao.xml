@@ -53,7 +53,7 @@
         <result property="sName" column="s_name" jdbcType="VARCHAR"/>
         <result property="suppliername" column="suppliername" jdbcType="VARCHAR"/>
         <result property="money" column="money" jdbcType="NUMERIC"/>
-        <result property="number" column="number" jdbcType="INTEGER"/>
+        <result property="numberd" column="numberd" jdbcType="INTEGER"/>
         <result property="amout" column="amout" jdbcType="NUMERIC"/>
         <result property="orderamount" column="Orderamount" jdbcType="NUMERIC"/>
         <result property="YFAmount" column="YFAmount" jdbcType="NUMERIC"/>
@@ -349,7 +349,7 @@
         co_retailprice,AmountReceivable,YFAmount,Orderamount,beizhu
         </select>
     <select id="wzcghz" resultMap="WzcghzoVo">
-      SELECT st.s_name,sup.suppliername,sup.money,wr.number,wm.amout,pe.Orderamount,pe.YFAmount,pe.FreeAmout,wr.backnumber,re.YFAmount,
+      SELECT st.s_name,sup.suppliername,sup.money,wr.numberd,wm.amout,pe.Orderamount,pe.YFAmount,pe.FreeAmout,wr.backnumber,re.YFAmount,
           wr.amountprice
             FROM  `w_materialorder` wm
             LEFT JOIN `supplier` sup ON wm.suppliername=sup.suppliername
@@ -357,7 +357,7 @@
             LEFT JOIN `w_returnedmaterials` wr ON wm.billcode=wr.billcode
             LEFT JOIN `pendingpayment` pe ON pe.s_id=st.s_id
             LEFT JOIN `refundorder` re ON re.s_id=st.s_id
-            GROUP BY s_name,suppliername,money,number,amout,Orderamount,backnumber,amountprice,pe.YFAmount,re.YFAmount,FreeAmout
+            GROUP BY s_name,suppliername,money,numberd,amout,Orderamount,backnumber,amountprice,pe.YFAmount,re.YFAmount,FreeAmout
         </select>
     <select id="wzxshz" resultMap="WzxshzVo">
       SELECT sa.sale_code,pr.sale_time,st.s_name,cu.c_name,cu.c_phone,sa.sale_number,wm.amout,c.co_retailprice

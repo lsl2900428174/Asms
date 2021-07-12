@@ -7,7 +7,7 @@ public class WzcghzoVo {
     private String sName;
     private String suppliername;
     private double money;
-    private int number;
+    private int numberd;
     private double amout;
     private double orderamount;
     private double YFAmount;
