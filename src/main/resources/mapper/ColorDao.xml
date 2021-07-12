@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.asms.dao.ColorDao">
+
+    <resultMap type="com.trkj.asms.entity.Color" id="ColorMap">
+        <result property="bcId" column="bc_id" jdbcType="INTEGER"/>
+        <result property="bcName" column="bc_name" jdbcType="VARCHAR"/>
+        <result property="bcState" column="bc_state" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="findall" resultMap="ColorMap">
+        select * from color
+    </select>
+    <!--查询单个-->
+    <select id="queryById" resultMap="ColorMap">
+        select
+          bc_id, bc_name, bc_state
+        from asms.color
+        where bc_id = #{bcId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="ColorMap">
+        select
+          bc_id, bc_name, bc_state
+        from asms.color
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="ColorMap">
+        select
+        bc_id, bc_name, bc_state
+        from asms.color
+        <where>
+            <if test="bcId != null">
+                and bc_id = #{bcId}
+            </if>
+            <if test="bcName != null and bcName != ''">
+                and bc_name = #{bcName}
+            </if>
+            <if test="bcState != null and bcState != ''">
+                and bc_state = #{bcState}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="bcId" useGeneratedKeys="true">
+        insert into asms.color(bc_name, bc_state)
+        values (#{bcName}, #{bcState})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="bcId" useGeneratedKeys="true">
+        insert into asms.color(bc_name, bc_state)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.bcName}, #{entity.bcState})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="bcId" useGeneratedKeys="true">
+        insert into asms.color(bc_name, bc_state)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.bcName}, #{entity.bcState})
+        </foreach>
+        on duplicate key update
+        bc_name = values(bc_name) , bc_state = values(bc_state)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update asms.color
+        <set>
+            <if test="bcName != null and bcName != ''">
+                bc_name = #{bcName},
+            </if>
+            <if test="bcState != null and bcState != ''">
+                bc_state = #{bcState},
+            </if>
+        </set>
+        where bc_id = #{bcId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from asms.color where bc_id = #{bcId}
+    </delete>
+
+</mapper>
+

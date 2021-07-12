@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.asms.dao.SavingsDao">
+
+    <resultMap type="com.trkj.asms.entity.Savings" id="SavingsMap">
+        <result property="savingsid" column="savingsid" jdbcType="INTEGER"/>
+        <result property="sId" column="s_id" jdbcType="INTEGER"/>
+        <result property="cName" column="c_name" jdbcType="VARCHAR"/>
+        <result property="cPhone" column="c_phone" jdbcType="VARCHAR"/>
+        <result property="savingsno" column="savingsno" jdbcType="VARCHAR"/>
+        <result property="symony" column="symony" jdbcType="NUMERIC"/>
+    </resultMap>
+
+    <update id="updatemoney">
+        update savings set symony + #{symony} where savingsno = #{savingsno}
+    </update>
+    <select id="findbynumber" resultMap="SavingsMap">
+        select * from savings where savingsno = #{savingsno}
+    </select>
+    <!--查询单个-->
+    <select id="queryById" resultMap="SavingsMap">
+        select
+          savingsid, s_id, c_name, c_phone, savingsno, symony
+        from asms.savings
+        where savingsid = #{savingsid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="SavingsMap">
+        select
+          savingsid, s_id, c_name, c_phone, savingsno, symony
+        from asms.savings
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="SavingsMap">
+        select
+        savingsid, s_id, c_name, c_phone, savingsno, symony
+        from asms.savings
+        <where>
+            <if test="savingsid != null">
+                and savingsid = #{savingsid}
+            </if>
+            <if test="sId != null">
+                and s_id = #{sId}
+            </if>
+            <if test="cName != null and cName != ''">
+                and c_name = #{cName}
+            </if>
+            <if test="cPhone != null and cPhone != ''">
+                and c_phone = #{cPhone}
+            </if>
+            <if test="savingsno != null and savingsno != ''">
+                and savingsno = #{savingsno}
+            </if>
+            <if test="symony != null">
+                and symony = #{symony}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="savingsid" useGeneratedKeys="true">
+        insert into asms.savings(s_id, c_name, c_phone, savingsno, symony)
+        values (#{sId}, #{cName}, #{cPhone}, #{savingsno}, #{symony})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="savingsid" useGeneratedKeys="true">
+        insert into asms.savings(s_id, c_name, c_phone, savingsno, symony)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.sId}, #{entity.cName}, #{entity.cPhone}, #{entity.savingsno}, #{entity.symony})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="savingsid" useGeneratedKeys="true">
+        insert into asms.savings(s_id, c_name, c_phone, savingsno, symony)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.sId}, #{entity.cName}, #{entity.cPhone}, #{entity.savingsno}, #{entity.symony})
+        </foreach>
+        on duplicate key update
+        s_id = values(s_id) , c_name = values(c_name) , c_phone = values(c_phone) , savingsno = values(savingsno) ,
+        symony = values(symony)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update asms.savings
+        <set>
+            <if test="sId != null">
+                s_id = #{sId},
+            </if>
+            <if test="cName != null and cName != ''">
+                c_name = #{cName},
+            </if>
+            <if test="cPhone != null and cPhone != ''">
+                c_phone = #{cPhone},
+            </if>
+            <if test="savingsno != null and savingsno != ''">
+                savingsno = #{savingsno},
+            </if>
+            <if test="symony != null">
+                symony = #{symony},
+            </if>
+        </set>
+        where savingsid = #{savingsid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from asms.savings where savingsid = #{savingsid}
+    </delete>
+
+</mapper>
+

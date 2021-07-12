@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.asms.dao.CustomertypeDao">
+
+    <resultMap type="com.trkj.asms.entity.Customertype" id="CustomertypeMap">
+        <result property="ctId" column="ct_id" jdbcType="INTEGER"/>
+        <result property="ctName" column="ct_name" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="findall" resultMap="CustomertypeMap">
+        select * fron customertype
+    </select>
+    <!--查询单个-->
+    <select id="queryById" resultMap="CustomertypeMap">
+        select
+          ct_id, ct_name
+        from asms.customertype
+        where ct_id = #{ctId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="CustomertypeMap">
+        select
+          ct_id, ct_name
+        from asms.customertype
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="CustomertypeMap">
+        select
+        ct_id, ct_name
+        from asms.customertype
+        <where>
+            <if test="ctId != null">
+                and ct_id = #{ctId}
+            </if>
+            <if test="ctName != null and ctName != ''">
+                and ct_name = #{ctName}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="ctId" useGeneratedKeys="true">
+        insert into asms.customertype(ct_name)
+        values (#{ctName})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="ctId" useGeneratedKeys="true">
+        insert into asms.customertype(ct_name)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.ctName})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="ctId" useGeneratedKeys="true">
+        insert into asms.customertype(ct_name)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.ctName})
+        </foreach>
+        on duplicate key update
+        ct_name = values(ct_name)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update asms.customertype
+        <set>
+            <if test="ctName != null and ctName != ''">
+                ct_name = #{ctName},
+            </if>
+        </set>
+        where ct_id = #{ctId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from asms.customertype where ct_id = #{ctId}
+    </delete>
+
+</mapper>
+

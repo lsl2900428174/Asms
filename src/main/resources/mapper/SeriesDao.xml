@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.asms.dao.SeriesDao">
+
+    <resultMap type="com.trkj.asms.entity.Series" id="SeriesMap">
+        <result property="vsId" column="vs_id" jdbcType="INTEGER"/>
+        <result property="sId" column="s_id" jdbcType="INTEGER"/>
+        <result property="bName" column="b_name" jdbcType="VARCHAR"/>
+        <result property="vsName" column="vs_name" jdbcType="VARCHAR"/>
+        <result property="vName" column="v_name" jdbcType="VARCHAR"/>
+        <result property="vsState" column="vs_state" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <select id="findall" resultMap="SeriesMap">
+        select * from series
+    </select>
+    <!--查询单个-->
+    <select id="queryById" resultMap="SeriesMap">
+        select
+          vs_id, s_id, b_name, vs_name, v_name, vs_state
+        from asms.series
+        where vs_id = #{vsId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="SeriesMap">
+        select
+          vs_id, s_id, b_name, vs_name, v_name, vs_state
+        from asms.series
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="SeriesMap">
+        select
+        vs_id, s_id, b_name, vs_name, v_name, vs_state
+        from asms.series
+        <where>
+            <if test="vsId != null">
+                and vs_id = #{vsId}
+            </if>
+            <if test="sId != null">
+                and s_id = #{sId}
+            </if>
+            <if test="bName != null and bName != ''">
+                and b_name = #{bName}
+            </if>
+            <if test="vsName != null and vsName != ''">
+                and vs_name = #{vsName}
+            </if>
+            <if test="vName != null and vName != ''">
+                and v_name = #{vName}
+            </if>
+            <if test="vsState != null">
+                and vs_state = #{vsState}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="vsId" useGeneratedKeys="true">
+        insert into asms.series(s_id, b_name, vs_name, v_name, vs_state)
+        values (#{sId}, #{bName}, #{vsName}, #{vName}, #{vsState})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="vsId" useGeneratedKeys="true">
+        insert into asms.series(s_id, b_name, vs_name, v_name, vs_state)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.sId}, #{entity.bName}, #{entity.vsName}, #{entity.vName}, #{entity.vsState})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="vsId" useGeneratedKeys="true">
+        insert into asms.series(s_id, b_name, vs_name, v_name, vs_state)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.sId}, #{entity.bName}, #{entity.vsName}, #{entity.vName}, #{entity.vsState})
+        </foreach>
+        on duplicate key update
+        s_id = values(s_id) , b_name = values(b_name) , vs_name = values(vs_name) , v_name = values(v_name) , vs_state =
+        values(vs_state)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update asms.series
+        <set>
+            <if test="sId != null">
+                s_id = #{sId},
+            </if>
+            <if test="bName != null and bName != ''">
+                b_name = #{bName},
+            </if>
+            <if test="vsName != null and vsName != ''">
+                vs_name = #{vsName},
+            </if>
+            <if test="vName != null and vName != ''">
+                v_name = #{vName},
+            </if>
+            <if test="vsState != null">
+                vs_state = #{vsState},
+            </if>
+        </set>
+        where vs_id = #{vsId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from asms.series where vs_id = #{vsId}
+    </delete>
+
+</mapper>
+
