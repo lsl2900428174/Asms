@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.asms.dao.WMaterialorderDao">
+
+    <resultMap type="com.trkj.asms.entity.WMaterialorder" id="WMaterialorderMap">
+        <result property="moId" column="mo_id" jdbcType="INTEGER"/>
+        <result property="suppliername" column="suppliername" jdbcType="VARCHAR"/>
+        <result property="billdate" column="billdate" jdbcType="TIMESTAMP"/>
+        <result property="orderuser" column="orderuser" jdbcType="VARCHAR"/>
+        <result property="edate" column="edate" jdbcType="TIMESTAMP"/>
+        <result property="amout" column="amout" jdbcType="NUMERIC"/>
+        <result property="state" column="state" jdbcType="INTEGER"/>
+        <result property="moNumber" column="mo_number" jdbcType="VARCHAR"/>
+        <result property="billcode" column="billcode" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="WMaterialorderMap">
+        select
+          mo_id, suppliername, billdate, orderuser, edate, amout, state, mo_number, billcode
+        from asms.w_materialorder
+        where mo_id = #{moId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="WMaterialorderMap">
+        select
+          mo_id, suppliername, billdate, orderuser, edate, amout, state, mo_number, billcode
+        from asms.w_materialorder
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="WMaterialorderMap">
+        select
+        mo_id, suppliername, billdate, orderuser, edate, amout, state, mo_number, billcode
+        from asms.w_materialorder
+        <where>
+            <if test="moId != null">
+                and mo_id = #{moId}
+            </if>
+            <if test="suppliername != null and suppliername != ''">
+                and suppliername = #{suppliername}
+            </if>
+            <if test="billdate != null">
+                and billdate = #{billdate}
+            </if>
+            <if test="orderuser != null and orderuser != ''">
+                and orderuser = #{orderuser}
+            </if>
+            <if test="edate != null">
+                and edate = #{edate}
+            </if>
+            <if test="amout != null">
+                and amout = #{amout}
+            </if>
+            <if test="state != null">
+                and state = #{state}
+            </if>
+            <if test="moNumber != null and moNumber != ''">
+                and mo_number = #{moNumber}
+            </if>
+            <if test="billcode != null and billcode != ''">
+                and billcode = #{billcode}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="moId" useGeneratedKeys="true">
+        insert into asms.w_materialorder(suppliername, billdate, orderuser, edate, amout, state, mo_number, billcode)
+        values (#{suppliername}, #{billdate}, #{orderuser}, #{edate}, #{amout}, #{state}, #{moNumber}, #{billcode})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="moId" useGeneratedKeys="true">
+        insert into asms.w_materialorder(suppliername, billdate, orderuser, edate, amout, state, mo_number, billcode)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.suppliername}, #{entity.billdate}, #{entity.orderuser}, #{entity.edate}, #{entity.amout},
+            #{entity.state}, #{entity.moNumber}, #{entity.billcode})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="moId" useGeneratedKeys="true">
+        insert into asms.w_materialorder(suppliername, billdate, orderuser, edate, amout, state, mo_number, billcode)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.suppliername}, #{entity.billdate}, #{entity.orderuser}, #{entity.edate}, #{entity.amout},
+            #{entity.state}, #{entity.moNumber}, #{entity.billcode})
+        </foreach>
+        on duplicate key update
+        suppliername = values(suppliername) , billdate = values(billdate) , orderuser = values(orderuser) , edate =
+        values(edate) , amout = values(amout) , state = values(state) , mo_number = values(mo_number) , billcode =
+        values(billcode)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update asms.w_materialorder
+        <set>
+            <if test="suppliername != null and suppliername != ''">
+                suppliername = #{suppliername},
+            </if>
+            <if test="billdate != null">
+                billdate = #{billdate},
+            </if>
+            <if test="orderuser != null and orderuser != ''">
+                orderuser = #{orderuser},
+            </if>
+            <if test="edate != null">
+                edate = #{edate},
+            </if>
+            <if test="amout != null">
+                amout = #{amout},
+            </if>
+            <if test="state != null">
+                state = #{state},
+            </if>
+            <if test="moNumber != null and moNumber != ''">
+                mo_number = #{moNumber},
+            </if>
+            <if test="billcode != null and billcode != ''">
+                billcode = #{billcode},
+            </if>
+        </set>
+        where mo_id = #{moId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from asms.w_materialorder where mo_id = #{moId}
+    </delete>
+
+</mapper>
+
