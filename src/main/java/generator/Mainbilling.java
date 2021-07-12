@@ -1,76 +1,65 @@
-package com.trkj.asms.entity;
+package generator;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import org.springframework.validation.annotation.Validated;
 
 /**
- * maintenanceapp
+ * mainbilling
  * @author 
  */
 @Data
-@Validated
-@NoArgsConstructor
-@AllArgsConstructor
-@NonNull
-public class Maintenanceapp implements Serializable {
+public class Mainbilling implements Serializable {
+    /**
+     * 维修开单id
+     */
+    private Integer mainbillingid;
+
+    /**
+     * 维修类型id
+     */
+    private Integer serviceid;
+
     /**
      * 维修预约id
      */
     private Integer maintenanceappid;
 
     /**
-     * 维修类型id
-     */
-    private Service service;
-    private Integer serviceid;
-
-    /**
      * 客户id
      */
-    private Customer customer;
     private Integer kehuid;
 
     /**
      * 员工id
      */
-    private Emp emp;
     private Integer empid;
 
     /**
      * 项目id
      */
-    private Projectsettings projectsettings;
     private Integer xiangmuid;
 
     /**
      * 材料id
      */
-    private Commodity commodity;
     private Integer cailiaoid;
 
     /**
      * 门店id
      */
-    private Store store;
     private Integer mendianid;
 
     /**
-     * 车辆id
+     * 车牌id
      */
-    private Carmanagement carmanagement;
     private Integer chepai;
 
     /**
-     * 预约单号
+     * 单据编号
      */
-    private String appno;
+    private String mainbillingno;
 
     /**
      * 单据日期
@@ -81,11 +70,6 @@ public class Maintenanceapp implements Serializable {
      * 单据状态
      */
     private Integer mainorderstuta;
-
-    /**
-     * 预计总费用
-     */
-    private BigDecimal yujiallmony;
 
     /**
      * 预计进厂时间
@@ -103,19 +87,34 @@ public class Maintenanceapp implements Serializable {
     private String kehudepict;
 
     /**
-     * 失约原因
+     * 随车物品
      */
-    private String shiyucause;
+    private String suichewup;
+
+    /**
+     * 优惠金额
+     */
+    private BigDecimal favourable;
+
+    /**
+     * 预计总费用
+     */
+    private BigDecimal yujiallmony;
+
+    /**
+     * 结算时间
+     */
+    private Date overmonytime;
+
+    /**
+     * 是否被返修
+     */
+    private Integer orfanxiu;
 
     /**
      * 备注
      */
     private String beizhu;
-
-    /**
-     * 车牌id
-     */
-    private Integer carid;
 
     private static final long serialVersionUID = 1L;
 }

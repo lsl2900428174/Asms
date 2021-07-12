@@ -59,15 +59,10 @@ public class Mainbilling implements Serializable {
     private Integer mendianid;
 
     /**
-     * 派工id
+     * 车牌id
      */
     private Carmanagement carmanagement;
     private Integer chepai;
-
-    /**
-     * 派工状态
-     */
-    private Integer paigongsta;
 
     /**
      * 单据编号
@@ -103,16 +98,6 @@ public class Mainbilling implements Serializable {
      * 随车物品
      */
     private String suichewup;
-
-    /**
-     * 完工状态
-     */
-    private Integer wangongsta;
-
-    /**
-     * 完工时间
-     */
-    private Date wangongtime;
 
     /**
      * 优惠金额

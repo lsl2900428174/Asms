@@ -1,26 +1,16 @@
-package com.trkj.asms.vo;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import org.springframework.validation.annotation.Validated;
+package generator;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import lombok.Data;
 
 /**
  * maintenanceapp
  * @author 
  */
 @Data
-@Validated
-@NoArgsConstructor
-@AllArgsConstructor
-@NonNull
-public class MaintenanceappVo implements Serializable {
+public class Maintenanceapp implements Serializable {
     /**
      * 维修预约id
      */
@@ -29,39 +19,32 @@ public class MaintenanceappVo implements Serializable {
     /**
      * 维修类型id
      */
-    private String servicename;
+    private Integer serviceid;
 
     /**
      * 客户id
      */
-    private String c_name;
-    private String c_phone;
+    private Integer kehuid;
 
     /**
      * 员工id
      */
-    private String Name;
+    private Integer empid;
 
-    /**
-     * 车牌号id
-     */
-    private String chepai;
     /**
      * 项目id
      */
-    private String WorkHours;
-    private BigDecimal CustAccountPrcie;
-
+    private Integer xiangmuid;
 
     /**
      * 材料id
      */
-    private BigDecimal cusprice;
+    private Integer cailiaoid;
 
     /**
      * 门店id
      */
-    private String s_name;
+    private Integer mendianid;
 
     /**
      * 预约单号
@@ -71,7 +54,6 @@ public class MaintenanceappVo implements Serializable {
     /**
      * 单据日期
      */
-    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date mainorder;
 
     /**
@@ -87,13 +69,11 @@ public class MaintenanceappVo implements Serializable {
     /**
      * 预计进厂时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date yujisetcar;
 
     /**
      * 预计交车时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date yujisetcartime;
 
     /**
@@ -110,6 +90,11 @@ public class MaintenanceappVo implements Serializable {
      * 备注
      */
     private String beizhu;
+
+    /**
+     * 车牌id
+     */
+    private Integer carid;
 
     private static final long serialVersionUID = 1L;
 }

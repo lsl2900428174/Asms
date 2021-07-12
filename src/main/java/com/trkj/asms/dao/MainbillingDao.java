@@ -1,17 +1,10 @@
 package com.trkj.asms.dao;
 
 import com.trkj.asms.entity.Mainbilling;
+import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+@Mapper
 public interface MainbillingDao {
-    int deleteByPrimaryKey(Integer mainbillingid);
-
-    int insert(Mainbilling record);
-
-    int insertSelective(Mainbilling record);
-
-    Mainbilling selectByPrimaryKey(Integer mainbillingid);
-
-    int updateByPrimaryKeySelective(Mainbilling record);
-
-    int updateByPrimaryKey(Mainbilling record);
+    List<Mainbilling> selectMainbilling();
 }
