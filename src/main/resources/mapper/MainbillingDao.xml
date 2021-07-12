@@ -59,8 +59,9 @@
     <sql id="Base_Column_List_mendian">
         s_id,s_number,s_name,s_fullname,s_leader,s_address,s_phone,s_status
     </sql>
-    <sql id="Base_Column_List_empids">
-        e_Id, s_id, p_id, d_id, Sex, Name, LoginID, Phone, UpdateTime, UpdateName, DeleteTime, DeleteName, timeliness, CreateUserName, addTime
+    <sql id="Base_Column_List_chepai">
+        carmagid,b_id,vs_id,v_id,i_id,bc_id,s_id,c_id,chepai,chejiano,fadongjino,zuoweinumber,buydate,daoqiyers,newlichen,
+        nextbytime,nextbylichen,yesorno,beizhu,jianyi,cjdate
     </sql>
     <!--查询单个-->
     <select id="queryById" resultMap="BaseResultMap">
@@ -81,12 +82,11 @@
         <include refid="Base_Column_List_emp" />,
         <include refid="Base_Column_List_cailiao" />,
         <include refid="Base_Column_List_mendian" />,
-        <include refid="Base_Column_List_empids" />
+        <include refid="Base_Column_List_chepai" />
         from mainbilling mai
         inner join service se on ma.serviceid = se.serviceid
         inner join customer cu on ma.kehuid = cu.c_id
         inner join emp em on ma.empid = em.e_Id
-        inner join emp em1 on ma.empids = em1.e_Id
         inner join projectsettings pr on ma.xiangmuid = pr.p_id
         inner join commodity co on ma.cailiaoid = co.co_id
         inner join store st on ma.mendianid = st.s_id

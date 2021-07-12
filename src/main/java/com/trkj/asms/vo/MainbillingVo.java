@@ -8,6 +8,7 @@ import lombok.NonNull;
 import org.springframework.validation.annotation.Validated;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -26,7 +27,7 @@ public class MainbillingVo implements Serializable {
     /**
     * 维修开单id
     */
-    private Integer mainbillingid;
+    private String servicename;
     /**
     * 维修类型id
     */
@@ -40,36 +41,26 @@ public class MainbillingVo implements Serializable {
     /**
     * 客户id
     */
-    private Customer customer;
-    private Integer kehuid;
+    private String c_name;
+    private String c_phone;
     /**
     * 员工id
     */
-    private Emp emp;
-    private Integer empid;
+    private String Name;
     /**
     * 项目id
     */
-    private Projectsettings projectsettings;
-    private Integer xiangmuid;
+    private String WorkHours;
+    private BigDecimal CustAccountPrcie;
     /**
     * 材料id
     */
-    private Commodity commodity;
-    private Integer cailiaoid;
+    private BigDecimal cusprice;
     /**
     * 门店id
     */
     private Store store;
     private Integer mendianid;
-    /**
-    * 派工id
-    */
-    private Integer empids;
-    /**
-    * 派工状态
-    */
-    private Integer paigongsta;
     /**
     * 单据编号
     */
@@ -98,18 +89,6 @@ public class MainbillingVo implements Serializable {
     * 随车物品
     */
     private String suichewup;
-    /**
-    * 完工状态
-    */
-    private Integer wangongsta;
-    /**
-    * 完工时间
-    */
-    private Date wangongtime;
-    /**
-    * 优惠金额
-    */
-    private Double favourable;
     /**
     * 预计总费用
     */

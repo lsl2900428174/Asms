@@ -61,7 +61,7 @@ public class MaintenanceappVo implements Serializable {
     /**
      * 门店id
      */
-    private Integer mendianid;
+    private String s_name;
 
     /**
      * 预约单号

@@ -44,9 +44,9 @@ public class Mainbilling implements Serializable {
     */
     private Integer mendianid;
     /**
-    * 派工id
+    * 车牌id
     */
-    private Integer empids;
+    private Integer chepai;
     /**
     * 派工状态
     */
@@ -174,11 +174,11 @@ public class Mainbilling implements Serializable {
     }
 
     public Integer getEmpids() {
-        return empids;
+        return chepai;
     }
 
     public void setEmpids(Integer empids) {
-        this.empids = empids;
+        this.chepai = empids;
     }
 
     public Integer getPaigongsta() {
