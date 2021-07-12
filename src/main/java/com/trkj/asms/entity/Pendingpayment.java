@@ -1,7 +1,10 @@
 package com.trkj.asms.entity;
 
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 待付列表(Pendingpayment)实体类
@@ -18,14 +21,17 @@ public class Pendingpayment implements Serializable {
     /**
      * 门店id
      */
+    private  Store store;
     private Integer sId;
     /**
      * 客户编号
      */
+    private Customer customer;
     private Integer customerid;
     /**
      * 采购订单编号
      */
+
     private Integer materialorderid;
     /**
      * 单据编号
@@ -42,6 +48,8 @@ public class Pendingpayment implements Serializable {
     /**
      * 单据日期
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date documentdate;
     /**
      * 往来关系
@@ -78,6 +86,8 @@ public class Pendingpayment implements Serializable {
     /**
      * 删除时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date deletetime;
     /**
      * 时效性（0是未过期，1是已过期）
