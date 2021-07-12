@@ -1,6 +1,7 @@
 package com.trkj.asms.dao;
 
 import com.trkj.asms.entity.Savings;
+import com.trkj.asms.vo.SavingVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -14,6 +15,11 @@ import java.util.List;
  */
 @Mapper
 public interface SavingsDao {
+    /**
+     * 查询储值卡信息
+     * @return
+     */
+    List<SavingVo> findall();
     /**
      * 根据储值卡号增加余额
      * @param symony

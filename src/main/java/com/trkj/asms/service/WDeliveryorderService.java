@@ -35,7 +35,7 @@ public interface WDeliveryorderService {
      * @param wDeliveryorder 实例对象
      * @return 实例对象
      */
-    WDeliveryorder insert(WDeliveryorder wDeliveryorder);
+    boolean insert(WDeliveryorder wDeliveryorder);
 
     /**
      * 修改数据
