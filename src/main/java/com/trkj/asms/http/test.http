@@ -1,7 +1,5 @@
-GET http://localhost:8081/asms/findAll
+GET http://localhost:8081/asms/selectAll
 Accept: application/json
-{
-"currentPage"=3,
-"pagesize"=1
-}
+
+
 ###
