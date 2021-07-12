@@ -5,6 +5,9 @@ import com.trkj.asms.entity.MemberStored;
 import com.trkj.asms.dao.MemberStoredDao;
 import com.trkj.asms.entity.Savings;
 import com.trkj.asms.service.MemberStoredService;
+import com.trkj.asms.utils.IdWorker;
+import com.trkj.asms.utils.Phonejiami;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
@@ -24,6 +27,7 @@ public class MemberStoredServiceImpl implements MemberStoredService {
     private MemberStoredDao memberStoredDao;
     @Resource
     private SavingsDao savingsDao;
+
 
     /**
      * 添加储值单；先新增储值单在新增储值卡加余额
@@ -47,23 +51,21 @@ public class MemberStoredServiceImpl implements MemberStoredService {
                     savings1.setSavingsno(memberStored.getSavingsno());
                     savings1.setSymony(memberStored.getGiveAmount() + memberStored.getStoredValue());
                     savings1.setSId(memberStored.getSId());
+                    savings1.setCjdate(memberStored.getBillDate());
                     this.savingsDao.insert(savings1);
                 }else{
                     //如果查询结果为1就增加储值卡余额
                     int money = this.savingsDao.updatemoney(memberStored.getGiveAmount()+memberStored.getStoredValue(),memberStored.getSavingsno());
                 }
                 return true;
-            }else{
-                //不为1就说明新增失败
-                return false;
             }
         }catch (Exception e){
             //捕抓异常进行事务回滚操作，新增失败
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             System.out.println(e.getMessage());
+        }finally {
             return false;
         }
-
     }
 
     /**
@@ -72,7 +74,8 @@ public class MemberStoredServiceImpl implements MemberStoredService {
      */
     @Override
     public List<MemberStored> findall() {
-        return this.memberStoredDao.findall();
+        List<MemberStored> list = this.memberStoredDao.findall();
+        return list;
     }
 
     /**

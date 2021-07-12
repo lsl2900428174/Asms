@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.asms.dao.TMemberpricesDao">
+
+    <resultMap type="com.trkj.asms.entity.TMemberprices" id="TMemberpricesMap">
+        <result property="mId" column="m_id" jdbcType="INTEGER"/>
+        <result property="sId" column="s_id" jdbcType="INTEGER"/>
+        <result property="cId" column="c_id" jdbcType="INTEGER"/>
+        <result property="zheko" column="zheko" jdbcType="NUMERIC"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="TMemberpricesMap">
+        select
+          m_id, s_id, c_id, zheko
+        from asms.t_memberprices
+        where m_id = #{mId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="TMemberpricesMap">
+        select
+          m_id, s_id, c_id, zheko
+        from asms.t_memberprices
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="TMemberpricesMap">
+        select
+        m_id, s_id, c_id, zheko
+        from asms.t_memberprices
+        <where>
+            <if test="mId != null">
+                and m_id = #{mId}
+            </if>
+            <if test="sId != null">
+                and s_id = #{sId}
+            </if>
+            <if test="cId != null">
+                and c_id = #{cId}
+            </if>
+            <if test="zheko != null">
+                and zheko = #{zheko}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="mId" useGeneratedKeys="true">
+        insert into asms.t_memberprices(s_id, c_id, zheko)
+        values (#{sId}, #{cId}, #{zheko})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="mId" useGeneratedKeys="true">
+        insert into asms.t_memberprices(s_id, c_id, zheko)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.sId}, #{entity.cId}, #{entity.zheko})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="mId" useGeneratedKeys="true">
+        insert into asms.t_memberprices(s_id, c_id, zheko)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.sId}, #{entity.cId}, #{entity.zheko})
+        </foreach>
+        on duplicate key update
+        s_id = values(s_id) , c_id = values(c_id) , zheko = values(zheko)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update asms.t_memberprices
+        <set>
+            <if test="sId != null">
+                s_id = #{sId},
+            </if>
+            <if test="cId != null">
+                c_id = #{cId},
+            </if>
+            <if test="zheko != null">
+                zheko = #{zheko},
+            </if>
+        </set>
+        where m_id = #{mId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from asms.t_memberprices where m_id = #{mId}
+    </delete>
+
+</mapper>
+

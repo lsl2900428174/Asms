@@ -9,6 +9,15 @@
         <result property="cPhone" column="c_phone" jdbcType="VARCHAR"/>
         <result property="savingsno" column="savingsno" jdbcType="VARCHAR"/>
         <result property="symony" column="symony" jdbcType="NUMERIC"/>
+        <result property="cjdate" column="cjdate" jdbcType="timestamp"/>
+    </resultMap>
+    <resultMap id="SavingsVo" type="com.trkj.asms.vo.SavingVo">
+        <result property="sname" column="s_name" jdbcType="VARCHAR"/>
+        <result property="cname" column="c_name" jdbcType="VARCHAR"/>
+        <result property="cphone" column="c_phone" jdbcType="VARCHAR"/>
+        <result property="savingsno" column="savingsno" jdbcType="VARCHAR"/>
+        <result property="symony" column="symony" jdbcType="NUMERIC"/>
+        <result property="cjdate" column="cjdate" jdbcType="timestamp"/>
     </resultMap>
 
     <update id="updatemoney">
@@ -16,6 +25,12 @@
     </update>
     <select id="findbynumber" resultMap="SavingsMap">
         select * from savings where savingsno = #{savingsno}
+    </select>
+    <select id="findall" resultMap="SavingsVo">
+        SELECT st.s_name,s.c_name,s.c_phone,s.savingsno,s.symony
+        FROM savings s
+        LEFT JOIN store st  ON st.s_id=s.S_id
+        ORDER BY s.cjdate
     </select>
     <!--查询单个-->
     <select id="queryById" resultMap="SavingsMap">

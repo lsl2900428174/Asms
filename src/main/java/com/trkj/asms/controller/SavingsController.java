@@ -2,9 +2,11 @@ package com.trkj.asms.controller;
 
 import com.trkj.asms.entity.Savings;
 import com.trkj.asms.service.SavingsService;
+import com.trkj.asms.vo.SavingVo;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (Savings)表控制层
@@ -30,6 +32,15 @@ public class SavingsController {
     @GetMapping("selectOne")
     public Savings selectOne(Integer id) {
         return this.savingsService.queryById(id);
+    }
+
+    /**
+     * 查询客户的储值卡余额
+     * @return
+     */
+    @GetMapping("findall")
+    public List<SavingVo> findall(){
+        return this.savingsService.findall();
     }
 
 }
