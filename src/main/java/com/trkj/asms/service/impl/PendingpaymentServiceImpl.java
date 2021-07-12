@@ -20,6 +20,11 @@ public class PendingpaymentServiceImpl implements PendingpaymentService {
     }
 
     @Override
+    public List<Pendingpayment> findyiAll() {
+        return pendingpaymentDao.selectyiAll();
+    }
+
+    @Override
     public Pendingpayment Addpending(Pendingpayment pendingpayment) {
         pendingpaymentDao.insertSelective(pendingpayment);
         return pendingpayment;
@@ -31,5 +36,15 @@ public class PendingpaymentServiceImpl implements PendingpaymentService {
         pendingpayment.setDocumentstatus(1);
         pendingpaymentDao.updateByPrimaryKeySelective(pendingpayment);
         return pendingpayment;
+    }
+
+    @Override
+    public List<Pendingpayment> findmohuNameAndId(String documentnumber, String s_name) {
+        return pendingpaymentDao.selectmohu(documentnumber, s_name);
+    }
+
+    @Override
+    public List<Pendingpayment> findyimohuNameAndId(String documentnumber, String documenttype) {
+        return pendingpaymentDao.selectyimohu(documentnumber, documenttype);
     }
 }
