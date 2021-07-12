@@ -39,7 +39,7 @@ public class WMaterialorderController {
     private WReturnedmaterialsService wReturnedmaterialsService;
 
     /**
-     * 新增采购物资
+     * 新增采购物资记录
      */
     @PostMapping("insertpurchase")
     public AjaxResponse insertpurchase(@RequestBody WMaterialorder wMaterialorder){
