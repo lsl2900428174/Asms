@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.asms.dao.MaintenanceappDao">
+  <resultMap id="BaseResultMap" type="com.trkj.asms.entity.Maintenanceapp">
+    <id column="maintenanceappid" jdbcType="INTEGER" property="maintenanceappid" />
+    <result column="serviceid" jdbcType="INTEGER" property="serviceid" />
+    <result column="kehuid" jdbcType="INTEGER" property="kehuid" />
+    <result column="empid" jdbcType="INTEGER" property="empid" />
+    <result column="carid" jdbcType="INTEGER" property="carid" />
+    <result column="xiangmuid" jdbcType="INTEGER" property="xiangmuid" />
+    <result column="cailiaoid" jdbcType="INTEGER" property="cailiaoid" />
+    <result column="mendianid" jdbcType="INTEGER" property="mendianid" />
+    <result column="appno" jdbcType="VARCHAR" property="appno" />
+    <result column="mainorder" jdbcType="TIMESTAMP" property="mainorder" />
+    <result column="mainorderstuta" jdbcType="INTEGER" property="mainorderstuta" />
+    <result column="yujiallmony" jdbcType="DECIMAL" property="yujiallmony" />
+    <result column="yujisetcar" jdbcType="TIMESTAMP" property="yujisetcar" />
+    <result column="yujisetcartime" jdbcType="TIMESTAMP" property="yujisetcartime" />
+    <result column="kehudepict" jdbcType="VARCHAR" property="kehudepict" />
+    <result column="shiyucause" jdbcType="VARCHAR" property="shiyucause" />
+    <result column="beizhu" jdbcType="VARCHAR" property="beizhu" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    maintenanceappid, serviceid, kehuid, empid, xiangmuid, cailiaoid, mendianid, carid , appno,
+    mainorder, mainorderstuta, yujiallmony, yujisetcar, yujisetcartime, kehudepict, shiyucause, 
+    beizhu
+  </sql>
+  <select id="selectmaintenanceapp" resultType="com.trkj.asms.vo.MaintenanceappVo">
+    select * from maintenanceapp ma
+     left join service se on ma.serviceid = se.serviceid
+     left join customer cu on ma.kehuid = cu.c_id
+     left join emp em on ma.empid = em.e_Id
+     left join projectsettings pr on ma.xiangmuid = pr.p_id
+     left join commodity co on ma.cailiaoid = co.co_id
+     left join store st on ma.mendianid = st.s_id
+    left join carmanagement ca on ma.carid = ca.carmagid
+     where cu.c_name like CONCAT('%' ,#{c_name , jdbcType=VARCHAR}, '%')
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from maintenanceapp
+    where maintenanceappid = #{maintenanceappid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="maintenanceappid" keyProperty="maintenanceappid" parameterType="com.trkj.asms.entity.Maintenanceapp" useGeneratedKeys="true">
+    insert into maintenanceapp (serviceid, kehuid, empid, 
+      xiangmuid, cailiaoid, mendianid, 
+      appno, mainorder, mainorderstuta, 
+      yujiallmony, yujisetcar, yujisetcartime, 
+      kehudepict, shiyucause, beizhu
+      )
+    values (#{serviceid,jdbcType=INTEGER}, #{kehuid,jdbcType=INTEGER}, #{empid,jdbcType=INTEGER}, 
+      #{xiangmuid,jdbcType=INTEGER}, #{cailiaoid,jdbcType=INTEGER}, #{mendianid,jdbcType=INTEGER}, 
+      #{appno,jdbcType=VARCHAR}, #{mainorder,jdbcType=TIMESTAMP}, #{mainorderstuta,jdbcType=INTEGER}, 
+      #{yujiallmony,jdbcType=DECIMAL}, #{yujisetcar,jdbcType=TIMESTAMP}, #{yujisetcartime,jdbcType=TIMESTAMP}, 
+      #{kehudepict,jdbcType=VARCHAR}, #{shiyucause,jdbcType=VARCHAR}, #{beizhu,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="maintenanceappid" keyProperty="maintenanceappid" parameterType="com.trkj.asms.entity.Maintenanceapp" useGeneratedKeys="true">
+    insert into maintenanceapp
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="serviceid != null">
+        serviceid,
+      </if>
+      <if test="kehuid != null">
+        kehuid,
+      </if>
+      <if test="empid != null">
+        empid,
+      </if>
+      <if test="xiangmuid != null">
+        xiangmuid,
+      </if>
+      <if test="cailiaoid != null">
+        cailiaoid,
+      </if>
+      <if test="mendianid != null">
+        mendianid,
+      </if>
+      <if test="appno != null">
+        appno,
+      </if>
+      <if test="mainorder != null">
+        mainorder,
+      </if>
+      <if test="mainorderstuta != null">
+        mainorderstuta,
+      </if>
+      <if test="yujiallmony != null">
+        yujiallmony,
+      </if>
+      <if test="yujisetcar != null">
+        yujisetcar,
+      </if>
+      <if test="yujisetcartime != null">
+        yujisetcartime,
+      </if>
+      <if test="kehudepict != null">
+        kehudepict,
+      </if>
+      <if test="shiyucause != null">
+        shiyucause,
+      </if>
+      <if test="beizhu != null">
+        beizhu,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="serviceid != null">
+        #{serviceid,jdbcType=INTEGER},
+      </if>
+      <if test="kehuid != null">
+        #{kehuid,jdbcType=INTEGER},
+      </if>
+      <if test="empid != null">
+        #{empid,jdbcType=INTEGER},
+      </if>
+      <if test="xiangmuid != null">
+        #{xiangmuid,jdbcType=INTEGER},
+      </if>
+      <if test="cailiaoid != null">
+        #{cailiaoid,jdbcType=INTEGER},
+      </if>
+      <if test="mendianid != null">
+        #{mendianid,jdbcType=INTEGER},
+      </if>
+      <if test="appno != null">
+        #{appno,jdbcType=VARCHAR},
+      </if>
+      <if test="mainorder != null">
+        #{mainorder,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mainorderstuta != null">
+        #{mainorderstuta,jdbcType=INTEGER},
+      </if>
+      <if test="yujiallmony != null">
+        #{yujiallmony,jdbcType=DECIMAL},
+      </if>
+      <if test="yujisetcar != null">
+        #{yujisetcar,jdbcType=TIMESTAMP},
+      </if>
+      <if test="yujisetcartime != null">
+        #{yujisetcartime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="kehudepict != null">
+        #{kehudepict,jdbcType=VARCHAR},
+      </if>
+      <if test="shiyucause != null">
+        #{shiyucause,jdbcType=VARCHAR},
+      </if>
+      <if test="beizhu != null">
+        #{beizhu,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.trkj.asms.entity.Maintenanceapp">
+    update maintenanceapp
+    <set>
+      <if test="serviceid != null">
+        serviceid = #{serviceid,jdbcType=INTEGER},
+      </if>
+      <if test="kehuid != null">
+        kehuid = #{kehuid,jdbcType=INTEGER},
+      </if>
+      <if test="empid != null">
+        empid = #{empid,jdbcType=INTEGER},
+      </if>
+      <if test="xiangmuid != null">
+        xiangmuid = #{xiangmuid,jdbcType=INTEGER},
+      </if>
+      <if test="cailiaoid != null">
+        cailiaoid = #{cailiaoid,jdbcType=INTEGER},
+      </if>
+      <if test="mendianid != null">
+        mendianid = #{mendianid,jdbcType=INTEGER},
+      </if>
+      <if test="appno != null">
+        appno = #{appno,jdbcType=VARCHAR},
+      </if>
+      <if test="mainorder != null">
+        mainorder = #{mainorder,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mainorderstuta != null">
+        mainorderstuta = #{mainorderstuta,jdbcType=INTEGER},
+      </if>
+      <if test="yujiallmony != null">
+        yujiallmony = #{yujiallmony,jdbcType=DECIMAL},
+      </if>
+      <if test="yujisetcar != null">
+        yujisetcar = #{yujisetcar,jdbcType=TIMESTAMP},
+      </if>
+      <if test="yujisetcartime != null">
+        yujisetcartime = #{yujisetcartime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="kehudepict != null">
+        kehudepict = #{kehudepict,jdbcType=VARCHAR},
+      </if>
+      <if test="shiyucause != null">
+        shiyucause = #{shiyucause,jdbcType=VARCHAR},
+      </if>
+      <if test="beizhu != null">
+        beizhu = #{beizhu,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where maintenanceappid = #{maintenanceappid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.trkj.asms.entity.Maintenanceapp">
+    update maintenanceapp
+    set serviceid = #{serviceid,jdbcType=INTEGER},
+      kehuid = #{kehuid,jdbcType=INTEGER},
+      empid = #{empid,jdbcType=INTEGER},
+      xiangmuid = #{xiangmuid,jdbcType=INTEGER},
+      cailiaoid = #{cailiaoid,jdbcType=INTEGER},
+      mendianid = #{mendianid,jdbcType=INTEGER},
+      appno = #{appno,jdbcType=VARCHAR},
+      mainorder = #{mainorder,jdbcType=TIMESTAMP},
+      mainorderstuta = #{mainorderstuta,jdbcType=INTEGER},
+      yujiallmony = #{yujiallmony,jdbcType=DECIMAL},
+      yujisetcar = #{yujisetcar,jdbcType=TIMESTAMP},
+      yujisetcartime = #{yujisetcartime,jdbcType=TIMESTAMP},
+      kehudepict = #{kehudepict,jdbcType=VARCHAR},
+      shiyucause = #{shiyucause,jdbcType=VARCHAR},
+      beizhu = #{beizhu,jdbcType=VARCHAR}
+    where maintenanceappid = #{maintenanceappid,jdbcType=INTEGER}
+  </update>
+</mapper>

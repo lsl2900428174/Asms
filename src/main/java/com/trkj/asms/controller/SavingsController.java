@@ -1,25 +1,25 @@
 package com.trkj.asms.controller;
 
-import com.trkj.asms.entity.Carwaslist;
-import com.trkj.asms.service.CarwaslistService;
+import com.trkj.asms.entity.Savings;
+import com.trkj.asms.service.SavingsService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
 /**
- * (Carwaslist)表控制层
+ * (Savings)表控制层
  *
  * @author makejava
- * @since 2021-07-12 00:05:42
+ * @since 2021-07-12 02:41:59
  */
 @RestController
-@RequestMapping("carwaslist")
-public class CarwaslistController {
+@RequestMapping("savings")
+public class SavingsController {
     /**
      * 服务对象
      */
     @Resource
-    private CarwaslistService carwaslistService;
+    private SavingsService savingsService;
 
     /**
      * 通过主键查询单条数据
@@ -28,8 +28,8 @@ public class CarwaslistController {
      * @return 单条数据
      */
     @GetMapping("selectOne")
-    public Carwaslist selectOne(Integer id) {
-        return this.carwaslistService.queryById(id);
+    public Savings selectOne(Integer id) {
+        return this.savingsService.queryById(id);
     }
 
 }

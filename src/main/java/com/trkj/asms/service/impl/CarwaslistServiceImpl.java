@@ -12,7 +12,7 @@ import java.util.List;
  * (Carwaslist)表服务实现类
  *
  * @author makejava
- * @since 2021-07-11 10:55:50
+ * @since 2021-07-12 00:05:41
  */
 @Service("carwaslistService")
 public class CarwaslistServiceImpl implements CarwaslistService {
@@ -34,7 +34,7 @@ public class CarwaslistServiceImpl implements CarwaslistService {
      * 查询多条数据
      *
      * @param offset 查询起始位置
-     * @param limit  查询条数
+     * @param limit 查询条数
      * @return 对象列表
      */
     @Override

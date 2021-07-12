@@ -1,5 +1,6 @@
 package com.trkj.asms.vo;
 
+
 import com.trkj.asms.exception.CustomError;
 import com.trkj.asms.exception.CustomErrorType;
 import lombok.Data;
@@ -7,24 +8,19 @@ import lombok.Data;
 
 @Data
 public class AjaxResponse {
-
-
     private boolean isSuccess;
-    private int code;   
+    private int code;
     private String message;
     private Object data;
-
     private AjaxResponse() {
 
     }
-
     /**
      * 请求出现异常时的响应数据封装
      * @param e:异常
      * @return AjaxResponse 封闭后的响应对象
      */
     public static AjaxResponse error(CustomError e) {
-
         AjaxResponse resultBean = new AjaxResponse();
         resultBean.setSuccess(false);
         resultBean.setCode(e.getCode());
@@ -32,7 +28,6 @@ public class AjaxResponse {
             resultBean.setMessage(e.getMessage());
         }else if(e.getCode() == CustomErrorType.SYSTEM_ERROR.getCode()){
             resultBean.setMessage(e.getMessage() + ",系统出现异常，请联系管理员!");
-
         }else if(e.getCode()== CustomErrorType.PAGE_NOT_FOUND_ERROR.getCode()){
             resultBean.setMessage("未能找到所请求的资源！");
         }else if(e.getCode()== CustomErrorType.ACCOUNT_ERROR.getCode()){
@@ -59,13 +54,11 @@ public class AjaxResponse {
      * @return AjaxResponse 封闭后的响应对象
      */
     public static AjaxResponse success(Object data) {
-       AjaxResponse resultBean = new AjaxResponse();
+        AjaxResponse resultBean = new AjaxResponse();
         resultBean.setSuccess(true);
         resultBean.setCode(200);
         resultBean.setMessage("success");
         resultBean.setData(data);
         return resultBean;
     }
-
-
 }

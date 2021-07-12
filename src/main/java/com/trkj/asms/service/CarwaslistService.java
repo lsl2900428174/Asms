@@ -1,14 +1,13 @@
 package com.trkj.asms.service;
 
 import com.trkj.asms.entity.Carwaslist;
-
 import java.util.List;
 
 /**
  * (Carwaslist)表服务接口
  *
  * @author makejava
- * @since 2021-07-11 10:55:50
+ * @since 2021-07-12 00:05:39
  */
 public interface CarwaslistService {
 
@@ -24,7 +23,7 @@ public interface CarwaslistService {
      * 查询多条数据
      *
      * @param offset 查询起始位置
-     * @param limit  查询条数
+     * @param limit 查询条数
      * @return 对象列表
      */
     List<Carwaslist> queryAllByLimit(int offset, int limit);
