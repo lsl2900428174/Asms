@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.asms.dao.EmpDao">
+
+    <resultMap type="com.trkj.asms.entity.Emp" id="EmpMap">
+        <result property="eId" column="e_Id" jdbcType="INTEGER"/>
+        <result property="sId" column="s_id" jdbcType="INTEGER"/>
+        <result property="pId" column="p_id" jdbcType="INTEGER"/>
+        <result property="dId" column="d_id" jdbcType="INTEGER"/>
+        <result property="sex" column="Sex" jdbcType="VARCHAR"/>
+        <result property="name" column="Name" jdbcType="VARCHAR"/>
+        <result property="loginid" column="LoginID" jdbcType="VARCHAR"/>
+        <result property="phone" column="Phone" jdbcType="VARCHAR"/>
+        <result property="updatetime" column="UpdateTime" jdbcType="TIMESTAMP"/>
+        <result property="updatename" column="UpdateName" jdbcType="VARCHAR"/>
+        <result property="deletetime" column="DeleteTime" jdbcType="TIMESTAMP"/>
+        <result property="deletename" column="DeleteName" jdbcType="VARCHAR"/>
+        <result property="timeliness" column="timeliness" jdbcType="INTEGER"/>
+        <result property="createusername" column="CreateUserName" jdbcType="VARCHAR"/>
+        <result property="addtime" column="addTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="findall" resultMap="EmpMap">
+        select * from emp
+    </select>
+    <!--查询单个-->
+    <select id="queryById" resultMap="EmpMap">
+        select
+          e_Id, s_id, p_id, d_id, Sex, Name, LoginID, Phone, UpdateTime, UpdateName, DeleteTime, DeleteName, timeliness, CreateUserName, addTime
+        from asms.emp
+        where e_Id = #{eId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="EmpMap">
+        select
+          e_Id, s_id, p_id, d_id, Sex, Name, LoginID, Phone, UpdateTime, UpdateName, DeleteTime, DeleteName, timeliness, CreateUserName, addTime
+        from asms.emp
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="EmpMap">
+        select
+        e_Id, s_id, p_id, d_id, Sex, Name, LoginID, Phone, UpdateTime, UpdateName, DeleteTime, DeleteName, timeliness,
+        CreateUserName, addTime
+        from asms.emp
+        <where>
+            <if test="eId != null">
+                and e_Id = #{eId}
+            </if>
+            <if test="sId != null">
+                and s_id = #{sId}
+            </if>
+            <if test="pId != null">
+                and p_id = #{pId}
+            </if>
+            <if test="dId != null">
+                and d_id = #{dId}
+            </if>
+            <if test="sex != null and sex != ''">
+                and Sex = #{sex}
+            </if>
+            <if test="name != null and name != ''">
+                and Name = #{name}
+            </if>
+            <if test="loginid != null and loginid != ''">
+                and LoginID = #{loginid}
+            </if>
+            <if test="phone != null and phone != ''">
+                and Phone = #{phone}
+            </if>
+            <if test="updatetime != null">
+                and UpdateTime = #{updatetime}
+            </if>
+            <if test="updatename != null and updatename != ''">
+                and UpdateName = #{updatename}
+            </if>
+            <if test="deletetime != null">
+                and DeleteTime = #{deletetime}
+            </if>
+            <if test="deletename != null and deletename != ''">
+                and DeleteName = #{deletename}
+            </if>
+            <if test="timeliness != null">
+                and timeliness = #{timeliness}
+            </if>
+            <if test="createusername != null and createusername != ''">
+                and CreateUserName = #{createusername}
+            </if>
+            <if test="addtime != null">
+                and addTime = #{addtime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="eId" useGeneratedKeys="true">
+        insert into asms.emp(s_id, p_id, d_id, Sex, Name, LoginID, Phone, UpdateTime, UpdateName, DeleteTime, DeleteName, timeliness, CreateUserName, addTime)
+        values (#{sId}, #{pId}, #{dId}, #{sex}, #{name}, #{loginid}, #{phone}, #{updatetime}, #{updatename}, #{deletetime}, #{deletename}, #{timeliness}, #{createusername}, #{addtime})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="eId" useGeneratedKeys="true">
+        insert into asms.emp(s_id, p_id, d_id, Sex, Name, LoginID, Phone, UpdateTime, UpdateName, DeleteTime,
+        DeleteName, timeliness, CreateUserName, addTime)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.sId}, #{entity.pId}, #{entity.dId}, #{entity.sex}, #{entity.name}, #{entity.loginid},
+            #{entity.phone}, #{entity.updatetime}, #{entity.updatename}, #{entity.deletetime}, #{entity.deletename},
+            #{entity.timeliness}, #{entity.createusername}, #{entity.addtime})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="eId" useGeneratedKeys="true">
+        insert into asms.emp(s_id, p_id, d_id, Sex, Name, LoginID, Phone, UpdateTime, UpdateName, DeleteTime,
+        DeleteName, timeliness, CreateUserName, addTime)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.sId}, #{entity.pId}, #{entity.dId}, #{entity.sex}, #{entity.name}, #{entity.loginid},
+            #{entity.phone}, #{entity.updatetime}, #{entity.updatename}, #{entity.deletetime}, #{entity.deletename},
+            #{entity.timeliness}, #{entity.createusername}, #{entity.addtime})
+        </foreach>
+        on duplicate key update
+        s_id = values(s_id) , p_id = values(p_id) , d_id = values(d_id) , Sex = values(Sex) , Name = values(Name) ,
+        LoginID = values(LoginID) , Phone = values(Phone) , UpdateTime = values(UpdateTime) , UpdateName =
+        values(UpdateName) , DeleteTime = values(DeleteTime) , DeleteName = values(DeleteName) , timeliness =
+        values(timeliness) , CreateUserName = values(CreateUserName) , addTime = values(addTime)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update asms.emp
+        <set>
+            <if test="sId != null">
+                s_id = #{sId},
+            </if>
+            <if test="pId != null">
+                p_id = #{pId},
+            </if>
+            <if test="dId != null">
+                d_id = #{dId},
+            </if>
+            <if test="sex != null and sex != ''">
+                Sex = #{sex},
+            </if>
+            <if test="name != null and name != ''">
+                Name = #{name},
+            </if>
+            <if test="loginid != null and loginid != ''">
+                LoginID = #{loginid},
+            </if>
+            <if test="phone != null and phone != ''">
+                Phone = #{phone},
+            </if>
+            <if test="updatetime != null">
+                UpdateTime = #{updatetime},
+            </if>
+            <if test="updatename != null and updatename != ''">
+                UpdateName = #{updatename},
+            </if>
+            <if test="deletetime != null">
+                DeleteTime = #{deletetime},
+            </if>
+            <if test="deletename != null and deletename != ''">
+                DeleteName = #{deletename},
+            </if>
+            <if test="timeliness != null">
+                timeliness = #{timeliness},
+            </if>
+            <if test="createusername != null and createusername != ''">
+                CreateUserName = #{createusername},
+            </if>
+            <if test="addtime != null">
+                addTime = #{addtime},
+            </if>
+        </set>
+        where e_Id = #{eId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from asms.emp where e_Id = #{eId}
+    </delete>
+
+</mapper>
+

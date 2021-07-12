@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.asms.dao.CustomerDao">
+
+    <resultMap type="com.trkj.asms.entity.Customer" id="CustomerMap">
+        <result property="cId" column="c_id" jdbcType="INTEGER"/>
+        <result property="cName" column="c_name" jdbcType="VARCHAR"/>
+        <result property="sId" column="s_id" jdbcType="INTEGER"/>
+        <result property="mId" column="m_id" jdbcType="INTEGER"/>
+        <result property="cGender" column="c_gender" jdbcType="VARCHAR"/>
+        <result property="cContacts" column="c_contacts" jdbcType="VARCHAR"/>
+        <result property="cPhone" column="c_phone" jdbcType="VARCHAR"/>
+        <result property="ctId" column="ct_id" jdbcType="INTEGER"/>
+        <result property="cAddress" column="c_address" jdbcType="VARCHAR"/>
+        <result property="cText" column="c_text" jdbcType="VARCHAR"/>
+        <result property="eId" column="e_id" jdbcType="INTEGER"/>
+        <result property="cDate" column="c_date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <resultMap id="KehuVo" type="com.trkj.asms.vo.KehuVo">
+        <result property="name" column="Name" jdbcType="VARCHAR"/>
+        <result property="sName" column="c_name" jdbcType="VARCHAR"/>
+        <result property="cName" column="c_name" jdbcType="VARCHAR"/>
+        <result property="cPhone" column="c_phone" jdbcType="VARCHAR"/>
+        <result property="cGender" column="c_gender" jdbcType="VARCHAR"/>
+        <result property="cContacts" column="c_contacts" jdbcType="VARCHAR"/>
+        <result property="ctName" column="ct_name" jdbcType="VARCHAR"/>
+        <result property="savingsno" column="savingsno" jdbcType="VARCHAR"/>
+        <result property="cAddress" column="c_address" jdbcType="VARCHAR"/>
+        <result property="cText" column="c_text" jdbcType="VARCHAR"/>
+        <result property="cDate" column="c_date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+<!--    查询客户资料数据-->
+    <select id="findall" resultMap="KehuVo">
+        SELECT s.s_name,c.c_name,c.c_phone,c.c_gender,c.c_contacts,st.ct_name,sa.savingsno,c.c_address,e.Name,c.c_text,c.c_date
+        FROM customer c
+        LEFT JOIN store s ON c.`s_id` = s.s_id
+        LEFT JOIN customertype st ON c.ct_id = st.ct_id
+        LEFT JOIN savings sa ON c.c_id = sa.c_id
+        LEFT JOIN emp e ON c.`e_id` = e.e_Id
+        ORDER BY c.c_date
+    </select>
+    <select id="findall2" resultMap="CustomerMap">
+        select * from customer
+    </select>
+    <!--查询单个-->
+    <select id="queryById" resultMap="CustomerMap">
+        select
+          c_id, c_name, s_id, m_id, c_gender, c_contacts, c_phone, ct_id, c_address, c_text, e_id, c_date
+        from asms.customer
+        where c_id = #{cId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="CustomerMap">
+        select
+          c_id, c_name, s_id, m_id, c_gender, c_contacts, c_phone, ct_id, c_address, c_text, e_id, c_date
+        from asms.customer
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="CustomerMap">
+        select
+        c_id, c_name, s_id, m_id, c_gender, c_contacts, c_phone, ct_id, c_address, c_text, e_id, c_date
+        from asms.customer
+        <where>
+            <if test="cId != null">
+                and c_id = #{cId}
+            </if>
+            <if test="cName != null and cName != ''">
+                and c_name = #{cName}
+            </if>
+            <if test="sId != null">
+                and s_id = #{sId}
+            </if>
+            <if test="mId != null">
+                and m_id = #{mId}
+            </if>
+            <if test="cGender != null and cGender != ''">
+                and c_gender = #{cGender}
+            </if>
+            <if test="cContacts != null and cContacts != ''">
+                and c_contacts = #{cContacts}
+            </if>
+            <if test="cPhone != null and cPhone != ''">
+                and c_phone = #{cPhone}
+            </if>
+            <if test="ctId != null">
+                and ct_id = #{ctId}
+            </if>
+            <if test="cAddress != null and cAddress != ''">
+                and c_address = #{cAddress}
+            </if>
+            <if test="cText != null and cText != ''">
+                and c_text = #{cText}
+            </if>
+            <if test="eId != null">
+                and e_id = #{eId}
+            </if>
+            <if test="cDate != null">
+                and c_date = #{cDate}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="cId" useGeneratedKeys="true">
+        insert into asms.customer(c_name, s_id, m_id, c_gender, c_contacts, c_phone, ct_id, c_address, c_text, e_id, c_date)
+        values (#{cName}, #{sId}, #{mId}, #{cGender}, #{cContacts}, #{cPhone}, #{ctId}, #{cAddress}, #{cText}, #{eId}, #{cDate})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="cId" useGeneratedKeys="true">
+        insert into asms.customer(c_name, s_id, m_id, c_gender, c_contacts, c_phone, ct_id, c_address, c_text, e_id,
+        c_date)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.cName}, #{entity.sId}, #{entity.mId}, #{entity.cGender}, #{entity.cContacts}, #{entity.cPhone},
+            #{entity.ctId}, #{entity.cAddress}, #{entity.cText}, #{entity.eId}, #{entity.cDate})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="cId" useGeneratedKeys="true">
+        insert into asms.customer(c_name, s_id, m_id, c_gender, c_contacts, c_phone, ct_id, c_address, c_text, e_id,
+        c_date)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.cName}, #{entity.sId}, #{entity.mId}, #{entity.cGender}, #{entity.cContacts}, #{entity.cPhone},
+            #{entity.ctId}, #{entity.cAddress}, #{entity.cText}, #{entity.eId}, #{entity.cDate})
+        </foreach>
+        on duplicate key update
+        c_name = values(c_name) , s_id = values(s_id) , m_id = values(m_id) , c_gender = values(c_gender) , c_contacts =
+        values(c_contacts) , c_phone = values(c_phone) , ct_id = values(ct_id) , c_address = values(c_address) , c_text
+        = values(c_text) , e_id = values(e_id) , c_date = values(c_date)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update asms.customer
+        <set>
+            <if test="cName != null and cName != ''">
+                c_name = #{cName},
+            </if>
+            <if test="sId != null">
+                s_id = #{sId},
+            </if>
+            <if test="mId != null">
+                m_id = #{mId},
+            </if>
+            <if test="cGender != null and cGender != ''">
+                c_gender = #{cGender},
+            </if>
+            <if test="cContacts != null and cContacts != ''">
+                c_contacts = #{cContacts},
+            </if>
+            <if test="cPhone != null and cPhone != ''">
+                c_phone = #{cPhone},
+            </if>
+            <if test="ctId != null">
+                ct_id = #{ctId},
+            </if>
+            <if test="cAddress != null and cAddress != ''">
+                c_address = #{cAddress},
+            </if>
+            <if test="cText != null and cText != ''">
+                c_text = #{cText},
+            </if>
+            <if test="eId != null">
+                e_id = #{eId},
+            </if>
+            <if test="cDate != null">
+                c_date = #{cDate},
+            </if>
+        </set>
+        where c_id = #{cId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from asms.customer where c_id = #{cId}
+    </delete>
+
+</mapper>
+

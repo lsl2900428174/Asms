@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.asms.dao.MemberStoredDao">
+
+    <resultMap type="com.trkj.asms.entity.MemberStored" id="MemberStoredMap">
+        <result property="mId" column="m_id" jdbcType="INTEGER"/>
+        <result property="sId" column="s_id" jdbcType="INTEGER"/>
+        <result property="billCode" column="bill_code" jdbcType="VARCHAR"/>
+        <result property="billDate" column="bill_date" jdbcType="TIMESTAMP"/>
+        <result property="cName" column="c_name" jdbcType="VARCHAR"/>
+        <result property="cPhone" column="c_phone" jdbcType="VARCHAR"/>
+        <result property="billState" column="bill_state" jdbcType="INTEGER"/>
+        <result property="savingsno" column="savingsno" jdbcType="VARCHAR"/>
+        <result property="storedValue" column="stored_value" jdbcType="NUMERIC"/>
+        <result property="giveAmount" column="give_amount" jdbcType="NUMERIC"/>
+        <result property="storedType" column="stored_type" jdbcType="VARCHAR"/>
+        <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+        <result property="address" column="address" jdbcType="VARCHAR"/>
+        <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="findall" resultMap="MemberStoredMap">
+        SELECT s.s_name,m.bill_code,m.bill_date,m.bill_state,m.c_name,m.c_phone,m.address,m.savingsno,m.stored_type,m.stored_value,m.give_amount,m.user_name,m.remarks
+        FROM member_stored m
+        LEFT JOIN store s ON s.`s_id` = m.s_id
+        ORDER BY m.bill_date
+    </select>
+    <!--查询单个-->
+    <select id="queryById" resultMap="MemberStoredMap">
+        select
+          m_id, s_id, bill_code, bill_date, c_name, c_phone, bill_state, savingsno, stored_value, give_amount, stored_type, user_name, address, remarks
+        from asms.member_stored
+        where m_id = #{mId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="MemberStoredMap">
+        select
+          m_id, s_id, bill_code, bill_date, c_name, c_phone, bill_state, savingsno, stored_value, give_amount, stored_type, user_name, address, remarks
+        from asms.member_stored
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="MemberStoredMap">
+        select
+        m_id, s_id, bill_code, bill_date, c_name, c_phone, bill_state, savingsno, stored_value, give_amount,
+        stored_type, user_name, address, remarks
+        from asms.member_stored
+        <where>
+            <if test="mId != null">
+                and m_id = #{mId}
+            </if>
+            <if test="sId != null">
+                and s_id = #{sId}
+            </if>
+            <if test="billCode != null and billCode != ''">
+                and bill_code = #{billCode}
+            </if>
+            <if test="billDate != null">
+                and bill_date = #{billDate}
+            </if>
+            <if test="cName != null and cName != ''">
+                and c_name = #{cName}
+            </if>
+            <if test="cPhone != null and cPhone != ''">
+                and c_phone = #{cPhone}
+            </if>
+            <if test="billState != null">
+                and bill_state = #{billState}
+            </if>
+            <if test="savingsno != null">
+                and savingsno = #{savingsno}
+            </if>
+            <if test="storedValue != null">
+                and stored_value = #{storedValue}
+            </if>
+            <if test="giveAmount != null">
+                and give_amount = #{giveAmount}
+            </if>
+            <if test="storedType != null and storedType != ''">
+                and stored_type = #{storedType}
+            </if>
+            <if test="userName != null and userName != ''">
+                and user_name = #{userName}
+            </if>
+            <if test="address != null and address != ''">
+                and address = #{address}
+            </if>
+            <if test="remarks != null and remarks != ''">
+                and remarks = #{remarks}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="mId" useGeneratedKeys="true">
+        insert into asms.member_stored(s_id, bill_code, bill_date, c_name, c_phone, bill_state, savingsno, stored_value, give_amount, stored_type, user_name, address, remarks)
+        values (#{sId}, #{billCode}, #{billDate}, #{cName}, #{cPhone}, #{billState}, #{savingsno}, #{storedValue}, #{giveAmount}, #{storedType}, #{userName}, #{address}, #{remarks})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="mId" useGeneratedKeys="true">
+        insert into asms.member_stored(s_id, bill_code, bill_date, c_name, c_phone, bill_state, savingsno, stored_value,
+        give_amount, stored_type, user_name, address, remarks)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.sId}, #{entity.billCode}, #{entity.billDate}, #{entity.cName}, #{entity.cPhone},
+            #{entity.billState}, #{entity.savingsno}, #{entity.storedValue}, #{entity.giveAmount}, #{entity.storedType},
+            #{entity.userName}, #{entity.address}, #{entity.remarks})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="mId" useGeneratedKeys="true">
+        insert into asms.member_stored(s_id, bill_code, bill_date, c_name, c_phone, bill_state, savingsno, stored_value,
+        give_amount, stored_type, user_name, address, remarks)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.sId}, #{entity.billCode}, #{entity.billDate}, #{entity.cName}, #{entity.cPhone},
+            #{entity.billState}, #{entity.savingsno}, #{entity.storedValue}, #{entity.giveAmount}, #{entity.storedType},
+            #{entity.userName}, #{entity.address}, #{entity.remarks})
+        </foreach>
+        on duplicate key update
+        s_id = values(s_id) , bill_code = values(bill_code) , bill_date = values(bill_date) , c_name = values(c_name) ,
+        c_phone = values(c_phone) , bill_state = values(bill_state) , savingsno = values(savingsno) , stored_value =
+        values(stored_value) , give_amount = values(give_amount) , stored_type = values(stored_type) , user_name =
+        values(user_name) , address = values(address) , remarks = values(remarks)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update asms.member_stored
+        <set>
+            <if test="sId != null">
+                s_id = #{sId},
+            </if>
+            <if test="billCode != null and billCode != ''">
+                bill_code = #{billCode},
+            </if>
+            <if test="billDate != null">
+                bill_date = #{billDate},
+            </if>
+            <if test="cName != null and cName != ''">
+                c_name = #{cName},
+            </if>
+            <if test="cPhone != null and cPhone != ''">
+                c_phone = #{cPhone},
+            </if>
+            <if test="billState != null">
+                bill_state = #{billState},
+            </if>
+            <if test="savingsno != null">
+                savingsno = #{savingsno},
+            </if>
+            <if test="storedValue != null">
+                stored_value = #{storedValue},
+            </if>
+            <if test="giveAmount != null">
+                give_amount = #{giveAmount},
+            </if>
+            <if test="storedType != null and storedType != ''">
+                stored_type = #{storedType},
+            </if>
+            <if test="userName != null and userName != ''">
+                user_name = #{userName},
+            </if>
+            <if test="address != null and address != ''">
+                address = #{address},
+            </if>
+            <if test="remarks != null and remarks != ''">
+                remarks = #{remarks},
+            </if>
+        </set>
+        where m_id = #{mId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from asms.member_stored where m_id = #{mId}
+    </delete>
+
+</mapper>
+

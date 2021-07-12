@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.asms.dao.VehicletypeDao">
+
+    <resultMap type="com.trkj.asms.entity.Vehicletype" id="VehicletypeMap">
+        <result property="vId" column="v_id" jdbcType="INTEGER"/>
+        <result property="vName" column="v_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="findall" resultMap="VehicletypeMap">
+        select * from vehicletype
+    </select>
+    <!--查询单个-->
+    <select id="queryById" resultMap="VehicletypeMap">
+        select
+          v_id, v_name
+        from asms.vehicletype
+        where v_id = #{vId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="VehicletypeMap">
+        select
+          v_id, v_name
+        from asms.vehicletype
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="VehicletypeMap">
+        select
+        v_id, v_name
+        from asms.vehicletype
+        <where>
+            <if test="vId != null">
+                and v_id = #{vId}
+            </if>
+            <if test="vName != null and vName != ''">
+                and v_name = #{vName}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="vId" useGeneratedKeys="true">
+        insert into asms.vehicletype(v_name)
+        values (#{vName})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="vId" useGeneratedKeys="true">
+        insert into asms.vehicletype(v_name)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.vName})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="vId" useGeneratedKeys="true">
+        insert into asms.vehicletype(v_name)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.vName})
+        </foreach>
+        on duplicate key update
+        v_name = values(v_name)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update asms.vehicletype
+        <set>
+            <if test="vName != null and vName != ''">
+                v_name = #{vName},
+            </if>
+        </set>
+        where v_id = #{vId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from asms.vehicletype where v_id = #{vId}
+    </delete>
+
+</mapper>
+
