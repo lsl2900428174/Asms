@@ -26,11 +26,13 @@ public class DueinController {
         return AjaxResponse.success(dueinPageInfo);
     }
     @GetMapping("/findyiduein")
-    public AjaxResponse findyiduein(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize){
+    public PageInfo<Duein> findyiduein(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize,
+                                    @RequestParam("documentnumber") String documentnumber, @RequestParam("sname") String sname,
+                                       @RequestParam("documenttype")String documenttype){
         PageHelper.startPage(currentPage,pagesize);
-        List<Duein> dueinList=dueinService.findyiduein();
+        List<Duein> dueinList=dueinService.finddueinmohu(documentnumber,sname,documenttype);
         PageInfo<Duein> dueinPageInfo=new PageInfo<>(dueinList);
-        return AjaxResponse.success(dueinPageInfo);
+        return dueinPageInfo;
     }
 //    新增：获取开单中的维修开单编号、洗车编号；获取客户会员充值的编号；获取仓库中的采购订单退货编号、物资出库编号
     @PostMapping("/addduein")

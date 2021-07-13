@@ -2,6 +2,7 @@ package com.trkj.asms.dao;
 
 import com.trkj.asms.entity.Duein;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 @Mapper
@@ -21,4 +22,6 @@ public interface DueinDao {
     List<Duein> findduein();
 //    收款单
     List<Duein> findyiduein();
+//模糊查询
+   List<Duein> selectmohu(@Param("documentnumber") String documentnumber, @Param("s_name") String s_name,@Param("documenttype")String documenttype);
 }
