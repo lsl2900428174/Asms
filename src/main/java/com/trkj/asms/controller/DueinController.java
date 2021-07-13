@@ -25,10 +25,24 @@ public class DueinController {
 
         return AjaxResponse.success(dueinPageInfo);
     }
+    @GetMapping("/findyiduein")
+    public AjaxResponse findyiduein(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize){
+        PageHelper.startPage(currentPage,pagesize);
+        List<Duein> dueinList=dueinService.findyiduein();
+        PageInfo<Duein> dueinPageInfo=new PageInfo<>(dueinList);
+        return AjaxResponse.success(dueinPageInfo);
+    }
 //    新增：获取开单中的维修开单编号、洗车编号；获取客户会员充值的编号；获取仓库中的采购订单退货编号、物资出库编号
     @PostMapping("/addduein")
     public AjaxResponse addduein(@RequestBody Duein duein){
         duein=dueinService.adddueinAll(duein);
         return AjaxResponse.success(duein);
     }
+//    删除：改变时效性为1
+    @PutMapping("/deleteduein")
+    public AjaxResponse deleteduein(@RequestBody Duein duein){
+        duein=dueinService.deleteduein(duein);
+        return AjaxResponse.success(duein);
+    }
+
 }

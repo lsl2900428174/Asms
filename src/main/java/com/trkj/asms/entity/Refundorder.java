@@ -1,7 +1,6 @@
 package com.trkj.asms.entity;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -9,21 +8,27 @@ import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
- * duein
+ * refundorder
  * @author 
  */
 @Data
-public class Duein implements Serializable {
+public class Refundorder implements Serializable {
     /**
      * 编号
      */
-    private Integer id;
+    private Integer rId;
 
     /**
      * 门店id
      */
     private Store store;
     private Integer sId;
+
+    /**
+     * 客户id
+     */
+    private Customer customer;
+    private Integer cId;
 
     /**
      * 单据编号
@@ -36,7 +41,7 @@ public class Duein implements Serializable {
     private String documenttype;
 
     /**
-     * 单据状态：已登记或已结算
+     * 单据状态（已登录、已退款）
      */
     private Integer documentstatus;
 
@@ -48,36 +53,29 @@ public class Duein implements Serializable {
     private Date documentdate;
 
     /**
-     * 往来关系
+     * 应付金额
      */
-    private String relationship;
+    private Long yfamount;
 
     /**
-     * 往来客户编号
+     * 本次付款
      */
-    private Customer customer;
-    private Integer customerid;
+    private Long bcamount;
 
     /**
-     * 车牌管理编号
+     * 合计余额
      */
-    private Carmanagement carmanagement;
-    private String carmagid;
+    private Long sum;
 
     /**
-     * 本单金额
-     */
-    private BigDecimal orderamount;
-
-    /**
-     * 经办人（付款的当前用户）
+     * 经手人
      */
     private String operator;
 
     /**
-     * 备注
+     * 收款单号
      */
-    private String remarks;
+    private String receiptnumber;
 
     /**
      * 删除人
@@ -92,24 +90,19 @@ public class Duein implements Serializable {
     private Date deletetime;
 
     /**
-     * 时效性(0未过期，已过期)
+     * 时效性
      */
     private Integer timeliness;
 
     /**
-     * 洗车开单编号
+     * 备注
      */
-    private Integer carid;
+    private String remarks;
 
     /**
-     * 物资退款编号（退货物资：物资编码）
+     * 物资退款单号
      */
-    private Integer materialcodeid;
-
-    /**
-     * 维修开单编号
-     */
-    private Integer mainbillingid;
+    private String returnedmaterialsid;
 
     private static final long serialVersionUID = 1L;
 }

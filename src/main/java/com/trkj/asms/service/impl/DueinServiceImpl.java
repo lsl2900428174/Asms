@@ -19,8 +19,20 @@ public class DueinServiceImpl implements DueinService {
     }
 
     @Override
+    public List<Duein> findyiduein() {
+        return dueinDao.findyiduein();
+    }
+
+    @Override
     public Duein adddueinAll(Duein duein) {
         dueinDao.insertSelective(duein);
         return duein;
+    }
+
+    @Override
+    public Duein deleteduein(Duein record) {
+        record.setTimeliness(1);
+        dueinDao.updateByPrimaryKeySelective(record);
+        return record;
     }
 }

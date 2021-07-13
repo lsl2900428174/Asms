@@ -13,7 +13,7 @@ public interface DueinDao {
     int insertSelective(Duein record);
 
     Duein selectByPrimaryKey(Integer id);
-
+//删除：改变时效性未1
     int updateByPrimaryKeySelective(Duein record);
 
     int updateByPrimaryKey(Duein record);
