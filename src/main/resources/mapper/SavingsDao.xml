@@ -26,7 +26,7 @@
         select * from savings where c_name = #{cName}
     </select>
     <update id="updatemoneybycname">
-        update savings set symony = symony - #{symony} where cName = #{cname}
+        update savings set symony = symony - #{symony} where c_name = #{cname}
     </update>
 
     <update id="updatemoney">

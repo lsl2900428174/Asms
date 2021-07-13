@@ -35,7 +35,7 @@ public interface SavingsDao {
      * @param cname
      * @return
      */
-    int updatemoneybycname(@Param("cname")String cname);
+    int updatemoneybycname(@Param("cname")String cname,@Param("symony")Double symony);
     /**
      * 根据储值卡号查询是否存在当前储值卡
      * @param savingsno

@@ -35,6 +35,8 @@ public class WPickingoutorderServiceImpl implements WPickingoutorderService {
     private Stock2Dao stock2Dao;
     @Resource
     private MainbillingDao mainbillingDao;
+    @Resource
+    private SavingsDao savingsDao;
 
     /**
      * 通过ID查询单条数据
@@ -137,7 +139,7 @@ public class WPickingoutorderServiceImpl implements WPickingoutorderService {
                     duein.setTimeliness(0);//时效性 0未失效
                     int addduein = dueinDao.insertSelective(duein);
                     if (addduein >= 1) {
-
+                        savingsDao.updatemoneybycname(wPickingoutorder.getUsername(),d);
                         return true;
                     }
                 }
