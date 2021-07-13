@@ -1,5 +1,6 @@
 package com.trkj.asms.service.impl;
 
+import com.trkj.asms.entity.Stock1;
 import com.trkj.asms.entity.Stock2;
 import com.trkj.asms.dao.Stock2Dao;
 import com.trkj.asms.service.Stock2Service;
@@ -55,13 +56,13 @@ public class Stock2ServiceImpl implements Stock2Service {
     /**
      * 修改数据
      *
-     * @param stock2 实例对象
+     * @param stock1 实例对象
      * @return 实例对象
      */
     @Override
-    public Stock2 update(Stock2 stock2) {
-        this.stock2Dao.update(stock2);
-        return this.queryById(stock2.getId());
+    public Stock2 update(Stock1 stock1) {
+        this.stock2Dao.update(stock1);
+        return this.queryById(stock1.getId());
     }
 
     /**

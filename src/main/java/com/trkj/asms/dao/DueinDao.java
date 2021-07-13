@@ -17,6 +17,8 @@ public interface DueinDao {
     int updateByPrimaryKeySelective(Duein record);
 
     int updateByPrimaryKey(Duein record);
-//    查询：
+//    查询：收款列表
     List<Duein> findduein();
+//    收款单
+    List<Duein> findyiduein();
 }

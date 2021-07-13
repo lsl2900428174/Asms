@@ -80,9 +80,11 @@ public class Commodity implements Serializable {
     private Integer isinstall;
 
     /**
+
      * 仓库id
      */
     private Integer wId;
+
 
     /**
      * 仓库位置id
@@ -93,6 +95,7 @@ public class Commodity implements Serializable {
      * 预警
      */
     private Integer warning;
+
 
     /**
      * 零售价
