@@ -61,7 +61,7 @@ public class Commodity implements Serializable {
     /**
     * 仓库id
     */
-    private Integer whId;
+    private Integer wId;
     /**
     * 仓库位置id
     */
@@ -177,11 +177,11 @@ public class Commodity implements Serializable {
     }
 
     public Integer getWhId() {
-        return whId;
+        return wId;
     }
 
     public void setWhId(Integer whId) {
-        this.whId = whId;
+        this.wId = whId;
     }
 
     public Integer getWpId() {

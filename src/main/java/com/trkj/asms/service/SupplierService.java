@@ -1,17 +1,16 @@
 package com.trkj.asms.service;
 
-import com.trkj.asms.entity.Stock1;
-import com.trkj.asms.entity.Stock2;
+import com.trkj.asms.entity.Supplier;
 
 import java.util.List;
 
 /**
- * (Stock2)表服务接口
+ * (Supplier)表服务接口
  *
  * @author makejava
- * @since 2021-07-11 21:31:03
+ * @since 2021-07-12 20:17:40
  */
-public interface Stock2Service {
+public interface SupplierService {
 
     /**
      * 通过ID查询单条数据
@@ -19,30 +18,32 @@ public interface Stock2Service {
      * @param id 主键
      * @return 实例对象
      */
-    Stock2 queryById(Integer id);
+    Supplier queryById(Integer id);
 
     /**
      * 查询多条数据
      *
+     * @param offset 查询起始位置
+     * @param limit  查询条数
      * @return 对象列表
      */
-    List<Stock2> selectAll();
+    List<Supplier> queryAllByLimit(int offset, int limit);
 
     /**
      * 新增数据
      *
-     * @param stock2 实例对象
+     * @param supplier 实例对象
      * @return 实例对象
      */
-    Stock2 insert(Stock2 stock2);
+    Supplier insert(Supplier supplier);
 
     /**
      * 修改数据
      *
-     * @param stock1 实例对象
+     * @param supplier 实例对象
      * @return 实例对象
      */
-    Stock2 update(Stock1 stock1);
+    Supplier update(Supplier supplier);
 
     /**
      * 通过主键删除数据
@@ -52,4 +53,5 @@ public interface Stock2Service {
      */
     boolean deleteById(Integer id);
 
+    List<Supplier> queryAll();
 }

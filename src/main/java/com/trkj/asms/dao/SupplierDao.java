@@ -1,20 +1,19 @@
 package com.trkj.asms.dao;
 
-import com.trkj.asms.entity.Stock1;
-import com.trkj.asms.entity.Stock2;
+import com.trkj.asms.entity.Supplier;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 /**
- * (Stock2)表数据库访问层
+ * (Supplier)表数据库访问层
  *
  * @author makejava
- * @since 2021-07-11 21:31:03
+ * @since 2021-07-12 20:31:21
  */
 @Mapper
-public interface Stock2Dao {
+public interface SupplierDao {
 
     /**
      * 通过ID查询单条数据
@@ -22,55 +21,57 @@ public interface Stock2Dao {
      * @param id 主键
      * @return 实例对象
      */
-    Stock2 queryById(Integer id);
+    Supplier queryById(Integer id);
 
     /**
      * 查询指定行数据
      *
+     * @param offset 查询起始位置
+     * @param limit  查询条数
      * @return 对象列表
      */
-    List<Stock2> selectAll();
+    List<Supplier> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
 
 
     /**
      * 通过实体作为筛选条件查询
      *
-     * @param stock2 实例对象
+     * @param supplier 实例对象
      * @return 对象列表
      */
-    List<Stock2> queryAll(Stock2 stock2);
+    List<Supplier> queryAll(Supplier supplier);
 
     /**
      * 新增数据
      *
-     * @param stock2 实例对象
+     * @param supplier 实例对象
      * @return 影响行数
      */
-    int insert(Stock2 stock2);
+    int insert(Supplier supplier);
 
     /**
      * 批量新增数据（MyBatis原生foreach方法）
      *
-     * @param entities List<Stock2> 实例对象列表
+     * @param entities List<Supplier> 实例对象列表
      * @return 影响行数
      */
-    int insertBatch(@Param("entities") List<Stock2> entities);
+    int insertBatch(@Param("entities") List<Supplier> entities);
 
     /**
      * 批量新增或按主键更新数据（MyBatis原生foreach方法）
      *
-     * @param entities List<Stock2> 实例对象列表
+     * @param entities List<Supplier> 实例对象列表
      * @return 影响行数
      */
-    int insertOrUpdateBatch(@Param("entities") List<Stock2> entities);
+    int insertOrUpdateBatch(@Param("entities") List<Supplier> entities);
 
     /**
      * 修改数据
      *
-     * @param stock1 实例对象
+     * @param supplier 实例对象
      * @return 影响行数
      */
-    int update(Stock1 stock1);
+    int update(Supplier supplier);
 
     /**
      * 通过主键删除数据

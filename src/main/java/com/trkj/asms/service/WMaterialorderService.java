@@ -1,6 +1,7 @@
 package com.trkj.asms.service;
 
 import com.trkj.asms.entity.WMaterialorder;
+import com.trkj.asms.vo.AjaxResponse;
 
 import java.util.List;
 
@@ -53,4 +54,5 @@ public interface WMaterialorderService {
      */
     boolean deleteById(Integer moId);
 
+    List<WMaterialorder> queryAll(WMaterialorder wMaterialorder);
 }

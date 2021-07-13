@@ -15,6 +15,8 @@
         <result property="number" column="number" jdbcType="INTEGER"/>
     </resultMap>
 
+
+
     <!--查询单个-->
     <select id="queryById" resultMap="Stock2Map">
         select
@@ -23,7 +25,17 @@
         where id = #{id}
     </select>
 
-    <!--查询所有数据-->
+    <!--查询所有库存数据-->
+    <select id="selectAlls" resultMap="Stock2Map">
+        SELECT f.id,f.number,g.co_name,g.co_code,g.m_name,g.md_title,g.is_name,g.ci_name,g.co_retailprice,g.cusprice FROM stock2 AS f LEFT JOIN
+	(SELECT a.co_id,a.co_code,a.co_name,a.co_retailprice,a.cusprice,b.m_name,c.md_title,d.is_name,e.ci_name FROM commodity AS a
+	LEFT JOIN materialbrand AS b ON a.m_id = b.m_id
+	LEFT JOIN measuringunit AS c ON a.mu_id = c.mu_id
+	LEFT JOIN installationsites AS d ON a.is_id = d.is_id
+	LEFT JOIN materialclassification AS e ON a.ci_id = e.ci_id) AS g ON f.co_id = g.co_id
+    </select>
+
+    <!--查询部分库存数据-->
     <select id="selectAll" resultMap="Stock2Map">
         SELECT f.id,f.number,g.co_name,g.co_code,g.m_name,g.md_title,g.is_name,g.ci_name,g.co_retailprice,g.cusprice FROM stock2 AS f LEFT JOIN
 	(SELECT a.co_id,a.co_code,a.co_name,a.co_retailprice,a.cusprice,b.m_name,c.md_title,d.is_name,e.ci_name FROM commodity AS a
@@ -107,4 +119,3 @@
     </delete>
 
 </mapper>
-
