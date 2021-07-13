@@ -22,6 +22,13 @@ public class Savings implements Serializable {
      * 门店id
      */
     private Integer sId;
+    private String sName;
+    /**
+     * 客户id
+     */
+    private Integer cId;
+
+
     /**
      * 客户名称
      */

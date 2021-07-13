@@ -12,6 +12,7 @@ import java.util.List;
  * @since 2021-07-12 02:41:58
  */
 public interface SavingsService {
+    Savings findbyname(String name);
 
     List<SavingVo> findall();
     /**

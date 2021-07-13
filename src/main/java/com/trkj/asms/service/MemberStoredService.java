@@ -1,6 +1,7 @@
 package com.trkj.asms.service;
 
 import com.trkj.asms.entity.MemberStored;
+import com.trkj.asms.vo.HuiyuanVo;
 
 import java.util.List;
 
@@ -13,8 +14,8 @@ import java.util.List;
 public interface MemberStoredService {
 
     Boolean addchuzhi(MemberStored memberStored);
-
-    List<MemberStored> findall();
+    List<HuiyuanVo> findallbyname(String cName);
+    List<HuiyuanVo> findall();
     /**
      * 通过ID查询单条数据
      *

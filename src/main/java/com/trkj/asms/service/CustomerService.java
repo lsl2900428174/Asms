@@ -13,6 +13,9 @@ import java.util.List;
  * @since 2021-07-11 19:58:57
  */
 public interface CustomerService {
+
+    KehuVo findbycname(String cName);
+
     List<Customer> findall();
     PageInfo<KehuVo> findalls(int currentPage, int pageSize );
     /**

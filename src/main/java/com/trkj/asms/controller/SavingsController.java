@@ -43,4 +43,15 @@ public class SavingsController {
         return this.savingsService.findall();
     }
 
+    /**
+     *
+     * @param name
+     * @return
+     */
+    @GetMapping("findbyname")
+    public Savings findbyname(String cName){
+        System.out.println(cName);
+        return this.savingsService.findbyname(cName);
+    }
+
 }

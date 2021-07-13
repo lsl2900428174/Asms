@@ -1,6 +1,7 @@
 package com.trkj.asms.dao;
 
 import com.trkj.asms.entity.MemberStored;
+import com.trkj.asms.vo.HuiyuanVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -14,8 +15,11 @@ import java.util.List;
  */
 @Mapper
 public interface MemberStoredDao {
+    //修改储值单类型
+    void updatetype(@Param("storedType") String storedType,@Param("savingsno") String savingsno);
 
-    List<MemberStored> findall();
+    List<HuiyuanVo> findallbyname(@Param("cName") String cName);
+    List<HuiyuanVo> findall();
     /**
      * 通过ID查询单条数据
      *

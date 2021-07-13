@@ -1,7 +1,10 @@
 package com.trkj.asms.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageInfo;
 import com.trkj.asms.entity.Carmanagement;
+import com.trkj.asms.entity.Customer;
 import com.trkj.asms.service.CarmanagementService;
 import com.trkj.asms.vo.AjaxResponse;
 import com.trkj.asms.vo.CheliangVo;
@@ -58,13 +61,16 @@ public class CarmanagementController {
 
     /**
      * 新增车辆信息
-     * @param carmanagement
+     * @param
      * @return
      */
     @PostMapping("addcheliang")
-    public AjaxResponse addcheliang(@RequestBody Carmanagement carmanagement){
+    public AjaxResponse addcheliang(@RequestBody String kehu){
         String message = "";
-        Boolean add = this.carmanagementService.insert(carmanagement);
+        JSONObject jsonObject=JSONObject.parseObject(kehu);
+        String one = jsonObject.getString("kehu");
+        Carmanagement customer = JSON.parseObject(one,Carmanagement.class);
+        Boolean add = this.carmanagementService.insert(customer);
         if(add == true){
             message = "添加成功";
         }else{
