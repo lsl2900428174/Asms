@@ -1,11 +1,14 @@
 package com.trkj.asms.controller;
 
+import com.trkj.asms.entity.Mainbilling;
 import com.trkj.asms.entity.WDeliveryorder;
 import com.trkj.asms.entity.WPickingoutorder;
 import com.trkj.asms.entity.WReturnedmaterials;
+import com.trkj.asms.service.MainbillingService;
 import com.trkj.asms.service.WPickingoutorderService;
 import com.trkj.asms.service.WReturnedmaterialsService;
 import com.trkj.asms.vo.AjaxResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -58,6 +61,18 @@ public class WPickingoutorderController {
             item.setWReturnedmaterials(list);
         }
         return AjaxResponse.success(wPickingoutorder);
+    }
+
+    /**
+     * 获取已登记的维修数据
+     */
+    @GetMapping("selectWX")
+    public AjaxResponse selectWX(){
+        List<Mainbilling> findSourcePage = wPickingoutorderService.selectMainbilling();
+
+
+
+        return AjaxResponse.success(findSourcePage);
     }
 
 }

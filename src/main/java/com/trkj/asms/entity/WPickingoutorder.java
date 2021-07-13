@@ -1,5 +1,6 @@
 package com.trkj.asms.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
@@ -51,10 +52,11 @@ public class WPickingoutorder implements Serializable {
     /**
      * 领料人员ID
      */
-    private Integer pickuserId;
+    private String pickuserId;
     /**
      * 创建时间
      */
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date billdate;
     /**
      * 维修领料编号

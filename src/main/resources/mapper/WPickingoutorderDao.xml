@@ -11,7 +11,7 @@
         <result property="carbrandname" column="carbrandname" jdbcType="VARCHAR"/>
         <result property="carservicename" column="carservicename" jdbcType="VARCHAR"/>
         <result property="carmodelsname" column="carmodelsname" jdbcType="VARCHAR"/>
-        <result property="pickuserId" column="pickuser_id" jdbcType="INTEGER"/>
+        <result property="pickuserId" column="pickuser_id" jdbcType="VARCHAR"/>
         <result property="billdate" column="billdate" jdbcType="TIMESTAMP"/>
         <result property="billcode" column="billcode" jdbcType="VARCHAR"/>
         <result property="repaircode" column="repaircode" jdbcType="VARCHAR"/>

@@ -1,10 +1,7 @@
 package com.trkj.asms.service.impl;
 
-import com.trkj.asms.dao.DueinDao;
-import com.trkj.asms.dao.Stock2Dao;
-import com.trkj.asms.dao.WReturnedmaterialsDao;
+import com.trkj.asms.dao.*;
 import com.trkj.asms.entity.*;
-import com.trkj.asms.dao.WPickingoutorderDao;
 import com.trkj.asms.service.WPickingoutorderService;
 import com.trkj.asms.utils.IdWorker;
 import org.springframework.stereotype.Service;
@@ -13,6 +10,7 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,6 +33,8 @@ public class WPickingoutorderServiceImpl implements WPickingoutorderService {
     private IdWorker idWorker;
     @Resource
     private Stock2Dao stock2Dao;
+    @Resource
+    private MainbillingDao mainbillingDao;
 
     /**
      * 通过ID查询单条数据
@@ -137,6 +137,7 @@ public class WPickingoutorderServiceImpl implements WPickingoutorderService {
                     duein.setTimeliness(0);//时效性 0未失效
                     int addduein = dueinDao.insertSelective(duein);
                     if (addduein >= 1) {
+
                         return true;
                     }
                 }
@@ -172,5 +173,25 @@ public class WPickingoutorderServiceImpl implements WPickingoutorderService {
     @Override
     public boolean deleteById(Integer poId) {
         return this.wPickingoutorderDao.deleteById(poId) > 0;
+    }
+
+    /**
+     * 过滤维修信息
+     * @return
+     */
+    @Override
+    public List<Mainbilling> selectMainbilling() {
+        List<Mainbilling> list = mainbillingDao.selectMainbilling();
+        List<Mainbilling> fill = new ArrayList<>();
+        //获取单据状态为已登记的单据
+        for (Mainbilling item:list) {
+            System.out.println(item.getMainorderstuta());
+
+            if(item.getMainorderstuta()==2){
+                fill.add(item);
+            }
+        }
+        System.out.println(fill);
+        return fill;
     }
 }
