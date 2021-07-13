@@ -11,14 +11,8 @@ import java.util.List;
  * @since 2021-07-12 20:17:40
  */
 public interface SupplierService {
-
-    /**
-     * 通过ID查询单条数据
-     *
-     * @param id 主键
-     * @return 实例对象
-     */
-    Supplier queryById(Integer id);
+//模糊查询
+    List<Supplier> selectSupplierlike(String suppliername);
 
     /**
      * 查询多条数据
@@ -37,13 +31,6 @@ public interface SupplierService {
      */
     Supplier insert(Supplier supplier);
 
-    /**
-     * 修改数据
-     *
-     * @param supplier 实例对象
-     * @return 实例对象
-     */
-    Supplier update(Supplier supplier);
 
     /**
      * 通过主键删除数据

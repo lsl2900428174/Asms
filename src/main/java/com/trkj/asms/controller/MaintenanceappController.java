@@ -37,4 +37,11 @@ public class MaintenanceappController {
         maintenanceappService.updatemaintenanceappmony(maintenanceapp);
         return maintenanceapp;
     }
+    //    修改
+    @PutMapping("/updateAllapp")
+    public Maintenanceapp updateAllapp(@RequestBody Maintenanceapp maintenanceapp){
+        System.out.println("============="+maintenanceapp.toString());
+        maintenanceappService.updateAllapp(maintenanceapp);
+        return maintenanceapp;
+    }
 }

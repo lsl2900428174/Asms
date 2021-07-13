@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.asms.dao.SuppliertypeDao">
+  <resultMap id="BaseResultMap" type="com.trkj.asms.entity.Suppliertype">
+    <id column="suptypeid" jdbcType="INTEGER" property="suptypeid" />
+    <result column="supname" jdbcType="VARCHAR" property="supname" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    suptypeid, supname
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from suppliertype
+    where suptypeid = #{suptypeid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from suppliertype
+    where suptypeid = #{suptypeid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="suptypeid" keyProperty="suptypeid" parameterType="com.trkj.asms.entity.Suppliertype" useGeneratedKeys="true">
+    insert into suppliertype (supname)
+    values (#{supname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="suptypeid" keyProperty="suptypeid" parameterType="com.trkj.asms.entity.Suppliertype" useGeneratedKeys="true">
+    insert into suppliertype
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="supname != null">
+        supname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="supname != null">
+        #{supname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.trkj.asms.entity.Suppliertype">
+    update suppliertype
+    <set>
+      <if test="supname != null">
+        supname = #{supname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where suptypeid = #{suptypeid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.trkj.asms.entity.Suppliertype">
+    update suppliertype
+    set supname = #{supname,jdbcType=VARCHAR}
+    where suptypeid = #{suptypeid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -35,4 +35,13 @@ public class MaintenanceappServiceImpl implements MaintenanceappService {
         maintenanceappDao.updatemaintenanceappmony(maintenanceapp);
         return maintenanceapp;
     }
+
+    @Override
+    public Maintenanceapp updateAllapp(Maintenanceapp maintenanceapp) {
+//        maintenanceapp.setCailiaoid(maintenanceapp.getCommodity().getCoId());
+//        maintenanceapp.set
+        maintenanceappDao.updateAllapp(maintenanceapp);
+        return maintenanceapp;
+
+    }
 }

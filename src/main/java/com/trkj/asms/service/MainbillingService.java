@@ -10,7 +10,7 @@ public interface MainbillingService {
     List<Mainbilling> selectMainbilling();
     Mainbilling insertMainbilling(Mainbilling mainbilling);
     Mainbilling updateMainbilling(Mainbilling mainbilling);
-
+    Mainbilling updateAllMainbilling(Mainbilling mainbilling);
 
 
 

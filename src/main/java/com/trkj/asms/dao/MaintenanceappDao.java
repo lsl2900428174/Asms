@@ -14,4 +14,6 @@ public interface MaintenanceappDao {
     int updatemaintenanceapp(Maintenanceapp record);
     //    修改状态
     int updatemaintenanceappmony(Maintenanceapp record);
+//    修改
+    int updateAllapp(Maintenanceapp record);
 }

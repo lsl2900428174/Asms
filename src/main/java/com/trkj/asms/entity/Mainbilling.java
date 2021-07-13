@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -71,7 +72,7 @@ public class Mainbilling implements Serializable {
      * 车牌id
      */
     private Carmanagement carmanagement;
-    private Integer chepai;
+    private Integer chepaiid;
 
     /**
      * 单据编号
@@ -81,6 +82,7 @@ public class Mainbilling implements Serializable {
     /**
      * 单据日期
      */
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date mainorder;
 
     /**

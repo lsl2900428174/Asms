@@ -204,4 +204,25 @@
     </set>
     where maintenanceappid = #{maintenanceappid,jdbcType=INTEGER}
   </update>
+<!--  修改数据-->
+  <update id="updateAllapp" parameterType="java.lang.Integer">
+    update maintenanceapp
+    <set>
+      serviceid = #{serviceid},
+      kehuid = #{kehuid},
+      empid = #{empid},
+      xiangmuid = #{xiangmuid},
+      cailiaoid = #{cailiaoid},
+      mendianid = #{mendianid},
+      carid = #{carid},
+      appno = #{appno},
+      yujiallmony = #{yujiallmony},
+      yujisetcar = #{yujisetcar},
+      yujisetcartime = #{yujisetcartime},
+      kehudepict = #{kehudepict},
+      shiyucause = #{shiyucause},
+      beizhu = #{beizhu}
+    </set>
+    where maintenanceappid = #{maintenanceappid,jdbcType=INTEGER}
+  </update>
 </mapper>
