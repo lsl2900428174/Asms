@@ -29,6 +29,71 @@
         <result property="orfanxiu" column="orfanxiu" jdbcType="INTEGER"/>
         <result property="beizhu" column="beizhu" jdbcType="VARCHAR"/>
     </resultMap>
+    <resultMap type="com.trkj.asms.vo.WxmxhzVo" id="WxmxhzVo">
+        <result property="sName" column="s_name" jdbcType="VARCHAR"/>
+        <result property="mainbilingno" column="mainbillingno" jdbcType="VARCHAR"/>
+        <result property="mainorder" column="mainorder" jdbcType="VARCHAR"/>
+        <result property="overmonytime" column="overmonytime" jdbcType="VARCHAR"/>
+        <result property="cName" column="c_name" jdbcType="NUMERIC"/>
+        <result property="cPhone" column="c_phone" jdbcType="VARCHAR"/>
+        <result property="chepai" column="chepai" jdbcType="NUMERIC"/>
+        <result property="name" column="Name" jdbcType="VARCHAR"/>
+        <result property="coName" column="co_name" jdbcType="VARCHAR"/>
+        <result property="servicename" column="servicename" jdbcType="VARCHAR"/>
+        <result property="settlementType" column="settlement_type" jdbcType="INTEGER"/>
+        <result property="mdTitle" column="md_title" jdbcType="VARCHAR"/>
+        <result property="amout" column="amout" jdbcType="NUMERIC"/>
+        <result property="coRetailprice" column="co_retailprice" jdbcType="NUMERIC"/>
+        <result property="amountReceivable" column="amount_receivable" jdbcType="NUMERIC"/>
+        <result property="YFAmount" column="YFAmount" jdbcType="NUMERIC"/>
+        <result property="orderamount" column="orderamount" jdbcType="NUMERIC"/>
+        <result property="beizhu" column="beizhu" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap type="com.trkj.asms.vo.WzcghzoVo" id="WzcghzoVo">
+        <result property="sName" column="s_name" jdbcType="VARCHAR"/>
+        <result property="suppliername" column="suppliername" jdbcType="VARCHAR"/>
+        <result property="money" column="money" jdbcType="NUMERIC"/>
+        <result property="numberd" column="numberd" jdbcType="INTEGER"/>
+        <result property="amout" column="amout" jdbcType="NUMERIC"/>
+        <result property="orderamount" column="Orderamount" jdbcType="NUMERIC"/>
+        <result property="YFAmount" column="YFAmount" jdbcType="NUMERIC"/>
+        <result property="freeAmout" column="FreeAmout" jdbcType="NUMERIC"/>
+        <result property="backnumber" column="backnumber" jdbcType="INTEGER"/>
+        <result property="yfamount" column="yfamount" jdbcType="NUMERIC"/>
+        <result property="amountprice" column="amountprice" jdbcType="NUMERIC"/>
+    </resultMap>
+    <resultMap type="com.trkj.asms.vo.WzxshzVo" id="WzxshzVo">
+        <result property="saleCode" column="sale_code" jdbcType="VARCHAR"/>
+        <result property="saleTime" column="sale_time" jdbcType="VARCHAR"/>
+        <result property="sName" column="s_name" jdbcType="VARCHAR"/>
+        <result property="cName" column="c_name" jdbcType="VARCHAR"/>
+        <result property="cPhone" column="c_phone" jdbcType="VARCHAR"/>
+        <result property="saleNumber" column="sale_number" jdbcType="INTEGER"/>
+        <result property="amout" column="amout" jdbcType="NUMERIC"/>
+        <result property="coRetailprice" column="co_retailprice" jdbcType="NUMERIC"/>
+    </resultMap>
+    <resultMap type="com.trkj.asms.vo.ZjyeVo" id="ZjyeVo">
+        <result property="cName" column="c_name" jdbcType="VARCHAR"/>
+        <result property="settlementType" column="settlement_type" jdbcType="VARCHAR"/>
+        <result property="money" column="money" jdbcType="NUMERIC"/>
+        <result property="ssje" column="ssje" jdbcType="NUMERIC"/>
+        <result property="zfje" column="zfje" jdbcType="NUMERIC"/>
+        <result property="qmje" column="qmje" jdbcType="NUMERIC"/>
+    </resultMap>
+    <resultMap type="com.trkj.asms.vo.DzmxVo" id="DzmxVo">
+        <result property="documentDate" column="DocumentDate" jdbcType="VARCHAR"/>
+        <result property="documentNumber" column="DocumentNumber" jdbcType="VARCHAR"/>
+        <result property="documentType" column="DocumentType" jdbcType="VARCHAR"/>
+        <result property="cname" column="c_name" jdbcType="VARCHAR"/>
+        <result property="chepai" column="chepai" jdbcType="VARCHAR"/>
+        <result property="settlementType" column="settlement_type" jdbcType="VARCHAR"/>
+        <result property="orderamount" column="Orderamount" jdbcType="NUMERIC"/>
+        <result property="paidMoney" column="Paid_money" jdbcType="NUMERIC"/>
+        <result property="dqye" column="dqye" jdbcType="NUMERIC"/>
+        <result property="operator" column="Operator" jdbcType="NUMERIC"/>
+        <result property="remarks" column="remarks" jdbcType="NUMERIC"/>
+    </resultMap>
+
     <sql id="Base_Column_List_mainb">
         mainbillingid,serviceid,maintenanceappid,kehuid,empid,xiangmuid,cailiaoid,mendianid,empids,paigongsta,
         mainbillingno,mainorder,mainorderstuta,yujisetcar,yujisetcartime,kehudepict,suichewup,wangongsta,
@@ -263,5 +328,68 @@
     <delete id="deleteById">
         delete from asms.mainbilling where mainbillingid = #{mainbillingid}
     </delete>
-
+    <select id="wxmxhz" resultMap="WxmxhzVo">
+      SELECT st.s_name,m.mainbillingno,m.mainorder,m.overmonytime,cu.c_name,cu.c_phone,ca.chepai,e.Name,c.co_name,se.servicename,sa.settlement_type,me.md_title,wm.amout,
+ c.co_retailprice,car.AmountReceivable,p.YFAmount,d.Orderamount,m.beizhu
+	FROM `mainbilling` m
+	INNER JOIN `emp` e ON m.mendianid = e.s_id
+        INNER JOIN `commodity` c ON c.s_id = m.mendianid
+        INNER JOIN `service` se ON se.serviceid = m.serviceid
+        INNER JOIN `w_returnedmaterials` wr ON wr.billcode = e.s_id
+        INNER JOIN `w_materialorder` wm ON wm.mo_number = wr.billcode
+        INNER JOIN `saledetails` sa ON wr.materialname = sa.name
+        INNER JOIN `measuringunit` me ON c.mu_id = me.mu_id
+        INNER JOIN `duein` d ON d.s_id = m.mendianid
+        INNER JOIN `store` st ON m.mendianid = st.s_id
+        INNER JOIN `customer` cu ON cu.s_id = st.s_id
+        INNER JOIN `carmanagement` ca ON ca.s_id = st.s_id
+        INNER JOIN `carwaslist` car ON car.s_id = ca.s_id
+        INNER JOIN `pendingpayment` p ON p.s_id = ca.s_id
+        GROUP BY s_name,mainbillingno,mainorder,overmonytime,c_name,c_phone,chepai,NAME,co_name,servicename,settlement_type,md_title,amout,
+        co_retailprice,AmountReceivable,YFAmount,Orderamount,beizhu
+        </select>
+    <select id="wzcghz" resultMap="WzcghzoVo">
+      SELECT st.s_name,sup.suppliername,sup.money,wr.numberd,wm.amout,pe.Orderamount,pe.YFAmount,pe.FreeAmout,wr.backnumber,re.YFAmount,
+          wr.amountprice
+            FROM  `w_materialorder` wm
+            LEFT JOIN `supplier` sup ON wm.suppliername=sup.suppliername
+            LEFT JOIN `store` st ON sup.s_id=st.s_id
+            LEFT JOIN `w_returnedmaterials` wr ON wm.billcode=wr.billcode
+            LEFT JOIN `pendingpayment` pe ON pe.s_id=st.s_id
+            LEFT JOIN `refundorder` re ON re.s_id=st.s_id
+            GROUP BY s_name,suppliername,money,numberd,amout,Orderamount,backnumber,amountprice,pe.YFAmount,re.YFAmount,FreeAmout
+        </select>
+    <select id="wzxshz" resultMap="WzxshzVo">
+      SELECT sa.sale_code,pr.sale_time,st.s_name,cu.c_name,cu.c_phone,sa.sale_number,wm.amout,c.co_retailprice
+            FROM `saledetails` sa
+            LEFT JOIN `productsales` pr ON sa.sale_code=pr.sale_code
+            LEFT JOIN `store` st ON st.s_id=sa.md_id
+            LEFT JOIN `customer` cu ON pr.c_id=cu.c_id
+            LEFT JOIN `supplier` sup ON sup.s_id=sa.md_id
+            LEFT JOIN `w_materialorder` wm ON sup.suppliername=wm.suppliername
+            LEFT JOIN `commodity` c ON c.s_id=sa.md_id
+        </select>
+    <select id="zjye" resultMap="ZjyeVo">
+      SELECT  cu.c_name,sa.settlement_type,sup.money,SUM(d.Orderamount) AS ssje,SUM(Paid_money) AS zfje,SUM(d.Orderamount)-SUM(Paid_money)AS qmje
+         FROM `saledetails` sa
+            LEFT JOIN `customer` cu ON cu.c_id = sa.md_id
+                LEFT JOIN `supplier` sup ON sup.s_id =sa.md_id
+                LEFT JOIN `mainbilling` m ON m.mendianid =sa.md_id
+                LEFT JOIN `pendingpayment` p ON m.mainbillingno = p.DocumentNumber
+                LEFT JOIN `duein` d ON d.DocumentNumber = p.DocumentNumber
+                LEFT JOIN `w_materialorder` wm ON sup.suppliername = wm.suppliername
+                GROUP BY settlement_type,c_name,money
+        </select>
+    <select id="selectnumber" resultMap="DzmxVo">
+         SELECT re.DocumentDate,re.DocumentNumber,re.DocumentType,cu.c_name,ca.chepai,sa.settlement_type,d.Orderamount,sup.Paid_money,d.Orderamount-sup.Paid_money AS dqye,re.Operator,re.remarks
+            FROM `refundorder` re
+            LEFT JOIN `customer` cu ON cu.c_id=re.c_id
+            LEFT JOIN `carmanagement` ca ON ca.c_id=re.c_id
+            LEFT JOIN `saledetails` sa ON sa.md_id=re.s_id
+            LEFT JOIN `mainbilling` m ON m.mendianid =sa.md_id
+            LEFT JOIN `pendingpayment` p ON m.mainbillingno = p.DocumentNumber
+            LEFT JOIN `duein` d ON d.DocumentNumber = p.DocumentNumber
+            LEFT JOIN `supplier` sup ON sup.s_id =sa.md_id
+            WHERE sa.settlement_type = #{param1}
+    </select>
 </mapper>

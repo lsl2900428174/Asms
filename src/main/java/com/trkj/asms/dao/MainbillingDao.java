@@ -1,7 +1,7 @@
 package com.trkj.asms.dao;
 
 import com.trkj.asms.entity.Mainbilling;
-import com.trkj.asms.vo.MainbillingVo;
+import com.trkj.asms.vo.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
@@ -58,5 +58,9 @@ public interface MainbillingDao {
      * @return 影响行数
      */
     int deleteById(Integer mainbillingid);
-
+    List<WxmxhzVo> wxmxhz();
+    List<WzcghzoVo> wzcghz();
+    List<WzxshzVo> wzxshz();
+    List<ZjyeVo> zjye();
+    List<DzmxVo> selectnumber(String settlementtype);
 }

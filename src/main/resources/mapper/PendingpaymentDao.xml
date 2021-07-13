@@ -34,6 +34,16 @@
    <result property="eId" column="e_id" jdbcType="INTEGER"/>
    <result property="cDate" column="c_date" jdbcType="TIMESTAMP"/>
  </association>
+    <association property="store" javaType="com.trkj.asms.entity.Store">
+      <result property="sId" column="s_id" jdbcType="INTEGER"/>
+      <result property="sNumber" column="s_number" jdbcType="VARCHAR"/>
+      <result property="sName" column="s_name" jdbcType="VARCHAR"/>
+      <result property="sFullname" column="s_fullname" jdbcType="VARCHAR"/>
+      <result property="sLeader" column="s_leader" jdbcType="VARCHAR"/>
+      <result property="sAddress" column="s_address" jdbcType="VARCHAR"/>
+      <result property="sPhone" column="s_phone" jdbcType="VARCHAR"/>
+      <result property="sStatus" column="s_status" jdbcType="INTEGER"/>
+    </association>
   </resultMap>
   <sql id="Base_Column_List">
     p.Id,  p.s_id,  p.customerId,  p.materialorderId,  p.DocumentNumber,  p.DocumentType,  p.Documentstatus,
@@ -43,18 +53,59 @@
   <sql id="customer">
     c.c_name,c.c_phone,c.c_gender,c.c_contacts,c.c_address,c.c_text,c.c_date
   </sql>
+  <sql id="store">
+     s.s_id, s.s_number, s.s_name, s.s_fullname, s.s_leader, s.s_address, s.s_phone, s.s_status
+  </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from pendingpayment
     where Id = #{id,jdbcType=INTEGER}
   </select>
+<!--  待付款-->
   <select id="selectAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
-    <include refid="Base_Column_List" />,<include refid="customer"/>
+    <include refid="Base_Column_List" />,<include refid="customer"/>,
+    <include refid="store"/>
     from pendingpayment p inner join customer c on p.customerId=c.c_id
+    inner join store s on p.s_id=s.s_id
+    where p.Documentstatus=0
   </select>
-
+<!--  付款单-->
+  <select id="selectyiAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />,<include refid="customer"/>,
+    <include refid="store"/>
+    from pendingpayment p inner join customer c on p.customerId=c.c_id
+    inner join store s on p.s_id=s.s_id
+    where p.Documentstatus=1
+  </select>
+  <select id="selectmohu" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />,<include refid="customer"/>,<include refid="store"/>
+    from pendingpayment p inner join customer c on p.customerId=c.c_id
+    inner join store s on p.s_id=s.s_id
+    where p.Documentstatus=0
+    <if test="documentnumber!=null">
+      and p.DocumentNumber like CONCAT(CONCAT('%',#{documentnumber,jdbcType=VARCHAR},'%'))
+    </if>
+    <if test="s_name!=null">
+      and s.s_name like CONCAT(CONCAT('%',#{s_name,jdbcType=VARCHAR},'%'))
+    </if>
+  </select>
+  <select id="selectyimohu" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />,<include refid="customer"/>,<include refid="store"/>
+    from pendingpayment p inner join customer c on p.customerId=c.c_id
+    inner join store s on p.s_id=s.s_id
+    where p.Documentstatus=1
+    <if test="documentnumber!=null">
+      and p.DocumentNumber like CONCAT(CONCAT('%',#{documentnumber,jdbcType=VARCHAR},'%'))
+    </if>
+    <if test="documenttype!=null">
+      and p.DocumentType like CONCAT(CONCAT('%',#{documenttype,jdbcType=VARCHAR},'%'))
+    </if>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from pendingpayment
     where Id = #{id,jdbcType=INTEGER}

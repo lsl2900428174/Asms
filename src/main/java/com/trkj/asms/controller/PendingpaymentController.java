@@ -29,14 +29,19 @@ public class PendingpaymentController {
 
     //    查询待付款列表或付款单
     @GetMapping("/findAll")
-    public AjaxResponse findAll(){
-//        @RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize
-//        PageHelper.startPage(currentPage,pagesize);
+    public PageInfo<Pendingpayment>  findAll(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize){
+        PageHelper.startPage(currentPage,pagesize);
         List<Pendingpayment> pendingpaymentList=pendingpaymentService.findAllpending();
-//        PageInfo<Pendingpayment> dueinPageInfo=new PageInfo<>(pendingpaymentList);
-
-//        log.debug("hhh"+pendingpaymentList.toString());
-        return AjaxResponse.success(pendingpaymentList);
+        PageInfo<Pendingpayment> dueinPageInfo=new PageInfo<>(pendingpaymentList);
+        return dueinPageInfo;
+    }
+    @GetMapping("/findyiAll")
+    public PageInfo<Pendingpayment>  findyiAll(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize){
+//        @RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize
+        PageHelper.startPage(currentPage,pagesize);
+        List<Pendingpayment> pendingpaymentList=pendingpaymentService.findyiAll();
+        PageInfo<Pendingpayment> dueinPageInfo=new PageInfo<>(pendingpaymentList);
+        return dueinPageInfo;
     }
     //新增待付列表获知是付款单：获取采购订单编号（  获取采购入库编号）
     @PostMapping("/AddAll")
@@ -49,6 +54,26 @@ public class PendingpaymentController {
     public AjaxResponse updatestatus(@RequestBody Pendingpayment pendingpayment){
         pendingpayment=pendingpaymentService.updatestatus(pendingpayment);
         return AjaxResponse.success(pendingpayment);
+    }
+///模糊查询显示待付列表
+    @GetMapping("/findNameAndId")
+    public PageInfo<Pendingpayment> findNameAndId(@RequestParam("documentnumber") String documentnumber,@RequestParam("sname")String sname,
+                                      @RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize){
+        PageHelper.startPage(currentPage,pagesize);
+        List<Pendingpayment> pendingpaymentList=pendingpaymentService.findmohuNameAndId(documentnumber, sname);
+        PageInfo<Pendingpayment> dueinPageInfo=new PageInfo<>(pendingpaymentList);
+
+        return dueinPageInfo;
+    }
+    //模糊查询显示付款单
+    @GetMapping("/findyiNameAndId")
+    public PageInfo<Pendingpayment> findyiNameAndId(@RequestParam("documentnumber") String documentnumber,@RequestParam("documenttype")String documenttype,
+                                                  @RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize){
+        PageHelper.startPage(currentPage,pagesize);
+        List<Pendingpayment> pendingpaymentList=pendingpaymentService.findyimohuNameAndId(documentnumber, documenttype);
+        PageInfo<Pendingpayment> dueinPageInfo=new PageInfo<>(pendingpaymentList);
+
+        return dueinPageInfo;
     }
 
 }

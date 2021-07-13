@@ -1,7 +1,7 @@
 package com.trkj.asms.service;
 
 import com.trkj.asms.entity.Mainbilling;
-import com.trkj.asms.vo.MainbillingVo;
+import com.trkj.asms.vo.*;
 
 import java.util.List;
 
@@ -47,5 +47,12 @@ public interface MainbillingService {
      * @return 是否成功
      */
     boolean deleteById(Integer mainbillingid);
-
+    List<WxmxhzVo> wxmxhz();
+    List<WzcghzoVo> wzcghz();
+    List<WzxshzVo> wzxshz();
+    List<ZjyeVo> zjye();
+    /**
+     * 根据支付方式查询
+     */
+    List<DzmxVo> selectnumber(String settlementtype);
 }
