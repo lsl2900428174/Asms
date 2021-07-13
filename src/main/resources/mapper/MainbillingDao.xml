@@ -1,34 +1,233 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.trkj.asms.dao.MainbillingDao">
+  <resultMap id="BaseResultMap" type="com.trkj.asms.entity.Mainbilling">
+    <id column="mainbillingid" jdbcType="INTEGER" property="mainbillingid" />
+    <result column="serviceid" jdbcType="INTEGER" property="serviceid" />
+    <result column="maintenanceappid" jdbcType="INTEGER" property="maintenanceappid" />
+    <result column="kehuid" jdbcType="INTEGER" property="kehuid" />
+    <result column="empid" jdbcType="INTEGER" property="empid" />
+    <result column="xiangmuid" jdbcType="INTEGER" property="xiangmuid" />
+    <result column="cailiaoid" jdbcType="INTEGER" property="cailiaoid" />
+    <result column="mendianid" jdbcType="INTEGER" property="mendianid" />
+    <result column="chepai" jdbcType="INTEGER" property="chepai" />
+    <result column="mainbillingno" jdbcType="VARCHAR" property="mainbillingno" />
+    <result column="mainorder" jdbcType="TIMESTAMP" property="mainorder" />
+    <result column="mainorderstuta" jdbcType="INTEGER" property="mainorderstuta" />
+    <result column="yujisetcar" jdbcType="TIMESTAMP" property="yujisetcar" />
+    <result column="yujisetcartime" jdbcType="TIMESTAMP" property="yujisetcartime" />
+    <result column="kehudepict" jdbcType="VARCHAR" property="kehudepict" />
+    <result column="suichewup" jdbcType="VARCHAR" property="suichewup" />
+    <result column="favourable" jdbcType="DECIMAL" property="favourable" />
+    <result column="yujiallmony" jdbcType="DECIMAL" property="yujiallmony" />
+    <result column="overmonytime" jdbcType="TIMESTAMP" property="overmonytime" />
+    <result column="orfanxiu" jdbcType="INTEGER" property="orfanxiu" />
+    <result column="beizhu" jdbcType="VARCHAR" property="beizhu" />
+    <!--    类型-->
+    <association javaType="com.trkj.asms.entity.Service" property="service">
+      <result property="serviceid" column="serviceid" jdbcType="INTEGER"/>
+      <result property="servicename" column="servicename" jdbcType="VARCHAR"/>
+      <result property="state" column="state" jdbcType="INTEGER"/>
+    </association>
+    <!--    预约-->
+    <association javaType="com.trkj.asms.entity.Maintenanceapp" property="maintenanceapp">
+      <id column="maintenanceappid" jdbcType="INTEGER" property="maintenanceappid" />
+      <result column="serviceid" jdbcType="INTEGER" property="serviceid" />
+      <result column="kehuid" jdbcType="INTEGER" property="kehuid" />
+      <result column="empid" jdbcType="INTEGER" property="empid" />
+      <result column="carid" jdbcType="INTEGER" property="carid" />
+      <result column="xiangmuid" jdbcType="INTEGER" property="xiangmuid" />
+      <result column="cailiaoid" jdbcType="INTEGER" property="cailiaoid" />
+      <result column="mendianid" jdbcType="INTEGER" property="mendianid" />
+      <result column="appno" jdbcType="VARCHAR" property="appno" />
+      <result column="mainorder" jdbcType="TIMESTAMP" property="mainorder" />
+      <result column="mainorderstuta" jdbcType="INTEGER" property="mainorderstuta" />
+      <result column="yujiallmony" jdbcType="DECIMAL" property="yujiallmony" />
+      <result column="yujisetcar" jdbcType="TIMESTAMP" property="yujisetcar" />
+      <result column="yujisetcartime" jdbcType="TIMESTAMP" property="yujisetcartime" />
+      <result column="kehudepict" jdbcType="VARCHAR" property="kehudepict" />
+      <result column="shiyucause" jdbcType="VARCHAR" property="shiyucause" />
+      <result column="beizhu" jdbcType="VARCHAR" property="beizhu" />
+    </association>
+    <!--    客户-->
+    <association javaType="com.trkj.asms.entity.Customer" property="customer">
+      <result property="cId" column="c_id" jdbcType="INTEGER"/>
+      <result property="cName" column="c_name" jdbcType="VARCHAR"/>
+      <result property="sId" column="s_id" jdbcType="INTEGER"/>
+      <result property="mId" column="m_id" jdbcType="INTEGER"/>
+      <result property="cGender" column="c_gender" jdbcType="VARCHAR"/>
+      <result property="cContacts" column="c_contacts" jdbcType="VARCHAR"/>
+      <result property="cPhone" column="c_phone" jdbcType="VARCHAR"/>
+      <result property="ctId" column="ct_id" jdbcType="INTEGER"/>
+      <result property="cAddress" column="c_address" jdbcType="VARCHAR"/>
+      <result property="cText" column="c_text" jdbcType="VARCHAR"/>
+      <result property="eId" column="e_id" jdbcType="INTEGER"/>
+      <result property="cDate" column="c_date" jdbcType="TIMESTAMP"/>
+    </association>
+    <!--    员工-->
+    <association javaType="com.trkj.asms.entity.Emp" property="emp">
+      <result property="eId" column="e_Id" jdbcType="INTEGER"/>
+      <result property="sId" column="s_id" jdbcType="INTEGER"/>
+      <result property="pId" column="p_id" jdbcType="INTEGER"/>
+      <result property="dId" column="d_id" jdbcType="INTEGER"/>
+      <result property="sex" column="Sex" jdbcType="VARCHAR"/>
+      <result property="name" column="Name" jdbcType="VARCHAR"/>
+      <result property="loginid" column="LoginID" jdbcType="VARCHAR"/>
+      <result property="phone" column="Phone" jdbcType="VARCHAR"/>
+      <result property="updatetime" column="UpdateTime" jdbcType="TIMESTAMP"/>
+      <result property="updatename" column="UpdateName" jdbcType="VARCHAR"/>
+      <result property="deletetime" column="DeleteTime" jdbcType="TIMESTAMP"/>
+      <result property="deletename" column="DeleteName" jdbcType="VARCHAR"/>
+      <result property="timeliness" column="timeliness" jdbcType="INTEGER"/>
+      <result property="createusername" column="CreateUserName" jdbcType="VARCHAR"/>
+      <result property="addtime" column="addTime" jdbcType="TIMESTAMP"/>
+    </association>
+    <!--    项目-->
+    <association javaType="com.trkj.asms.entity.Projectsettings" property="projectsettings">
+      <result property="pId" column="p_id" jdbcType="INTEGER"/>
+      <result property="servetypeid" column="Servetypeid" jdbcType="INTEGER"/>
+      <result property="siteid" column="Siteid" jdbcType="INTEGER"/>
+      <result property="sId" column="s_id" jdbcType="INTEGER"/>
+      <result property="projectcode" column="Projectcode" jdbcType="VARCHAR"/>
+      <result property="projectname" column="ProjectName" jdbcType="VARCHAR"/>
+      <result property="state" column="State" jdbcType="INTEGER"/>
+      <result property="remarks" column="Remarks" jdbcType="VARCHAR"/>
+      <result property="typeLabel" column="Type_Label" jdbcType="VARCHAR"/>
+      <result property="typeid" column="TypeId" jdbcType="INTEGER"/>
+      <result property="workhours" column="WorkHours" jdbcType="VARCHAR"/>
+      <result property="custaccountprcie" column="CustAccountPrcie" jdbcType="NUMERIC"/>
+      <result property="insideprice" column="InsidePrice" jdbcType="NUMERIC"/>
+      <result property="claimantprcie" column="ClaimantPrcie" jdbcType="NUMERIC"/>
+    </association>
+    <!--    材料-->
+    <association javaType="com.trkj.asms.entity.Commodity" property="commodity">
+      <id column="co_id" jdbcType="INTEGER" property="coId" />
+      <result column="co_name" jdbcType="VARCHAR" property="coName" />
+      <result column="co_code" jdbcType="VARCHAR" property="coCode" />
+      <result column="s_id" jdbcType="INTEGER" property="sId" />
+      <result column="ci_id" jdbcType="INTEGER" property="ciId" />
+      <result column="m_id" jdbcType="INTEGER" property="mId" />
+      <result column="mu_id" jdbcType="INTEGER" property="muId" />
+      <result column="barcode" jdbcType="VARCHAR" property="barcode" />
+      <result column="applimodel" jdbcType="VARCHAR" property="applimodel" />
+      <result column="is_id" jdbcType="INTEGER" property="isId" />
+      <result column="specialmodel" jdbcType="VARCHAR" property="specialmodel" />
+      <result column="isinstall" jdbcType="INTEGER" property="isinstall" />
+      <result column="w_id" jdbcType="INTEGER" property="wId" />
+      <result column="wp_id" jdbcType="INTEGER" property="wpId" />
+      <result column="warning" jdbcType="INTEGER" property="warning" />
+      <result column="co_retailprice" jdbcType="DECIMAL" property="coRetailprice" />
+      <result column="cusprice" jdbcType="DECIMAL" property="cusprice" />
+    </association>
+    <!--    门店-->
+    <association javaType="com.trkj.asms.entity.Store" property="store">
+      <result property="sId" column="s_id" jdbcType="INTEGER"/>
+      <result property="sNumber" column="s_number" jdbcType="VARCHAR"/>
+      <result property="sName" column="s_name" jdbcType="VARCHAR"/>
+      <result property="sFullname" column="s_fullname" jdbcType="VARCHAR"/>
+      <result property="sLeader" column="s_leader" jdbcType="VARCHAR"/>
+      <result property="sAddress" column="s_address" jdbcType="VARCHAR"/>
+      <result property="sPhone" column="s_phone" jdbcType="VARCHAR"/>
+      <result property="sStatus" column="s_status" jdbcType="INTEGER"/>
+    </association>
+    <!--   车辆 -->
+    <association javaType="com.trkj.asms.entity.Carmanagement" property="carmanagement">
+      <result property="carmagid" column="carmagid" jdbcType="INTEGER"/>
+      <result property="bId" column="b_id" jdbcType="INTEGER"/>
+      <result property="vsId" column="vs_id" jdbcType="INTEGER"/>
+      <result property="vId" column="v_id" jdbcType="INTEGER"/>
+      <result property="iId" column="i_id" jdbcType="INTEGER"/>
+      <result property="bcId" column="bc_id" jdbcType="INTEGER"/>
+      <result property="mId" column="m_id" jdbcType="INTEGER"/>
+      <result property="sId" column="s_id" jdbcType="INTEGER"/>
+      <result property="cId" column="c_id" jdbcType="INTEGER"/>
+      <result property="chepai" column="chepai" jdbcType="VARCHAR"/>
+      <result property="chejiano" column="chejiano" jdbcType="VARCHAR"/>
+      <result property="fadongjino" column="fadongjino" jdbcType="VARCHAR"/>
+      <result property="zuoweinumber" column="zuoweinumber" jdbcType="INTEGER"/>
+      <result property="buydate" column="buydate" jdbcType="TIMESTAMP"/>
+      <result property="daoqiyers" column="daoqiyers" jdbcType="TIMESTAMP"/>
+      <result property="newlichen" column="newlichen" jdbcType="INTEGER"/>
+      <result property="nextbytime" column="nextbytime" jdbcType="TIMESTAMP"/>
+      <result property="nextbylichen" column="nextbylichen" jdbcType="INTEGER"/>
+      <result property="yesorno" column="yesorno" jdbcType="VARCHAR"/>
+      <result property="beizhu" column="beizhu" jdbcType="VARCHAR"/>
+      <result property="jianyi" column="jianyi" jdbcType="VARCHAR"/>
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List">
+    mai.mainbillingid, mai.serviceid, mai.maintenanceappid, mai.kehuid, mai.empid, mai.xiangmuid, mai.cailiaoid,
+    mai.mendianid, mai.chepai, mai.mainbillingno, mai.mainorder, mai.mainorderstuta, mai.yujisetcar, mai.yujisetcartime,
+    mai.kehudepict, mai.suichewup, mai.favourable, mai.yujiallmony, mai.overmonytime, mai.orfanxiu, mai.beizhu
+  </sql>
+  <sql id="Base_Column_List_ma">
+    ma.maintenanceappid, ma.serviceid, ma.kehuid, ma.empid, ma.xiangmuid, ma.cailiaoid, ma.mendianid, ma.appno,
+    ma.mainorder, ma.mainorderstuta, ma.yujiallmony, ma.yujisetcar, ma.yujisetcartime, ma.kehudepict, ma.shiyucause,
+    ma.beizhu, ma.carid
+  </sql>
+  <sql id="Base_Column_List_Service">
+    se.serviceid,se.servicename,se.state
+  </sql>
+  <sql id="Base_Column_List_Customer">
+    cu.c_id,cu.c_name,cu.s_id,cu.m_id,cu.c_gender,cu.c_contacts,cu.c_phone,cu.ct_id,cu.c_address,cu.c_text,cu.e_id,cu.c_date
+  </sql>
+  <sql id="Base_Column_List_Emp">
+    em.e_Id,em.s_id,em.p_id,em.d_id,em.Sex,em.Name,em.LoginID,em.Phone,em.UpdateTime,em.UpdateName,em.DeleteTime,em.DeleteName,em.timeliness,em.CreateUserName,em.addTime
+  </sql>
+  <sql id="Base_Column_List_Projectsettings">
+    pr.p_id,pr.Servetypeid,pr.Siteid,pr.s_id,pr.Projectcode,pr.ProjectName,pr.State,pr.Remarks,pr.Type_Label,
+    pr.TypeId,pr.WorkHours,pr.CustAccountPrcie,pr.InsidePrice,pr.ClaimantPrcie
+  </sql>
+  <sql id="Base_Column_List_Commodity">
+    co.co_id, co.co_name, co.co_code, co.s_id, co.ci_id, co.m_id, co.mu_id, co.barcode, co.applimodel, co.is_id, co.specialmodel,
+    co.isinstall, co.w_id, co.wp_id, co.warning, co.co_retailprice, co.cusprice
+  </sql>
+  <sql id="Base_Column_List_Store">
+    st.s_id,st.s_number,st.s_name,st.s_fullname,st.s_leader,st.s_address,st.s_phone,st.s_status
+  </sql>
+  <sql id="Base_Column_List_Carmanagement">
+    ca.carmagid,ca.b_id,ca.vs_id,ca.v_id,ca.i_id,ca.bc_id,ca.s_id,ca.c_id,ca.chepai,ca.chejiano,ca.fadongjino,ca.zuoweinumber,ca.buydate,
+    ca.daoqiyers,ca.newlichen,ca.nextbytime,ca.nextbylichen,ca.yesorno,ca.beizhu,ca.jianyi,ca.cjdate
+  </sql>
+  <select id="selectMainbilling" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />,
+    <include refid="Base_Column_List_ma" />,
+    <include refid="Base_Column_List_Service" />,
+    <include refid="Base_Column_List_Customer" />,
+    <include refid="Base_Column_List_Emp" />,
+    <include refid="Base_Column_List_Projectsettings" />,
+    <include refid="Base_Column_List_Commodity" />,
+    <include refid="Base_Column_List_Store" />,
+    <include refid="Base_Column_List_Carmanagement" />
+    from mainbilling mai
+    inner join service se on mai.serviceid = se.serviceid
+    inner join customer cu on mai.kehuid = cu.c_id
+    inner join emp em on mai.empid = em.e_Id
+    inner join projectsettings pr on mai.xiangmuid = pr.p_id
+    inner join commodity co on mai.cailiaoid = co.co_id
+    inner join store st on mai.mendianid = st.s_id
+    inner join carmanagement ca on mai.chepai = ca.carmagid
+    inner join maintenanceapp ma on mai.maintenanceappid = ma.maintenanceappid
+  </select>
+<!--  增加-->
+  <insert id="insertMainbilling" parameterType="com.trkj.asms.entity.Mainbilling">
+    insert into mainbilling (serviceid,maintenanceappid, kehuid, empid, xiangmuid, cailiaoid, mendianid,chepai,mainbillingno,yujisetcar,
+    yujisetcartime,kehudepict,suichewup,favourable,yujiallmony,overmonytime,beizhu)
+    values (#{serviceid,jdbcType=INTEGER},#{maintenanceappid,jdbcType=INTEGER},#{kehuid,jdbcType=INTEGER},
+    #{empid,jdbcType=INTEGER},#{xiangmuid,jdbcType=INTEGER},#{cailiaoid,jdbcType=INTEGER},#{mendianid,jdbcType=INTEGER},#{chepai,jdbcType=INTEGER},
+     #{mainbillingno,jdbcType=VARCHAR}, #{yujisetcar,jdbcType=TIMESTAMP},#{yujisetcartime,jdbcType=TIMESTAMP},#{kehudepict,jdbcType=VARCHAR},#{suichewup,jdbcType=VARCHAR},#{favourable,jdbcType=DECIMAL},
+     #{yujiallmony,jdbcType=DECIMAL}, #{overmonytime,jdbcType=TIMESTAMP},#{beizhu,jdbcType=VARCHAR})
+  </insert>
+<!--  改状态-->
+  <update id="updateMainbilling" parameterType="com.trkj.asms.entity.Maintenanceapp">
+    update mainbilling
+    <set>
+      mainorderstuta = 3
+    </set>
+    where mainbillingid = #{mainbillingid,jdbcType=INTEGER}
+  </update>
 
-    <resultMap id="BaseResultMap" type="com.trkj.asms.entity.Mainbilling">
-        <!--@Table mainbilling-->
-        <result property="mainbillingid" column="mainbillingid" jdbcType="INTEGER"/>
-        <result property="serviceid" column="serviceid" jdbcType="INTEGER"/>
-        <result property="maintenanceappid" column="maintenanceappid" jdbcType="INTEGER"/>
-        <result property="kehuid" column="kehuid" jdbcType="INTEGER"/>
-        <result property="empid" column="empid" jdbcType="INTEGER"/>
-        <result property="xiangmuid" column="xiangmuid" jdbcType="INTEGER"/>
-        <result property="cailiaoid" column="cailiaoid" jdbcType="INTEGER"/>
-        <result property="mendianid" column="mendianid" jdbcType="INTEGER"/>
-        <result property="empids" column="empids" jdbcType="INTEGER"/>
-        <result property="paigongsta" column="paigongsta" jdbcType="INTEGER"/>
-        <result property="mainbillingno" column="mainbillingno" jdbcType="VARCHAR"/>
-        <result property="mainorder" column="mainorder" jdbcType="TIMESTAMP"/>
-        <result property="mainorderstuta" column="mainorderstuta" jdbcType="INTEGER"/>
-        <result property="yujisetcar" column="yujisetcar" jdbcType="TIMESTAMP"/>
-        <result property="yujisetcartime" column="yujisetcartime" jdbcType="TIMESTAMP"/>
-        <result property="kehudepict" column="kehudepict" jdbcType="VARCHAR"/>
-        <result property="suichewup" column="suichewup" jdbcType="VARCHAR"/>
-        <result property="wangongsta" column="wangongsta" jdbcType="INTEGER"/>
-        <result property="wangongtime" column="wangongtime" jdbcType="TIMESTAMP"/>
-        <result property="favourable" column="favourable" jdbcType="NUMERIC"/>
-        <result property="yujiallmony" column="yujiallmony" jdbcType="NUMERIC"/>
-        <result property="overmonytime" column="overmonytime" jdbcType="TIMESTAMP"/>
-        <result property="orfanxiu" column="orfanxiu" jdbcType="INTEGER"/>
-        <result property="beizhu" column="beizhu" jdbcType="VARCHAR"/>
-    </resultMap>
     <resultMap type="com.trkj.asms.vo.WxmxhzVo" id="WxmxhzVo">
         <result property="sName" column="s_name" jdbcType="VARCHAR"/>
         <result property="mainbilingno" column="mainbillingno" jdbcType="VARCHAR"/>
@@ -135,30 +334,6 @@
         where mainbillingid = #{mainbillingid}
     </select>
 
-    <!--查询指定行数据-->
-    <select id="queryAllByLimit" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List_mainb" />,
-        <include refid="Base_Column_List_service" />,
-        <include refid="Base_Column_List_maint" />,
-        <include refid="Base_Column_List_kehu" />,
-        <include refid="Base_Column_List_xiangmu" />,
-        <include refid="Base_Column_List_emp" />,
-        <include refid="Base_Column_List_cailiao" />,
-        <include refid="Base_Column_List_mendian" />,
-        <include refid="Base_Column_List_empids" />
-        from mainbilling mai
-        inner join service se on ma.serviceid = se.serviceid
-        inner join customer cu on ma.kehuid = cu.c_id
-        inner join emp em on ma.empid = em.e_Id
-        inner join emp em1 on ma.empids = em1.e_Id
-        inner join projectsettings pr on ma.xiangmuid = pr.p_id
-        inner join commodity co on ma.cailiaoid = co.co_id
-        inner join store st on ma.mendianid = st.s_id
-        inner join carmanagement ca on ma.carid = ca.carmagid
-        inner join maintenanceapp mat on ma.maintenanceappid = mat.maintenanceappid
-        where cu.c_name like CONCAT('%' ,#{c_name , jdbcType=VARCHAR}, '%')
-    </select>
 
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="BaseResultMap">

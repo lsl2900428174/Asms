@@ -30,7 +30,8 @@ public interface ProjectsettingsDao {
      * @return 对象列表
      */
     List<Projectsettings> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
-
+//下拉接口
+    List<Projectsettings> selectProjectsettings();
 
     /**
      * 通过实体作为筛选条件查询

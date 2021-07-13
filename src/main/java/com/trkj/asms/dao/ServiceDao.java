@@ -17,10 +17,10 @@ public interface ServiceDao {
     /**
      * 通过ID查询单条数据
      *
-     * @param serviceid 主键
+     * @param
      * @return 实例对象
      */
-    Service queryById(Integer serviceid);
+    List<Service> queryById();
 
     /**
      * 查询指定行数据

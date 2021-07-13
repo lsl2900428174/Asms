@@ -7,7 +7,7 @@
         <result property="ctName" column="ct_name" jdbcType="VARCHAR"/>
     </resultMap>
     <select id="findall" resultMap="CustomertypeMap">
-        select * fron customertype
+        select * from customertype
     </select>
     <!--查询单个-->
     <select id="queryById" resultMap="CustomertypeMap">

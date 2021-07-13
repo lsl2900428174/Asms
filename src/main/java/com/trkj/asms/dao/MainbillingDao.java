@@ -1,19 +1,19 @@
 package com.trkj.asms.dao;
 
 import com.trkj.asms.entity.Mainbilling;
-import com.trkj.asms.vo.*;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import java.util.List;
 
-/**
- * 维修开单表(Mainbilling)表数据库访问层
- *
- * @author makejava
- * @since 2021-07-11 23:53:59
- */
+import com.trkj.asms.vo.*;
+
+import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 @Mapper
 public interface MainbillingDao {
+
+    List<Mainbilling> selectMainbilling();
+    int insertMainbilling(Mainbilling record);
+    int updateMainbilling(Mainbilling record);
+
 
     /**
      * 通过ID查询单条数据
@@ -23,8 +23,6 @@ public interface MainbillingDao {
      */
     Mainbilling queryById(Integer mainbillingid);
 
-//模糊查询显示
-    List<MainbillingVo> queryAllByLimit(String c_name);
 
 
     /**

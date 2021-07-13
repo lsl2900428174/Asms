@@ -1,23 +1,14 @@
-package com.trkj.asms.entity;
+package generator;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import org.springframework.validation.annotation.Validated;
 
 /**
  * commodity
  * @author 
  */
 @Data
-@Validated
-@NoArgsConstructor
-@AllArgsConstructor
-@NonNull
 public class Commodity implements Serializable {
     /**
      * 物资ID
@@ -80,11 +71,9 @@ public class Commodity implements Serializable {
     private Integer isinstall;
 
     /**
-
      * 仓库id
      */
-    private Integer wId;
-
+    private Integer whId;
 
     /**
      * 仓库位置id
@@ -95,7 +84,6 @@ public class Commodity implements Serializable {
      * 预警
      */
     private Integer warning;
-
 
     /**
      * 零售价

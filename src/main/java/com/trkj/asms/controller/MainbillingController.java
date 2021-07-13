@@ -1,9 +1,12 @@
 package com.trkj.asms.controller;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.trkj.asms.entity.Mainbilling;
+import com.trkj.asms.entity.Maintenanceapp;
 import com.trkj.asms.service.MainbillingService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 import com.trkj.asms.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -20,22 +23,25 @@ import java.util.Map;
  * @since 2021-07-11 23:53:59
  */
 @RestController
-@RequestMapping("mainbilling")
-@Slf4j
 public class MainbillingController {
-    /**
-     * 服务对象
-     */
-    @Resource
+    @Autowired
     private MainbillingService mainbillingService;
-//模糊查询显示
-    @GetMapping("/queryAllByLimit")
-    public PageInfo<MainbillingVo> selectRegisterSource(@RequestParam("c_name") String c_name, @RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize){
-        log.debug("Controller 查询方法调用");
-        PageHelper.startPage(currentPage,pagesize);
-        List<MainbillingVo> findSourcePage = mainbillingService.queryAllByLimit(c_name);
-        PageInfo<MainbillingVo> findSourcePageInfo = new PageInfo<>(findSourcePage);
-        return findSourcePageInfo;
+    @GetMapping("/selectMainbilling")
+    public List<Mainbilling> selectMainbilling(){
+        List<Mainbilling> findSourcePage = mainbillingService.selectMainbilling();
+        return findSourcePage;
+    }
+    //    增加
+    @PostMapping("/insertMainbilling")
+    public Mainbilling insertMainbilling(@RequestBody Mainbilling mainbilling){
+        mainbillingService.insertMainbilling(mainbilling);
+        return mainbilling;
+    }
+//    改状态
+    @PutMapping("/updateMainbilling")
+    public Mainbilling updateMainbilling(@RequestBody Mainbilling mainbilling){
+        mainbillingService.updateMainbilling(mainbilling);
+        return mainbilling;
     }
     @GetMapping("wxmxhz")
     public AjaxResponse selectcx(){
