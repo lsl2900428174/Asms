@@ -34,10 +34,6 @@ public class MainbillingServiceImpl implements MainbillingService {
     }
 
 //    模糊查询显示
-    @Override
-    public List<MainbillingVo> queryAllByLimit(String c_name) {
-        return this.mainbillingDao.queryAllByLimit(c_name);
-    }
 
     /**
      * 新增数据

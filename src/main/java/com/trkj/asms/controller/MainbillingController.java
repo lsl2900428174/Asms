@@ -31,15 +31,6 @@ public class MainbillingController {
      */
     @Resource
     private MainbillingService mainbillingService;
-//模糊查询显示
-    @GetMapping("/queryAllByLimit")
-    public PageInfo<MainbillingVo> selectRegisterSource(@RequestParam("c_name") String c_name, @RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize){
-        log.debug("Controller 查询方法调用");
-        PageHelper.startPage(currentPage,pagesize);
-        List<MainbillingVo> findSourcePage = mainbillingService.queryAllByLimit(c_name);
-        PageInfo<MainbillingVo> findSourcePageInfo = new PageInfo<>(findSourcePage);
-        return findSourcePageInfo;
-    }
     @GetMapping("wxmxhz")
     public AjaxResponse selectcx(int currentPage, int pageSize){
         AjaxResponse ajaxResponse =null;

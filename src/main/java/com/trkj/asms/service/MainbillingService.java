@@ -22,9 +22,6 @@ public interface MainbillingService {
      */
     Mainbilling queryById(Integer mainbillingid);
 
-//    模糊查询显示
-    List<MainbillingVo> queryAllByLimit(String c_name);
-
     /**
      * 新增数据
      *
