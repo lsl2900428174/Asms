@@ -85,7 +85,7 @@ public class WPickingoutorderServiceImpl implements WPickingoutorderService {
                         stock1.setId(items.getId());
                         System.out.println("库存"+items.getNumber());
                         System.out.println("退货"+item.getBacknumber());
-                        if(items.getNumber()>item.getBacknumber()) {
+                        if(items.getNumber()-item.getBacknumber()>=0) {
                             System.out.println("开始减");
                             stock1.setNumber(items.getNumber().intValue()- item.getBacknumber().intValue());
                             System.out.println("减成功");

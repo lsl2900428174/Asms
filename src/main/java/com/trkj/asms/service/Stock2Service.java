@@ -2,6 +2,7 @@ package com.trkj.asms.service;
 
 import com.trkj.asms.entity.Stock1;
 import com.trkj.asms.entity.Stock2;
+import com.trkj.asms.entity.Stock3;
 
 import java.util.List;
 
@@ -20,6 +21,17 @@ public interface Stock2Service {
      * @return 实例对象
      */
     Stock2 queryById(Integer id);
+
+    /**
+     * 根据预警查询
+     * @return
+     */
+    List<Stock3> selectByWarn();
+
+    /**
+     * 查询所有数据
+     */
+    List<Stock3> selectAlls();
 
     /**
      * 查询多条数据
