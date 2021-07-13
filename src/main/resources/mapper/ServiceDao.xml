@@ -14,7 +14,6 @@
         select
           serviceid, servicename, state
         from asms.service
-        where serviceid = #{serviceid}
     </select>
 
     <!--查询指定行数据-->

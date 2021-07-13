@@ -89,7 +89,7 @@
       <result column="is_id" jdbcType="INTEGER" property="isId" />
       <result column="specialmodel" jdbcType="VARCHAR" property="specialmodel" />
       <result column="isinstall" jdbcType="INTEGER" property="isinstall" />
-      <result column="wh_id" jdbcType="INTEGER" property="whId" />
+      <result column="w_id" jdbcType="INTEGER" property="wId" />
       <result column="wp_id" jdbcType="INTEGER" property="wpId" />
       <result column="warning" jdbcType="INTEGER" property="warning" />
       <result column="co_retailprice" jdbcType="DECIMAL" property="coRetailprice" />
@@ -151,7 +151,7 @@
   </sql>
   <sql id="Base_Column_List_Commodity">
     co.co_id, co.co_name, co.co_code, co.s_id, co.ci_id, co.m_id, co.mu_id, co.barcode, co.applimodel, co.is_id, co.specialmodel,
-    co.isinstall, co.wh_id, co.wp_id, co.warning, co.co_retailprice, co.cusprice
+    co.isinstall, co.w_id, co.wp_id, co.warning, co.co_retailprice, co.cusprice
   </sql>
   <sql id="Base_Column_List_Store">
     st.s_id,st.s_number,st.s_name,st.s_fullname,st.s_leader,st.s_address,st.s_phone,st.s_status
@@ -179,4 +179,29 @@
     inner join store st on ma.mendianid = st.s_id
     inner join carmanagement ca on ma.carid = ca.carmagid
   </select>
+  <insert id="insertMaintenanceapp" parameterType="com.trkj.asms.entity.Maintenanceapp">
+    insert into maintenanceapp (serviceid, kehuid, empid, xiangmuid, cailiaoid, mendianid, appno, yujiallmony, yujisetcar,
+    yujisetcartime, kehudepict, shiyucause,beizhu, carid)
+    values (#{serviceid,jdbcType=INTEGER},#{kehuid,jdbcType=INTEGER},
+    #{empid,jdbcType=INTEGER},#{xiangmuid,jdbcType=INTEGER},#{cailiaoid,jdbcType=INTEGER},#{mendianid,jdbcType=INTEGER},
+     #{appno,jdbcType=VARCHAR}, #{yujiallmony,jdbcType=DECIMAL},
+      #{yujisetcar,jdbcType=TIMESTAMP}, #{yujisetcartime,jdbcType=TIMESTAMP},#{kehudepict,jdbcType=VARCHAR},
+      #{shiyucause,jdbcType=VARCHAR},#{beizhu,jdbcType=VARCHAR},#{carid,jdbcType=INTEGER})
+  </insert>
+<!--  改状态-->
+  <update id="updatemaintenanceapp" parameterType="com.trkj.asms.entity.Maintenanceapp">
+    update maintenanceapp
+    <set>
+      mainorderstuta = 0
+    </set>
+    where maintenanceappid = #{maintenanceappid,jdbcType=INTEGER}
+  </update>
+  <!--  改收款状态-->
+  <update id="updatemaintenanceappmony" parameterType="com.trkj.asms.entity.Maintenanceapp">
+    update maintenanceapp
+    <set>
+      mainorderstuta = 3
+    </set>
+    where maintenanceappid = #{maintenanceappid,jdbcType=INTEGER}
+  </update>
 </mapper>

@@ -15,4 +15,16 @@ public class MainbillingServiceImpl implements MainbillingService {
     public List<Mainbilling> selectMainbilling() {
         return mainbillingDao.selectMainbilling();
     }
+
+    @Override
+    public Mainbilling insertMainbilling(Mainbilling mainbilling) {
+        mainbillingDao.insertMainbilling(mainbilling);
+        return mainbilling;
+    }
+
+    @Override
+    public Mainbilling updateMainbilling(Mainbilling mainbilling) {
+        mainbillingDao.updateMainbilling(mainbilling);
+        return mainbilling;
+    }
 }

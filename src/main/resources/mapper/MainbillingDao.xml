@@ -113,7 +113,7 @@
       <result column="is_id" jdbcType="INTEGER" property="isId" />
       <result column="specialmodel" jdbcType="VARCHAR" property="specialmodel" />
       <result column="isinstall" jdbcType="INTEGER" property="isinstall" />
-      <result column="wh_id" jdbcType="INTEGER" property="whId" />
+      <result column="w_id" jdbcType="INTEGER" property="wId" />
       <result column="wp_id" jdbcType="INTEGER" property="wpId" />
       <result column="warning" jdbcType="INTEGER" property="warning" />
       <result column="co_retailprice" jdbcType="DECIMAL" property="coRetailprice" />
@@ -180,7 +180,7 @@
   </sql>
   <sql id="Base_Column_List_Commodity">
     co.co_id, co.co_name, co.co_code, co.s_id, co.ci_id, co.m_id, co.mu_id, co.barcode, co.applimodel, co.is_id, co.specialmodel,
-    co.isinstall, co.wh_id, co.wp_id, co.warning, co.co_retailprice, co.cusprice
+    co.isinstall, co.w_id, co.wp_id, co.warning, co.co_retailprice, co.cusprice
   </sql>
   <sql id="Base_Column_List_Store">
     st.s_id,st.s_number,st.s_name,st.s_fullname,st.s_leader,st.s_address,st.s_phone,st.s_status
@@ -210,4 +210,21 @@
     inner join carmanagement ca on mai.chepai = ca.carmagid
     inner join maintenanceapp ma on mai.maintenanceappid = ma.maintenanceappid
   </select>
+<!--  增加-->
+  <insert id="insertMainbilling" parameterType="com.trkj.asms.entity.Mainbilling">
+    insert into mainbilling (serviceid,maintenanceappid, kehuid, empid, xiangmuid, cailiaoid, mendianid,chepai,mainbillingno,yujisetcar,
+    yujisetcartime,kehudepict,suichewup,favourable,yujiallmony,overmonytime,beizhu)
+    values (#{serviceid,jdbcType=INTEGER},#{maintenanceappid,jdbcType=INTEGER},#{kehuid,jdbcType=INTEGER},
+    #{empid,jdbcType=INTEGER},#{xiangmuid,jdbcType=INTEGER},#{cailiaoid,jdbcType=INTEGER},#{mendianid,jdbcType=INTEGER},#{chepai,jdbcType=INTEGER},
+     #{mainbillingno,jdbcType=VARCHAR}, #{yujisetcar,jdbcType=TIMESTAMP},#{yujisetcartime,jdbcType=TIMESTAMP},#{kehudepict,jdbcType=VARCHAR},#{suichewup,jdbcType=VARCHAR},#{favourable,jdbcType=DECIMAL},
+     #{yujiallmony,jdbcType=DECIMAL}, #{overmonytime,jdbcType=TIMESTAMP},#{beizhu,jdbcType=VARCHAR})
+  </insert>
+<!--  改状态-->
+  <update id="updateMainbilling" parameterType="com.trkj.asms.entity.Maintenanceapp">
+    update mainbilling
+    <set>
+      mainorderstuta = 3
+    </set>
+    where mainbillingid = #{mainbillingid,jdbcType=INTEGER}
+  </update>
 </mapper>

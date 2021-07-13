@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="generator.CommodityDao">
-  <resultMap id="BaseResultMap" type="generator.Commodity">
+<mapper namespace="com.trkj.asms.dao.CommodityDao">
+  <resultMap id="BaseResultMap" type="com.trkj.asms.entity.Commodity">
     <id column="co_id" jdbcType="INTEGER" property="coId" />
     <result column="co_name" jdbcType="VARCHAR" property="coName" />
     <result column="co_code" jdbcType="VARCHAR" property="coCode" />
@@ -14,7 +14,7 @@
     <result column="is_id" jdbcType="INTEGER" property="isId" />
     <result column="specialmodel" jdbcType="VARCHAR" property="specialmodel" />
     <result column="isinstall" jdbcType="INTEGER" property="isinstall" />
-    <result column="wh_id" jdbcType="INTEGER" property="whId" />
+    <result column="w_id" jdbcType="INTEGER" property="wId" />
     <result column="wp_id" jdbcType="INTEGER" property="wpId" />
     <result column="warning" jdbcType="INTEGER" property="warning" />
     <result column="co_retailprice" jdbcType="DECIMAL" property="coRetailprice" />
@@ -22,207 +22,11 @@
   </resultMap>
   <sql id="Base_Column_List">
     co_id, co_name, co_code, s_id, ci_id, m_id, mu_id, barcode, applimodel, is_id, specialmodel, 
-    isinstall, wh_id, wp_id, warning, co_retailprice, cusprice
+    isinstall, w_id, wp_id, warning, co_retailprice, cusprice
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectBycommodity" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from commodity
-    where co_id = #{coId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from commodity
-    where co_id = #{coId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" keyColumn="co_id" keyProperty="coId" parameterType="generator.Commodity" useGeneratedKeys="true">
-    insert into commodity (co_name, co_code, s_id, 
-      ci_id, m_id, mu_id, barcode, 
-      applimodel, is_id, specialmodel, 
-      isinstall, wh_id, wp_id, 
-      warning, co_retailprice, cusprice
-      )
-    values (#{coName,jdbcType=VARCHAR}, #{coCode,jdbcType=VARCHAR}, #{sId,jdbcType=INTEGER}, 
-      #{ciId,jdbcType=INTEGER}, #{mId,jdbcType=INTEGER}, #{muId,jdbcType=INTEGER}, #{barcode,jdbcType=VARCHAR}, 
-      #{applimodel,jdbcType=VARCHAR}, #{isId,jdbcType=INTEGER}, #{specialmodel,jdbcType=VARCHAR}, 
-      #{isinstall,jdbcType=INTEGER}, #{whId,jdbcType=INTEGER}, #{wpId,jdbcType=INTEGER}, 
-      #{warning,jdbcType=INTEGER}, #{coRetailprice,jdbcType=DECIMAL}, #{cusprice,jdbcType=DECIMAL}
-      )
-  </insert>
-  <insert id="insertSelective" keyColumn="co_id" keyProperty="coId" parameterType="generator.Commodity" useGeneratedKeys="true">
-    insert into commodity
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="coName != null">
-        co_name,
-      </if>
-      <if test="coCode != null">
-        co_code,
-      </if>
-      <if test="sId != null">
-        s_id,
-      </if>
-      <if test="ciId != null">
-        ci_id,
-      </if>
-      <if test="mId != null">
-        m_id,
-      </if>
-      <if test="muId != null">
-        mu_id,
-      </if>
-      <if test="barcode != null">
-        barcode,
-      </if>
-      <if test="applimodel != null">
-        applimodel,
-      </if>
-      <if test="isId != null">
-        is_id,
-      </if>
-      <if test="specialmodel != null">
-        specialmodel,
-      </if>
-      <if test="isinstall != null">
-        isinstall,
-      </if>
-      <if test="whId != null">
-        wh_id,
-      </if>
-      <if test="wpId != null">
-        wp_id,
-      </if>
-      <if test="warning != null">
-        warning,
-      </if>
-      <if test="coRetailprice != null">
-        co_retailprice,
-      </if>
-      <if test="cusprice != null">
-        cusprice,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="coName != null">
-        #{coName,jdbcType=VARCHAR},
-      </if>
-      <if test="coCode != null">
-        #{coCode,jdbcType=VARCHAR},
-      </if>
-      <if test="sId != null">
-        #{sId,jdbcType=INTEGER},
-      </if>
-      <if test="ciId != null">
-        #{ciId,jdbcType=INTEGER},
-      </if>
-      <if test="mId != null">
-        #{mId,jdbcType=INTEGER},
-      </if>
-      <if test="muId != null">
-        #{muId,jdbcType=INTEGER},
-      </if>
-      <if test="barcode != null">
-        #{barcode,jdbcType=VARCHAR},
-      </if>
-      <if test="applimodel != null">
-        #{applimodel,jdbcType=VARCHAR},
-      </if>
-      <if test="isId != null">
-        #{isId,jdbcType=INTEGER},
-      </if>
-      <if test="specialmodel != null">
-        #{specialmodel,jdbcType=VARCHAR},
-      </if>
-      <if test="isinstall != null">
-        #{isinstall,jdbcType=INTEGER},
-      </if>
-      <if test="whId != null">
-        #{whId,jdbcType=INTEGER},
-      </if>
-      <if test="wpId != null">
-        #{wpId,jdbcType=INTEGER},
-      </if>
-      <if test="warning != null">
-        #{warning,jdbcType=INTEGER},
-      </if>
-      <if test="coRetailprice != null">
-        #{coRetailprice,jdbcType=DECIMAL},
-      </if>
-      <if test="cusprice != null">
-        #{cusprice,jdbcType=DECIMAL},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="generator.Commodity">
-    update commodity
-    <set>
-      <if test="coName != null">
-        co_name = #{coName,jdbcType=VARCHAR},
-      </if>
-      <if test="coCode != null">
-        co_code = #{coCode,jdbcType=VARCHAR},
-      </if>
-      <if test="sId != null">
-        s_id = #{sId,jdbcType=INTEGER},
-      </if>
-      <if test="ciId != null">
-        ci_id = #{ciId,jdbcType=INTEGER},
-      </if>
-      <if test="mId != null">
-        m_id = #{mId,jdbcType=INTEGER},
-      </if>
-      <if test="muId != null">
-        mu_id = #{muId,jdbcType=INTEGER},
-      </if>
-      <if test="barcode != null">
-        barcode = #{barcode,jdbcType=VARCHAR},
-      </if>
-      <if test="applimodel != null">
-        applimodel = #{applimodel,jdbcType=VARCHAR},
-      </if>
-      <if test="isId != null">
-        is_id = #{isId,jdbcType=INTEGER},
-      </if>
-      <if test="specialmodel != null">
-        specialmodel = #{specialmodel,jdbcType=VARCHAR},
-      </if>
-      <if test="isinstall != null">
-        isinstall = #{isinstall,jdbcType=INTEGER},
-      </if>
-      <if test="whId != null">
-        wh_id = #{whId,jdbcType=INTEGER},
-      </if>
-      <if test="wpId != null">
-        wp_id = #{wpId,jdbcType=INTEGER},
-      </if>
-      <if test="warning != null">
-        warning = #{warning,jdbcType=INTEGER},
-      </if>
-      <if test="coRetailprice != null">
-        co_retailprice = #{coRetailprice,jdbcType=DECIMAL},
-      </if>
-      <if test="cusprice != null">
-        cusprice = #{cusprice,jdbcType=DECIMAL},
-      </if>
-    </set>
-    where co_id = #{coId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="generator.Commodity">
-    update commodity
-    set co_name = #{coName,jdbcType=VARCHAR},
-      co_code = #{coCode,jdbcType=VARCHAR},
-      s_id = #{sId,jdbcType=INTEGER},
-      ci_id = #{ciId,jdbcType=INTEGER},
-      m_id = #{mId,jdbcType=INTEGER},
-      mu_id = #{muId,jdbcType=INTEGER},
-      barcode = #{barcode,jdbcType=VARCHAR},
-      applimodel = #{applimodel,jdbcType=VARCHAR},
-      is_id = #{isId,jdbcType=INTEGER},
-      specialmodel = #{specialmodel,jdbcType=VARCHAR},
-      isinstall = #{isinstall,jdbcType=INTEGER},
-      wh_id = #{whId,jdbcType=INTEGER},
-      wp_id = #{wpId,jdbcType=INTEGER},
-      warning = #{warning,jdbcType=INTEGER},
-      co_retailprice = #{coRetailprice,jdbcType=DECIMAL},
-      cusprice = #{cusprice,jdbcType=DECIMAL}
-    where co_id = #{coId,jdbcType=INTEGER}
-  </update>
 </mapper>

@@ -64,7 +64,7 @@ public class Maintenanceapp implements Serializable {
     /**
      * 车辆id
      */
-    private Carmanagement carmanagement;
+
     private Integer chepai;
 
     /**
@@ -115,6 +115,7 @@ public class Maintenanceapp implements Serializable {
     /**
      * 车牌id
      */
+    private Carmanagement carmanagement;
     private Integer carid;
 
     private static final long serialVersionUID = 1L;
