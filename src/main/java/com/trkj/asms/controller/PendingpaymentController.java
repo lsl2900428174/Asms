@@ -61,6 +61,7 @@ public class PendingpaymentController {
                                       @RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize){
         PageHelper.startPage(currentPage,pagesize);
         List<Pendingpayment> pendingpaymentList=pendingpaymentService.findmohuNameAndId(documentnumber, sname);
+        System.out.println(pendingpaymentList.toString());
         PageInfo<Pendingpayment> dueinPageInfo=new PageInfo<>(pendingpaymentList);
 
         return dueinPageInfo;
@@ -72,7 +73,7 @@ public class PendingpaymentController {
         PageHelper.startPage(currentPage,pagesize);
         List<Pendingpayment> pendingpaymentList=pendingpaymentService.findyimohuNameAndId(documentnumber, documenttype);
         PageInfo<Pendingpayment> dueinPageInfo=new PageInfo<>(pendingpaymentList);
-
+        log.debug(pendingpaymentList.toString());
         return dueinPageInfo;
     }
 

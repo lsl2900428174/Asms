@@ -35,4 +35,9 @@ public class DueinServiceImpl implements DueinService {
         dueinDao.updateByPrimaryKeySelective(record);
         return record;
     }
+
+    @Override
+    public List<Duein> finddueinmohu(String documentnumber, String s_name,String documenttype) {
+        return dueinDao.selectmohu(documentnumber, s_name,documenttype);
+    }
 }
