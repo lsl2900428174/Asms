@@ -58,9 +58,17 @@ public interface MainbillingDao {
      * @return 影响行数
      */
     int deleteById(Integer mainbillingid);
-    List<WxmxhzVo> wxmxhz();
-    List<WzcghzoVo> wzcghz();
-    List<WzxshzVo> wzxshz();
+    List<WxmxhzVo> wxmxhz(int currentPage, int pageSize);
+    List<WzcghzoVo> wzcghz(int currentPage, int pageSize);
+    List<WzxshzVo> wzxshz(int currentPage, int pageSize);
     List<ZjyeVo> zjye();
+    List<DzmxVo> xfjefx();
+    List<DzmxVo> jzlx();
+    List<DzmxVo> jzlx1();
+    List<WxmxhzVo> flcx(WxmxhzVo wxmxhzVo);
     List<DzmxVo> selectnumber(String settlementtype);
+    /**
+     * 查询给定的俩个时间节点之间的单据
+     */
+    List<WxmxhzVo> sjcx(String date1, String date2);
 }
