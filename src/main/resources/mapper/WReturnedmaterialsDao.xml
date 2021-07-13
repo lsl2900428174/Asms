@@ -11,7 +11,7 @@
         <result property="modelname" column="modelname" jdbcType="VARCHAR"/>
         <result property="sitepartname" column="sitepartname" jdbcType="VARCHAR"/>
         <result property="unitname" column="unitname" jdbcType="VARCHAR"/>
-        <result property="number" column="number" jdbcType="INTEGER"/>
+        <result property="numberd" column="numberd" jdbcType="INTEGER"/>
         <result property="backnumber" column="backnumber" jdbcType="INTEGER"/>
         <result property="unitprice" column="unitprice" jdbcType="NUMERIC"/>
         <result property="amountprice" column="amountprice" jdbcType="NUMERIC"/>
@@ -22,7 +22,7 @@
     <!--查询单个-->
     <select id="queryById" resultMap="WReturnedmaterialsMap">
         select
-          r_id, materialcode, materialname, typename, brand, modelname, sitepartname, unitname, number, backnumber, unitprice, amountprice, storename, billcode
+          r_id, materialcode, materialname, typename, brand, modelname, sitepartname, unitname, numberd, backnumber, unitprice, amountprice, storename, billcode
         from asms.w_returnedmaterials
         where r_id = #{rId}
     </select>
@@ -30,7 +30,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="WReturnedmaterialsMap">
         select
-          r_id, materialcode, materialname, typename, brand, modelname, sitepartname, unitname, number, backnumber, unitprice, amountprice, storename, billcode
+          r_id, materialcode, materialname, typename, brand, modelname, sitepartname, unitname, numberd, backnumber, unitprice, amountprice, storename, billcode
         from asms.w_returnedmaterials
         limit #{offset}, #{limit}
     </select>
@@ -38,7 +38,7 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="WReturnedmaterialsMap">
         select
-        r_id, materialcode, materialname, typename, brand, modelname, sitepartname, unitname, number, backnumber,
+        r_id, materialcode, materialname, typename, brand, modelname, sitepartname, unitname, numberd, backnumber,
         unitprice, amountprice, storename, billcode
         from asms.w_returnedmaterials
         <where>
@@ -66,8 +66,8 @@
             <if test="unitname != null and unitname != ''">
                 and unitname = #{unitname}
             </if>
-            <if test="number != null">
-                and number = #{number}
+            <if test="numberd != null">
+                and numberd = #{numberd}
             </if>
             <if test="backnumber != null">
                 and backnumber = #{backnumber}
@@ -87,41 +87,36 @@
         </where>
     </select>
 
-    <!-- 通过编号查询所有   -->
-    <select id="queryByCodeAll" resultMap="WReturnedmaterialsMap">
-
-    </select>
-
     <!--新增所有列-->
     <insert id="insert" keyProperty="rId" useGeneratedKeys="true">
-        insert into asms.w_returnedmaterials(materialcode, materialname, typename, brand, modelname, sitepartname, unitname, number, backnumber, unitprice, amountprice, storename, billcode)
-        values (#{materialcode}, #{materialname}, #{typename}, #{brand}, #{modelname}, #{sitepartname}, #{unitname}, #{number}, #{backnumber}, #{unitprice}, #{amountprice}, #{storename}, #{billcode})
+        insert into asms.w_returnedmaterials(materialcode, materialname, typename, brand, modelname, sitepartname, unitname, numberd, backnumber, unitprice, amountprice, storename, billcode)
+        values (#{materialcode}, #{materialname}, #{typename}, #{brand}, #{modelname}, #{sitepartname}, #{unitname}, #{numberd}, #{backnumber}, #{unitprice}, #{amountprice}, #{storename}, #{billcode})
     </insert>
 
     <insert id="insertBatch" keyProperty="rId" useGeneratedKeys="true">
         insert into asms.w_returnedmaterials(materialcode, materialname, typename, brand, modelname, sitepartname,
-        unitname, number, backnumber, unitprice, amountprice, storename, billcode)
+        unitname, numberd, backnumber, unitprice, amountprice, storename, billcode)
         values
         <foreach collection="entities" item="entity" separator=",">
             (#{entity.materialcode}, #{entity.materialname}, #{entity.typename}, #{entity.brand}, #{entity.modelname},
-            #{entity.sitepartname}, #{entity.unitname}, #{entity.number}, #{entity.backnumber}, #{entity.unitprice},
+            #{entity.sitepartname}, #{entity.unitname}, #{entity.numberd}, #{entity.backnumber}, #{entity.unitprice},
             #{entity.amountprice}, #{entity.storename}, #{entity.billcode})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="rId" useGeneratedKeys="true">
         insert into asms.w_returnedmaterials(materialcode, materialname, typename, brand, modelname, sitepartname,
-        unitname, number, backnumber, unitprice, amountprice, storename, billcode)
+        unitname, numberd, backnumber, unitprice, amountprice, storename, billcode)
         values
         <foreach collection="entities" item="entity" separator=",">
             (#{entity.materialcode}, #{entity.materialname}, #{entity.typename}, #{entity.brand}, #{entity.modelname},
-            #{entity.sitepartname}, #{entity.unitname}, #{entity.number}, #{entity.backnumber}, #{entity.unitprice},
+            #{entity.sitepartname}, #{entity.unitname}, #{entity.numberd}, #{entity.backnumber}, #{entity.unitprice},
             #{entity.amountprice}, #{entity.storename}, #{entity.billcode})
         </foreach>
         on duplicate key update
         materialcode = values(materialcode) , materialname = values(materialname) , typename = values(typename) , brand
         = values(brand) , modelname = values(modelname) , sitepartname = values(sitepartname) , unitname =
-        values(unitname) , number = values(number) , backnumber = values(backnumber) , unitprice = values(unitprice) ,
+        values(unitname) , numberd = values(numberd) , backnumber = values(backnumber) , unitprice = values(unitprice) ,
         amountprice = values(amountprice) , storename = values(storename) , billcode = values(billcode)
     </insert>
 
@@ -150,8 +145,8 @@
             <if test="unitname != null and unitname != ''">
                 unitname = #{unitname},
             </if>
-            <if test="number != null">
-                number = #{number},
+            <if test="numberd != null">
+                numberd = #{numberd},
             </if>
             <if test="backnumber != null">
                 backnumber = #{backnumber},

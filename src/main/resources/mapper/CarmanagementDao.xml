@@ -13,8 +13,8 @@
         <result property="sId" column="s_id" jdbcType="INTEGER"/>
         <result property="cId" column="c_id" jdbcType="INTEGER"/>
         <result property="chepai" column="chepai" jdbcType="VARCHAR"/>
-        <result property="chejiano" column="chejiano" jdbcType="VARCHAR"/>
         <result property="fadongjino" column="fadongjino" jdbcType="VARCHAR"/>
+        <result property="chejiano" column="chejiano" jdbcType="VARCHAR"/>
         <result property="zuoweinumber" column="zuoweinumber" jdbcType="INTEGER"/>
         <result property="buydate" column="buydate" jdbcType="TIMESTAMP"/>
         <result property="daoqiyers" column="daoqiyers" jdbcType="TIMESTAMP"/>
@@ -32,7 +32,7 @@
         <result property="cname" column="c_name" jdbcType="VARCHAR"/>
         <result property="cphone" column="c_phone" jdbcType="VARCHAR"/>
         <result property="vsname" column="vs_name" jdbcType="VARCHAR"/>
-        <result property="sname" column="c_name" jdbcType="VARCHAR"/>
+        <result property="sname" column="s_name" jdbcType="VARCHAR"/>
         <result property="daoqiyers" column="daoqiyers" jdbcType="TIMESTAMP"/>
         <result property="nextbytime" column="nextbytime" jdbcType="TIMESTAMP"/>
         <result property="nextbylichen" column="nextbylichen" jdbcType="INTEGER"/>
@@ -46,7 +46,7 @@
         LEFT JOIN series s ON s.vs_id = ca.`vs_id`
         LEFT JOIN store st ON st.s_id = ca.s_id
         LEFT JOIN color cl ON cl.bc_id = ca.`bc_id`
-        ORDER BY ca.`cjdate`
+        ORDER BY ca.`cjdate` DESC
     </select>
     <select id="findall2" resultMap="CarmanagementMap">
         select * from carmanagement
@@ -142,8 +142,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="carmagid" useGeneratedKeys="true">
-        insert into asms.carmanagement(b_id, vs_id, v_id, i_id, bc_id, m_id, s_id, c_id, chepai, chejiano, fadongjino, zuoweinumber, buydate, daoqiyers, newlichen, nextbytime, nextbylichen, yesorno, beizhu, jianyi)
-        values (#{bId}, #{vsId}, #{vId}, #{iId}, #{bcId}, #{mId}, #{sId}, #{cId}, #{chepai}, #{chejiano}, #{fadongjino}, #{zuoweinumber}, #{buydate}, #{daoqiyers}, #{newlichen}, #{nextbytime}, #{nextbylichen}, #{yesorno}, #{beizhu}, #{jianyi})
+        insert into asms.carmanagement(b_id, vs_id, v_id, i_id, bc_id, s_id, c_id, chepai, chejiano, fadongjino, zuoweinumber, buydate, daoqiyers, newlichen, nextbytime, nextbylichen, yesorno, beizhu, jianyi)
+        values (#{bId}, #{vsId}, #{vId}, #{iId}, #{bcId}, #{sId}, #{cId}, #{chepai}, #{chejiano}, #{fadongjino}, #{zuoweinumber}, #{buydate}, #{daoqiyers}, #{newlichen}, #{nextbytime}, #{nextbylichen}, #{yesorno}, #{beizhu}, #{jianyi})
     </insert>
 
     <insert id="insertBatch" keyProperty="carmagid" useGeneratedKeys="true">

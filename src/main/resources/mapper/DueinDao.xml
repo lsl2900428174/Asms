@@ -35,6 +35,7 @@
       <result property="cDate" column="c_date" jdbcType="TIMESTAMP"/>
     </association>
   </resultMap>
+
   <sql id="Base_Column_List">
     d.id, d.s_id, d.DocumentNumber, d.DocumentType, d.Documentstatus, d.DocumentDate, d.Relationship,
     d.CustomerId, d.carmagId, d.Orderamount, d.`Operator`, d.remarks, d.Deletename, d.DeleteTime, d.Timeliness,
@@ -54,14 +55,16 @@
     select
     <include refid="Base_Column_List" />,<include refid="customer"/>
     from duein d inner join customer c on d.CustomerId=c.c_id
-where d.Documentstatus=0
+where d.Documentstatus=0 and d.Timeliness=0
+order by d.DocumentDate desc
   </select>
   <!--  收款单-->
   <select id="findyiduein" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />,<include refid="customer"/>
     from duein d inner join customer c on d.CustomerId=c.c_id
-    where d.Documentstatus=1
+    where d.Documentstatus=1 and d.Timeliness=0
+    order by d.DocumentDate desc
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from duein

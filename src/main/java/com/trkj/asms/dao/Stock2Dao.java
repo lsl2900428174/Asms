@@ -1,6 +1,8 @@
 package com.trkj.asms.dao;
 
+import com.trkj.asms.entity.Stock1;
 import com.trkj.asms.entity.Stock2;
+import com.trkj.asms.entity.Stock3;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -24,7 +26,20 @@ public interface Stock2Dao {
     Stock2 queryById(Integer id);
 
     /**
-     * 查询指定行数据
+     * 根据预警查询
+     * @return
+     */
+    List<Stock3> selectByWarn();
+
+    /**
+     * 查询所有数据
+     *
+     * @return 对象列表
+     */
+    List<Stock3> selectAlls();
+
+    /**
+     * 查询部分数据
      *
      * @return 对象列表
      */
@@ -66,10 +81,10 @@ public interface Stock2Dao {
     /**
      * 修改数据
      *
-     * @param stock2 实例对象
+     * @param stock1 实例对象
      * @return 影响行数
      */
-    int update(Stock2 stock2);
+    int update(Stock1 stock1);
 
     /**
      * 通过主键删除数据

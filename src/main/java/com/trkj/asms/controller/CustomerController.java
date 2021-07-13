@@ -5,9 +5,13 @@ import com.trkj.asms.entity.Customer;
 import com.trkj.asms.service.CustomerService;
 import com.trkj.asms.vo.AjaxResponse;
 import com.trkj.asms.vo.KehuVo;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -65,8 +69,24 @@ public class CustomerController {
      * @return
      */
     @PostMapping("addkehu")
-    public Customer addkehu(@RequestBody Customer customer){
-        return this.customerService.insert(customer);
+    public AjaxResponse addkehu(@RequestBody String kehu){
+        JSONObject jsonObject=JSONObject.parseObject(kehu);
+        String one = jsonObject.getString("kehu");
+        Customer customer = JSON.parseObject(one,Customer.class);
+        customer.setCDate(new Date());
+        System.out.println(one);
+        this.customerService.insert(customer);
+        return AjaxResponse.success("添加成功");
+    }
+
+    /**
+     *
+     * @param cName
+     * @return
+     */
+    @GetMapping("findbycname")
+    public KehuVo findbycname(String cName){
+        return this.customerService.findbycname(cName);
     }
 
 

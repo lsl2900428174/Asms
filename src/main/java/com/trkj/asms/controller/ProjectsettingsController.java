@@ -5,6 +5,7 @@ import com.trkj.asms.service.ProjectsettingsService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 项目设置表(Projectsettings)表控制层
@@ -30,6 +31,11 @@ public class ProjectsettingsController {
     @GetMapping("selectOne")
     public Projectsettings selectOne(Integer id) {
         return this.projectsettingsService.queryById(id);
+    }
+
+    @GetMapping("selectProjectsettings")
+    public List<Projectsettings> Projectsettings() {
+        return projectsettingsService.selectProjectsettings();
     }
 
 }

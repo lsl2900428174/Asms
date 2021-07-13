@@ -2,13 +2,8 @@ package com.trkj.asms.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.trkj.asms.entity.PageResult;
-import com.trkj.asms.entity.Stock2;
-import com.trkj.asms.entity.WMaterialorder;
-import com.trkj.asms.entity.WReturnedmaterials;
-import com.trkj.asms.service.Stock2Service;
-import com.trkj.asms.service.WMaterialorderService;
-import com.trkj.asms.service.WReturnedmaterialsService;
+import com.trkj.asms.entity.*;
+import com.trkj.asms.service.*;
 import com.trkj.asms.vo.AjaxResponse;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +11,7 @@ import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -37,6 +33,10 @@ public class WMaterialorderController {
     private Stock2Service stock2Service;
     @Resource
     private WReturnedmaterialsService wReturnedmaterialsService;
+    @Resource
+    private MaterialbrandService materialbrandService;
+    @Resource
+    private SupplierService supplierService;
 
     /**
      * 新增采购物资记录
@@ -44,8 +44,6 @@ public class WMaterialorderController {
     @PostMapping("insertpurchase")
     public AjaxResponse insertpurchase(@RequestBody WMaterialorder wMaterialorder){
         String message = "";
-            System.out.println(wMaterialorder.toString());
-            System.out.println(wMaterialorder.getWReturnedmaterials().toString());
             Boolean add = wMaterialorderService.insert(wMaterialorder);
             if(add == true){
                 message = "新增成功";
@@ -79,12 +77,67 @@ public class WMaterialorderController {
 
         PageHelper.startPage(1,10);
         List<Stock2> stock2 = stock2Service.selectAll();
-        PageInfo<Stock2> pageInfo = new PageInfo<>(stock2);
-        PageResult<Stock2> result = new PageResult<>(pageInfo.getTotal(),stock2);
+        //PageInfo<Stock2> pageInfo = new PageInfo<>(stock2);
+        //PageResult<Stock2> result = new PageResult<>(pageInfo.getTotal(),stock2);
 
-        System.out.println(stock2.get(0).toString());
+        return AjaxResponse.success(stock2);
+    }
 
-        return AjaxResponse.success(result);
+    /**
+     * 获取供应商
+     */
+    @GetMapping("selectSupp")
+    public AjaxResponse selectSupp(){
+        List<Supplier> suppliers = supplierService.queryAll();
+        return AjaxResponse.success(suppliers);
+    }
+
+    /**
+     * 获取品牌
+     */
+    @GetMapping("selectmater")
+    public AjaxResponse selectmater(){
+        List<Materialbrand> materialbrands = materialbrandService.queryAll();
+        return AjaxResponse.success(materialbrands);
+    }
+
+
+    /**
+     * 输入供应商进行查询
+     */
+    @RequestMapping(value = "/selectbysuper",method = RequestMethod.GET)
+    public AjaxResponse selectbysuper(@RequestParam String superr){
+        WMaterialorder wMaterialorder = new WMaterialorder();
+        wMaterialorder.setSuppliername(superr);
+        List<WMaterialorder> list = wMaterialorderService.queryAll(wMaterialorder);
+        for (WMaterialorder item:list) {
+            WReturnedmaterials wReturnedmaterials = new WReturnedmaterials();
+
+            wReturnedmaterials.setBillcode(item.getBillcode());
+            List<WReturnedmaterials> list1 = wReturnedmaterialsService.queryAll(wReturnedmaterials);
+            item.setWReturnedmaterials(list1);
+        }
+        return AjaxResponse.success(list);
+    }
+
+    /**
+     * 获取所有库存数据
+     */
+    @GetMapping("selectAllStock3")
+    public AjaxResponse selectAllStock3(){
+        List<Stock3> list = stock2Service.selectAlls();
+
+        return AjaxResponse.success(list);
+    }
+
+    /**
+     * 查询预警库存
+     */
+    @GetMapping("selectByWarning")
+    public AjaxResponse selectByWarning(){
+        List<Stock3> list = stock2Service.selectByWarn();
+
+        return AjaxResponse.success(list);
     }
 
 }

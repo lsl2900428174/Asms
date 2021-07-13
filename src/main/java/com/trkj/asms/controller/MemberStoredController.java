@@ -1,8 +1,12 @@
 package com.trkj.asms.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.trkj.asms.entity.Customer;
 import com.trkj.asms.entity.MemberStored;
 import com.trkj.asms.service.MemberStoredService;
 import com.trkj.asms.vo.AjaxResponse;
+import com.trkj.asms.vo.HuiyuanVo;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -39,8 +43,16 @@ public class MemberStoredController {
      * @return
      */
     @GetMapping("findall")
-    public List<MemberStored> findall(){
+    public List<HuiyuanVo> findall(String cName){
         return this.memberStoredService.findall();
+    }
+    /**
+     * 储值历史单记录
+     * @return
+     */
+    @GetMapping("findallbyname")
+    public List<HuiyuanVo> findallbyname(String cName){
+        return this.memberStoredService.findallbyname(cName);
     }
 
     /**
@@ -49,9 +61,13 @@ public class MemberStoredController {
      * @return
      */
     @PostMapping("addchuzhi")
-    public AjaxResponse addzhuzhi(@RequestBody MemberStored memberStored){
+    public AjaxResponse addzhuzhi(@RequestBody String memberStored){
         String message="";
-        Boolean add = this.memberStoredService.addchuzhi(memberStored);
+        JSONObject jsonObject=JSONObject.parseObject(memberStored);
+        String one = jsonObject.getString("memberStored");
+        System.out.println(one);
+        MemberStored memberStored1 = JSON.parseObject(one,MemberStored.class);
+        Boolean add = this.memberStoredService.addchuzhi(memberStored1);
         if(add == true){
             message = "新增成功";
         }else {

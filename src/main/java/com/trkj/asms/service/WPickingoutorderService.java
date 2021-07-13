@@ -1,5 +1,6 @@
 package com.trkj.asms.service;
 
+import com.trkj.asms.entity.Mainbilling;
 import com.trkj.asms.entity.WPickingoutorder;
 
 import java.util.List;
@@ -53,4 +54,9 @@ public interface WPickingoutorderService {
      */
     boolean deleteById(Integer poId);
 
+    /**
+     * 过滤维修数据
+     * @return
+     */
+    List<Mainbilling> selectMainbilling();
 }

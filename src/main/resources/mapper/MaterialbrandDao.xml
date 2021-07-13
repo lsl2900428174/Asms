@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.asms.dao.MaterialbrandDao">
+
+    <resultMap type="com.trkj.asms.entity.Materialbrand" id="MaterialbrandMap">
+        <result property="mId" column="m_id" jdbcType="INTEGER"/>
+        <result property="mName" column="m_name" jdbcType="VARCHAR"/>
+        <result property="mState" column="m_state" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="MaterialbrandMap">
+        select
+          m_id, m_name, m_state
+        from asms.materialbrand
+        where m_id = #{mId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="MaterialbrandMap">
+        select
+          m_id, m_name, m_state
+        from asms.materialbrand
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="MaterialbrandMap">
+        select
+        m_id, m_name, m_state
+        from asms.materialbrand
+        <where>
+            <if test="mId != null">
+                and m_id = #{mId}
+            </if>
+            <if test="mName != null and mName != ''">
+                and m_name = #{mName}
+            </if>
+            <if test="mState != null">
+                and m_state = #{mState}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="mId" useGeneratedKeys="true">
+        insert into asms.materialbrand(m_name, m_state)
+        values (#{mName}, #{mState})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="mId" useGeneratedKeys="true">
+        insert into asms.materialbrand(m_name, m_state)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.mName}, #{entity.mState})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="mId" useGeneratedKeys="true">
+        insert into asms.materialbrand(m_name, m_state)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.mName}, #{entity.mState})
+        </foreach>
+        on duplicate key update
+        m_name = values(m_name) , m_state = values(m_state)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update asms.materialbrand
+        <set>
+            <if test="mName != null and mName != ''">
+                m_name = #{mName},
+            </if>
+            <if test="mState != null">
+                m_state = #{mState},
+            </if>
+        </set>
+        where m_id = #{mId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from asms.materialbrand where m_id = #{mId}
+    </delete>
+
+</mapper>
+
