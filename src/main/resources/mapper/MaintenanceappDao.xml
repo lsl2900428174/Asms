@@ -179,6 +179,27 @@
     inner join store st on ma.mendianid = st.s_id
     inner join carmanagement ca on ma.carid = ca.carmagid
   </select>
+<!--  根据编号查询-->
+  <select id="selectByPrimaryKeyId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />,
+    <include refid="Base_Column_List_Service" />,
+    <include refid="Base_Column_List_Customer" />,
+    <include refid="Base_Column_List_Emp" />,
+    <include refid="Base_Column_List_Projectsettings" />,
+    <include refid="Base_Column_List_Commodity" />,
+    <include refid="Base_Column_List_Store" />,
+    <include refid="Base_Column_List_Carmanagement" />
+    from maintenanceapp ma
+    inner join service se on ma.serviceid = se.serviceid
+    inner join customer cu on ma.kehuid = cu.c_id
+    inner join emp em on ma.empid = em.e_Id
+    inner join projectsettings pr on ma.xiangmuid = pr.p_id
+    inner join commodity co on ma.cailiaoid = co.co_id
+    inner join store st on ma.mendianid = st.s_id
+    inner join carmanagement ca on ma.carid = ca.carmagid
+    where ma.maintenanceappid=#{maintenanceappid,jdbcType=INTEGER}
+  </select>
   <insert id="insertMaintenanceapp" parameterType="com.trkj.asms.entity.Maintenanceapp">
     insert into maintenanceapp (serviceid, kehuid, empid, xiangmuid, cailiaoid, mendianid, appno, yujiallmony, yujisetcar,
     yujisetcartime, kehudepict, shiyucause,beizhu, carid)

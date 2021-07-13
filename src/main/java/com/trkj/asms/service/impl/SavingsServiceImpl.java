@@ -20,6 +20,16 @@ public class SavingsServiceImpl implements SavingsService {
     @Resource
     private SavingsDao savingsDao;
 
+    /**
+     * 根据客户名称查询储值卡信息
+     * @param name
+     * @return
+     */
+    @Override
+    public Savings findbyname(String name) {
+        return this.savingsDao.findbyname(name);
+    }
+
     @Override
     public List<SavingVo> findall() {
         

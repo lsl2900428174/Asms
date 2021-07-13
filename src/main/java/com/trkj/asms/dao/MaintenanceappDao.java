@@ -14,4 +14,6 @@ public interface MaintenanceappDao {
     int updatemaintenanceapp(Maintenanceapp record);
     //    修改状态
     int updatemaintenanceappmony(Maintenanceapp record);
+//    根据编号查询所以：添加收款单
+Maintenanceapp selectByPrimaryKeyId(Integer maintenanceappid);
 }

@@ -16,6 +16,8 @@ import java.util.List;
 @Mapper
 public interface CustomerDao {
 
+    KehuVo findbycname(@Param("cName")String cName);
+
     List<KehuVo> findall();
 
     List<Customer> findall2();

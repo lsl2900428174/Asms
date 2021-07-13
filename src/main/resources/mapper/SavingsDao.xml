@@ -5,6 +5,8 @@
     <resultMap type="com.trkj.asms.entity.Savings" id="SavingsMap">
         <result property="savingsid" column="savingsid" jdbcType="INTEGER"/>
         <result property="sId" column="s_id" jdbcType="INTEGER"/>
+        <result property="sName" column="s_name" jdbcType="VARCHAR"/>
+        <result property="cId" column="c_id" jdbcType="INTEGER"/>
         <result property="cName" column="c_name" jdbcType="VARCHAR"/>
         <result property="cPhone" column="c_phone" jdbcType="VARCHAR"/>
         <result property="savingsno" column="savingsno" jdbcType="VARCHAR"/>
@@ -20,14 +22,21 @@
         <result property="cjdate" column="cjdate" jdbcType="TIMESTAMP"/>
     </resultMap>
 
+    <select id="findbyname" resultMap="SavingsMap">
+        select * from savings where c_name = #{cName}
+    </select>
+    <update id="updatemoneybycname">
+        update savings set symony = symony - #{symony} where cName = #{cname}
+    </update>
+
     <update id="updatemoney">
-        update savings set symony + #{symony} where savingsno = #{savingsno}
+        update savings set symony = symony + #{symony} where savingsno = #{savingsno}
     </update>
     <select id="findbynumber" resultMap="SavingsMap">
         select * from savings where savingsno = #{savingsno}
     </select>
     <select id="findall" resultMap="SavingsVo">
-        SELECT st.s_name,s.c_name,s.c_phone,s.savingsno,s.symony
+        SELECT s.s_name,s.c_name,s.c_phone,s.savingsno,s.symony
         FROM savings s
         LEFT JOIN store st  ON st.s_id=s.S_id
         ORDER BY s.cjdate
@@ -77,8 +86,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="savingsid" useGeneratedKeys="true">
-        insert into asms.savings(s_id, c_name, c_phone, savingsno, symony)
-        values (#{sId}, #{cName}, #{cPhone}, #{savingsno}, #{symony})
+        insert into asms.savings(s_id,s_name,c_id, c_name, c_phone, savingsno, symony,cjdate)
+        values (#{sId},#{sName},#{cId}, #{cName}, #{cPhone}, #{savingsno}, #{symony},#{cjdate})
     </insert>
 
     <insert id="insertBatch" keyProperty="savingsid" useGeneratedKeys="true">
