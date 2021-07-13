@@ -1,19 +1,16 @@
 package com.trkj.asms.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.io.Serializable;
 import java.util.Date;
+import java.io.Serializable;
 
 /**
  * 待付列表(Pendingpayment)实体类
  *
  * @author makejava
- * @since 2021-07-12 07:46:36
+ * @since 2021-07-12 21:22:09
  */
 public class Pendingpayment implements Serializable {
-    private static final long serialVersionUID = 624109646948518801L;
+    private static final long serialVersionUID = -78490386804231743L;
     /**
      * 编号
      */
@@ -21,7 +18,7 @@ public class Pendingpayment implements Serializable {
     /**
      * 门店id
      */
-    private  Store store;
+    private Store store;
     private Integer sId;
     /**
      * 客户编号
@@ -31,8 +28,7 @@ public class Pendingpayment implements Serializable {
     /**
      * 采购订单编号
      */
-
-    private Integer materialorderid;
+    private String materialorderid;
     /**
      * 单据编号
      */
@@ -48,8 +44,6 @@ public class Pendingpayment implements Serializable {
     /**
      * 单据日期
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date documentdate;
     /**
      * 往来关系
@@ -86,8 +80,6 @@ public class Pendingpayment implements Serializable {
     /**
      * 删除时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date deletetime;
     /**
      * 时效性（0是未过期，1是已过期）
@@ -119,11 +111,11 @@ public class Pendingpayment implements Serializable {
         this.customerid = customerid;
     }
 
-    public Integer getMaterialorderid() {
+    public String getMaterialorderid() {
         return materialorderid;
     }
 
-    public void setMaterialorderid(Integer materialorderid) {
+    public void setMaterialorderid(String materialorderid) {
         this.materialorderid = materialorderid;
     }
 

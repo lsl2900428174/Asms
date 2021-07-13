@@ -35,8 +35,6 @@ public class WDeliveryorderController {
     @PostMapping("insert")
     public AjaxResponse insert(@RequestBody WDeliveryorder wDeliveryorder){
         String message = "";
-        System.out.println(wDeliveryorder.toString());
-        System.out.println(wDeliveryorder.getWReturnedmaterials().toString());
         Boolean add = wDeliveryorderService.insert(wDeliveryorder);
         if(add == true){
             message = "新增成功";

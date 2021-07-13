@@ -22,6 +22,8 @@ public class AppCorsConfiguration {
         log.debug("开始设置");
         CorsConfiguration appCorsConfiguration = new CorsConfiguration();
         appCorsConfiguration.addAllowedOrigin("http://localhost:8099");
+        appCorsConfiguration.addAllowedOrigin("http://localhost:8085");
+        appCorsConfiguration.addAllowedOrigin("http://localhost:8081");
         appCorsConfiguration.addAllowedOrigin("http://39.105.189.229:8099");
         appCorsConfiguration.addAllowedOrigin("*"); // 1允许任何域名使用
         appCorsConfiguration.addAllowedHeader("*"); // 2允许任何头

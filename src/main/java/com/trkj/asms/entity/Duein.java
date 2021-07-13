@@ -43,6 +43,8 @@ public class Duein implements Serializable {
     /**
      * 单据日期
      */
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date documentdate;
 
     /**
@@ -59,6 +61,7 @@ public class Duein implements Serializable {
     /**
      * 车牌管理编号
      */
+    private Carmanagement carmanagement;
     private String carmagid;
 
     /**
@@ -84,8 +87,8 @@ public class Duein implements Serializable {
     /**
      * 删除时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date deletetime;
 
     /**

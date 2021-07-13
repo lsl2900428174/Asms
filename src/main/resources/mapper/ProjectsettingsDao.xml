@@ -27,6 +27,11 @@
         from asms.projectsettings
         where p_id = #{pId}
     </select>
+    <select id="selectProjectsettings" resultMap="BaseResultMap">
+        select
+          p_id, Servetypeid, Siteid, s_id, Projectcode, ProjectName, State, Remarks, Type_Label, TypeId, WorkHours, CustAccountPrcie, InsidePrice, ClaimantPrcie
+        from asms.projectsettings
+    </select>
 
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="BaseResultMap">

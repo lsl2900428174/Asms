@@ -4,7 +4,6 @@ import com.trkj.asms.entity.Duein;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
-
 @Mapper
 public interface DueinDao {
     int deleteByPrimaryKey(Integer id);
@@ -14,10 +13,12 @@ public interface DueinDao {
     int insertSelective(Duein record);
 
     Duein selectByPrimaryKey(Integer id);
-
+//删除：改变时效性未1
     int updateByPrimaryKeySelective(Duein record);
 
     int updateByPrimaryKey(Duein record);
-//    查询：
+//    查询：收款列表
     List<Duein> findduein();
+//    收款单
+    List<Duein> findyiduein();
 }

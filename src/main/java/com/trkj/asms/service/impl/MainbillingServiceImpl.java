@@ -1,74 +1,76 @@
 package com.trkj.asms.service.impl;
 
-import com.trkj.asms.entity.Mainbilling;
+import com.trkj.asms.dao.DueinDao;
 import com.trkj.asms.dao.MainbillingDao;
+import com.trkj.asms.entity.Duein;
+import com.trkj.asms.entity.Mainbilling;
 import com.trkj.asms.service.MainbillingService;
-import com.trkj.asms.vo.MainbillingVo;
+
+import com.trkj.asms.vo.*;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
-
-/**
- * 维修开单表(Mainbilling)表服务实现类
- *
- * @author makejava
- * @since 2021-07-11 23:53:59
- */
-@Service("mainbillingService")
+@Service
 public class MainbillingServiceImpl implements MainbillingService {
     @Resource
     private MainbillingDao mainbillingDao;
-
-    /**
-     * 通过ID查询单条数据
-     *
-     * @param mainbillingid 主键
-     * @return 实例对象
-     */
+    @Resource
+    private DueinDao dueinDao;
     @Override
-    public Mainbilling queryById(Integer mainbillingid) {
-        return this.mainbillingDao.queryById(mainbillingid);
+    public List<Mainbilling> selectMainbilling() {
+        return mainbillingDao.selectMainbilling();
     }
 
-//    模糊查询显示
     @Override
-    public List<MainbillingVo> queryAllByLimit(String c_name) {
-        return this.mainbillingDao.queryAllByLimit(c_name);
-    }
+    public Mainbilling insertMainbilling(Mainbilling mainbilling) {
 
-    /**
-     * 新增数据
-     *
-     * @param mainbilling 实例对象
-     * @return 实例对象
-     */
-    @Override
-    public Mainbilling insert(Mainbilling mainbilling) {
-        this.mainbillingDao.insert(mainbilling);
+        mainbillingDao.insertMainbilling(mainbilling);
         return mainbilling;
     }
 
-    /**
-     * 修改数据
-     *
-     * @param mainbilling 实例对象
-     * @return 实例对象
-     */
     @Override
-    public Mainbilling update(Mainbilling mainbilling) {
-        this.mainbillingDao.update(mainbilling);
-        return this.queryById(mainbilling.getMainbillingid());
+    public Mainbilling updateMainbilling(Mainbilling mainbilling) {
+        mainbillingDao.updateMainbilling(mainbilling);
+//        添加收款单
+        Duein duein=new Duein();
+        duein.setCustomerid(mainbilling.getKehuid());
+        duein.setDocumentdate(new Date());
+        duein.setDocumentstatus(1);//已结算
+        duein.setDocumentnumber(mainbilling.getMaintenanceapp().getAppno());//预约单号
+        duein.setDocumenttype("维修开单");
+        duein.setOrderamount(mainbilling.getYujiallmony());//预计总费用
+        duein.setSId(mainbilling.getMendianid());//门店id
+        duein.setCarmagid(mainbilling.getCarmanagement().getChepai());//车牌编号
+        dueinDao.insertSelective(duein);
+        return mainbilling;
     }
-
+    @Override
+    public List<WxmxhzVo> wxmxhz() {
+        List<WxmxhzVo> list = this.mainbillingDao.wxmxhz();
+        return list;
+    }
+    @Override
+    public List<WzcghzoVo> wzcghz() {
+        List<WzcghzoVo> list = this.mainbillingDao.wzcghz();
+        return list;
+    }
+    @Override
+    public List<WzxshzVo> wzxshz() {
+        List<WzxshzVo> list = this.mainbillingDao.wzxshz();
+        return list;
+    }
+    @Override
+    public List<ZjyeVo> zjye() {
+        List<ZjyeVo> list = this.mainbillingDao.zjye();
+        return list;
+    }
     /**
-     * 通过主键删除数据
-     *
-     * @param mainbillingid 主键
-     * @return 是否成功
+     * 根据支付方式查询
      */
     @Override
-    public boolean deleteById(Integer mainbillingid) {
-        return this.mainbillingDao.deleteById(mainbillingid) > 0;
+    public List<DzmxVo> selectnumber(String settlementtype) {
+        return this.mainbillingDao.selectnumber(settlementtype);
     }
 }

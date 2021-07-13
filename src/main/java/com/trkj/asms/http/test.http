@@ -1,4 +1,5 @@
-GET http://localhost:8081//findAll
+GET http://localhost:8081/asms/selectAll
 Accept: application/json
+
 
 ###

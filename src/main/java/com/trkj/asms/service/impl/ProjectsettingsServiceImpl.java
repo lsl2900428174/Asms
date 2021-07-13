@@ -30,6 +30,11 @@ public class ProjectsettingsServiceImpl implements ProjectsettingsService {
         return this.projectsettingsDao.queryById(pId);
     }
 
+//    下拉接口
+    @Override
+    public List<Projectsettings> selectProjectsettings() {
+        return projectsettingsDao.selectProjectsettings();
+    }
     /**
      * 查询多条数据
      *

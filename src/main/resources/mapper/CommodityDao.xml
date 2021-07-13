@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.asms.dao.CommodityDao">
+  <resultMap id="BaseResultMap" type="com.trkj.asms.entity.Commodity">
+    <id column="co_id" jdbcType="INTEGER" property="coId" />
+    <result column="co_name" jdbcType="VARCHAR" property="coName" />
+    <result column="co_code" jdbcType="VARCHAR" property="coCode" />
+    <result column="s_id" jdbcType="INTEGER" property="sId" />
+    <result column="ci_id" jdbcType="INTEGER" property="ciId" />
+    <result column="m_id" jdbcType="INTEGER" property="mId" />
+    <result column="mu_id" jdbcType="INTEGER" property="muId" />
+    <result column="barcode" jdbcType="VARCHAR" property="barcode" />
+    <result column="applimodel" jdbcType="VARCHAR" property="applimodel" />
+    <result column="is_id" jdbcType="INTEGER" property="isId" />
+    <result column="specialmodel" jdbcType="VARCHAR" property="specialmodel" />
+    <result column="isinstall" jdbcType="INTEGER" property="isinstall" />
+    <result column="w_id" jdbcType="INTEGER" property="wId" />
+    <result column="wp_id" jdbcType="INTEGER" property="wpId" />
+    <result column="warning" jdbcType="INTEGER" property="warning" />
+    <result column="co_retailprice" jdbcType="DECIMAL" property="coRetailprice" />
+    <result column="cusprice" jdbcType="DECIMAL" property="cusprice" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    co_id, co_name, co_code, s_id, ci_id, m_id, mu_id, barcode, applimodel, is_id, specialmodel, 
+    isinstall, w_id, wp_id, warning, co_retailprice, cusprice
+  </sql>
+  <select id="selectBycommodity" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from commodity
+  </select>
+</mapper>

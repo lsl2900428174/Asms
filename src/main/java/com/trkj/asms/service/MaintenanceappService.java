@@ -1,9 +1,12 @@
 package com.trkj.asms.service;
 
-import com.trkj.asms.vo.MaintenanceappVo;
+import com.trkj.asms.entity.Maintenanceapp;
 
 import java.util.List;
 
 public interface MaintenanceappService {
-    List<MaintenanceappVo> selectmaintenanceapp(String c_name);
+    List<Maintenanceapp> selectByPrimaryKey();
+    Maintenanceapp insertMaintenanceapp(Maintenanceapp maintenanceapp);
+    Maintenanceapp updatemaintenanceapp(Maintenanceapp maintenanceapp);
+    Maintenanceapp updatemaintenanceappmony(Maintenanceapp maintenanceapp);
 }

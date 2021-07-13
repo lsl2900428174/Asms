@@ -8,11 +8,11 @@ import java.io.Serializable;
  * 退货物资(WReturnedmaterials)实体类
  *
  * @author makejava
- * @since 2021-07-12 09:00:26
+ * @since 2021-07-13 01:15:49
  */
 @Data
 public class WReturnedmaterials implements Serializable {
-    private static final long serialVersionUID = -20599084265383523L;
+    private static final long serialVersionUID = -32831406615214899L;
     /**
      * 退货ID
      */
@@ -48,7 +48,7 @@ public class WReturnedmaterials implements Serializable {
     /**
      * 库存数量
      */
-    private Integer number;
+    private Integer numberd;
     /**
      * 退货数量
      */
@@ -70,10 +70,6 @@ public class WReturnedmaterials implements Serializable {
      */
     private String billcode;
 
-
-    public Integer getRId() {
-        return rId;
-    }
 
 
 }

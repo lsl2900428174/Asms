@@ -19,6 +19,8 @@ public interface ProjectsettingsService {
      */
     Projectsettings queryById(Integer pId);
 
+//    下拉接口
+    List<Projectsettings> selectProjectsettings();
     /**
      * 查询多条数据
      *

@@ -10,7 +10,7 @@ import java.util.List;
  * 物资采购退货出库单(WDeliveryorder)表数据库访问层
  *
  * @author makejava
- * @since 2021-07-11 10:59:30
+ * @since 2021-07-12 15:42:31
  */
 @Mapper
 public interface WDeliveryorderDao {

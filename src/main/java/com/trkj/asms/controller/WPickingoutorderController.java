@@ -34,8 +34,6 @@ public class WPickingoutorderController {
     @PostMapping("insert")
     public AjaxResponse insert(@RequestBody WPickingoutorder wPickingoutorder){
         String message = "";
-        System.out.println(wPickingoutorder.toString());
-        System.out.println(wPickingoutorder.getWReturnedmaterials().toString());
         Boolean add = wPickingoutorderService.insert(wPickingoutorder);
         if(add == true){
             message = "新增成功";
@@ -50,7 +48,8 @@ public class WPickingoutorderController {
      */
     @GetMapping("selectAll")
     public AjaxResponse selectAll(){
-        List<WPickingoutorder> wPickingoutorder = wPickingoutorderService.queryAllByLimit(1,10);
+        List<WPickingoutorder> wPickingoutorder = wPickingoutorderService.queryAllByLimit(0,10);
+        System.out.println(wPickingoutorder.toString());
         for (WPickingoutorder item:wPickingoutorder) {
             WReturnedmaterials wReturnedmaterials = new WReturnedmaterials();
 

@@ -5,11 +5,11 @@
     <resultMap type="com.trkj.asms.entity.WDeliveryorder" id="WDeliveryorderMap">
         <result property="doId" column="do_id" jdbcType="INTEGER"/>
         <result property="billcode" column="billcode" jdbcType="VARCHAR"/>
-        <result property="pickingId" column="picking_id" jdbcType="INTEGER"/>
+        <result property="pickingId" column="picking_id" jdbcType="VARCHAR"/>
         <result property="billdate" column="billdate" jdbcType="TIMESTAMP"/>
         <result property="backreason" column="backreason" jdbcType="VARCHAR"/>
-        <result property="supplerId" column="suppler_id" jdbcType="INTEGER"/>
-        <result property="organizeId" column="organize_id" jdbcType="INTEGER"/>
+        <result property="supplerId" column="suppler_id" jdbcType="VARCHAR"/>
+        <result property="organizeId" column="organize_id" jdbcType="VARCHAR"/>
         <result property="state" column="state" jdbcType="INTEGER"/>
         <result property="amount" column="amount" jdbcType="NUMERIC"/>
     </resultMap>
@@ -42,7 +42,7 @@
             <if test="billcode != null and billcode != ''">
                 and billcode = #{billcode}
             </if>
-            <if test="pickingId != null">
+            <if test="pickingId != null and pickingId != ''">
                 and picking_id = #{pickingId}
             </if>
             <if test="billdate != null">
@@ -51,10 +51,10 @@
             <if test="backreason != null and backreason != ''">
                 and backreason = #{backreason}
             </if>
-            <if test="supplerId != null">
+            <if test="supplerId != null and supplerId != ''">
                 and suppler_id = #{supplerId}
             </if>
-            <if test="organizeId != null">
+            <if test="organizeId != null and organizeId != ''">
                 and organize_id = #{organizeId}
             </if>
             <if test="state != null">
@@ -103,7 +103,7 @@
             <if test="billcode != null and billcode != ''">
                 billcode = #{billcode},
             </if>
-            <if test="pickingId != null">
+            <if test="pickingId != null and pickingId != ''">
                 picking_id = #{pickingId},
             </if>
             <if test="billdate != null">
@@ -112,10 +112,10 @@
             <if test="backreason != null and backreason != ''">
                 backreason = #{backreason},
             </if>
-            <if test="supplerId != null">
+            <if test="supplerId != null and supplerId != ''">
                 suppler_id = #{supplerId},
             </if>
-            <if test="organizeId != null">
+            <if test="organizeId != null and organizeId != ''">
                 organize_id = #{organizeId},
             </if>
             <if test="state != null">
