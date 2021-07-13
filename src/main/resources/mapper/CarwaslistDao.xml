@@ -1,141 +1,294 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.trkj.asms.dao.CarwaslistDao">
+  <resultMap id="BaseResultMap" type="com.trkj.asms.entity.Carwaslist">
+    <id column="CarId" jdbcType="INTEGER" property="carid" />
+    <result column="s_id" jdbcType="INTEGER" property="sId" />
+    <result column="carmagid" jdbcType="INTEGER" property="carmagid" />
+    <result column="e_id" jdbcType="INTEGER" property="eId" />
+    <result column="xiangmuid" jdbcType="INTEGER" property="xiangmuid" />
+    <result column="kehuid" jdbcType="INTEGER" property="kehuid" />
+    <result column="DocumentNumber" jdbcType="VARCHAR" property="documentnumber" />
+    <result column="Documentdate" jdbcType="TIMESTAMP" property="documentdate" />
+    <result column="Documentstatus" jdbcType="INTEGER" property="documentstatus" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="AmountReceivable" jdbcType="DECIMAL" property="amountreceivable" />
+    <association javaType="com.trkj.asms.entity.Store" property="store">
+      <result property="sId" column="s_id" jdbcType="INTEGER"/>
+      <result property="sNumber" column="s_number" jdbcType="VARCHAR"/>
+      <result property="sName" column="s_name" jdbcType="VARCHAR"/>
+      <result property="sFullname" column="s_fullname" jdbcType="VARCHAR"/>
+      <result property="sLeader" column="s_leader" jdbcType="VARCHAR"/>
+      <result property="sAddress" column="s_address" jdbcType="VARCHAR"/>
+      <result property="sPhone" column="s_phone" jdbcType="VARCHAR"/>
+      <result property="sStatus" column="s_status" jdbcType="INTEGER"/>
+    </association>
+    <association javaType="com.trkj.asms.entity.Carmanagement" property="carmanagement">
+      <result property="carmagid" column="carmagid" jdbcType="INTEGER"/>
+      <result property="bId" column="b_id" jdbcType="INTEGER"/>
+      <result property="vsId" column="vs_id" jdbcType="INTEGER"/>
+      <result property="vId" column="v_id" jdbcType="INTEGER"/>
+      <result property="iId" column="i_id" jdbcType="INTEGER"/>
+      <result property="bcId" column="bc_id" jdbcType="INTEGER"/>
+      <result property="mId" column="m_id" jdbcType="INTEGER"/>
+      <result property="sId" column="s_id" jdbcType="INTEGER"/>
+      <result property="cId" column="c_id" jdbcType="INTEGER"/>
+      <result property="chepai" column="chepai" jdbcType="VARCHAR"/>
+      <result property="chejiano" column="chejiano" jdbcType="VARCHAR"/>
+      <result property="fadongjino" column="fadongjino" jdbcType="VARCHAR"/>
+      <result property="zuoweinumber" column="zuoweinumber" jdbcType="INTEGER"/>
+      <result property="buydate" column="buydate" jdbcType="TIMESTAMP"/>
+      <result property="daoqiyers" column="daoqiyers" jdbcType="TIMESTAMP"/>
+      <result property="newlichen" column="newlichen" jdbcType="INTEGER"/>
+      <result property="nextbytime" column="nextbytime" jdbcType="TIMESTAMP"/>
+      <result property="nextbylichen" column="nextbylichen" jdbcType="INTEGER"/>
+      <result property="yesorno" column="yesorno" jdbcType="VARCHAR"/>
+      <result property="beizhu" column="beizhu" jdbcType="VARCHAR"/>
+      <result property="jianyi" column="jianyi" jdbcType="VARCHAR"/>
+    </association>
+    <association javaType="com.trkj.asms.entity.Emp" property="emp">
+      <result property="eId" column="e_Id" jdbcType="INTEGER"/>
+      <result property="sId" column="s_id" jdbcType="INTEGER"/>
+      <result property="pId" column="p_id" jdbcType="INTEGER"/>
+      <result property="dId" column="d_id" jdbcType="INTEGER"/>
+      <result property="sex" column="Sex" jdbcType="VARCHAR"/>
+      <result property="name" column="Name" jdbcType="VARCHAR"/>
+      <result property="loginid" column="LoginID" jdbcType="VARCHAR"/>
+      <result property="phone" column="Phone" jdbcType="VARCHAR"/>
+      <result property="updatetime" column="UpdateTime" jdbcType="TIMESTAMP"/>
+      <result property="updatename" column="UpdateName" jdbcType="VARCHAR"/>
+      <result property="deletetime" column="DeleteTime" jdbcType="TIMESTAMP"/>
+      <result property="deletename" column="DeleteName" jdbcType="VARCHAR"/>
+      <result property="timeliness" column="timeliness" jdbcType="INTEGER"/>
+      <result property="createusername" column="CreateUserName" jdbcType="VARCHAR"/>
+      <result property="addtime" column="addTime" jdbcType="TIMESTAMP"/>
+    </association>
+    <association javaType="com.trkj.asms.entity.Projectsettings" property="projectsettings">
+      <result property="pId" column="p_id" jdbcType="INTEGER"/>
+      <result property="servetypeid" column="Servetypeid" jdbcType="INTEGER"/>
+      <result property="siteid" column="Siteid" jdbcType="INTEGER"/>
+      <result property="sId" column="s_id" jdbcType="INTEGER"/>
+      <result property="projectcode" column="Projectcode" jdbcType="VARCHAR"/>
+      <result property="projectname" column="ProjectName" jdbcType="VARCHAR"/>
+      <result property="state" column="State" jdbcType="INTEGER"/>
+      <result property="remarks" column="Remarks" jdbcType="VARCHAR"/>
+      <result property="typeLabel" column="Type_Label" jdbcType="VARCHAR"/>
+      <result property="typeid" column="TypeId" jdbcType="INTEGER"/>
+      <result property="workhours" column="WorkHours" jdbcType="VARCHAR"/>
+      <result property="custaccountprcie" column="CustAccountPrcie" jdbcType="NUMERIC"/>
+      <result property="insideprice" column="InsidePrice" jdbcType="NUMERIC"/>
+      <result property="claimantprcie" column="ClaimantPrcie" jdbcType="NUMERIC"/>
+    </association>
+    <!--    客户-->
+    <association javaType="com.trkj.asms.entity.Customer" property="customer">
+      <result property="cId" column="c_id" jdbcType="INTEGER"/>
+      <result property="cName" column="c_name" jdbcType="VARCHAR"/>
+      <result property="sId" column="s_id" jdbcType="INTEGER"/>
+      <result property="mId" column="m_id" jdbcType="INTEGER"/>
+      <result property="cGender" column="c_gender" jdbcType="VARCHAR"/>
+      <result property="cContacts" column="c_contacts" jdbcType="VARCHAR"/>
+      <result property="cPhone" column="c_phone" jdbcType="VARCHAR"/>
+      <result property="ctId" column="ct_id" jdbcType="INTEGER"/>
+      <result property="cAddress" column="c_address" jdbcType="VARCHAR"/>
+      <result property="cText" column="c_text" jdbcType="VARCHAR"/>
+      <result property="eId" column="e_id" jdbcType="INTEGER"/>
+      <result property="cDate" column="c_date" jdbcType="TIMESTAMP"/>
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List">
+    sh.CarId, sh.s_id, sh.carmagid, sh.e_id, sh.xiangmuid, sh.kehuid, sh.DocumentNumber, sh.Documentdate, sh.Documentstatus,
+    sh.remarks, sh.AmountReceivable
+  </sql>
+  <sql id="Base_Column_List_Customer">
+    cu.c_id,cu.c_name,cu.s_id,cu.m_id,cu.c_gender,cu.c_contacts,cu.c_phone,cu.ct_id,cu.c_address,cu.c_text,cu.e_id,cu.c_date
+  </sql>
+  <sql id="Base_Column_List_Store">
+    st.s_id,st.s_number,st.s_name,st.s_fullname,st.s_leader,st.s_address,st.s_phone,st.s_status
+  </sql>
+  <sql id="Base_Column_List_Carmanagement">
+    ca.carmagid,ca.b_id,ca.vs_id,ca.v_id,ca.i_id,ca.bc_id,ca.s_id,ca.c_id,ca.chepai,ca.chejiano,ca.fadongjino,ca.zuoweinumber,ca.buydate,
+    ca.daoqiyers,ca.newlichen,ca.nextbytime,ca.nextbylichen,ca.yesorno,ca.beizhu,ca.jianyi,ca.cjdate
+  </sql>
+  <sql id="Base_Column_List_Emp">
+    em.e_Id,em.s_id,em.p_id,em.d_id,em.Sex,em.Name,em.LoginID,em.Phone,em.UpdateTime,em.UpdateName,em.DeleteTime,em.DeleteName,em.timeliness,em.CreateUserName,em.addTime
+  </sql>
+  <sql id="Base_Column_List_Projectsettings">
+    pr.p_id,pr.Servetypeid,pr.Siteid,pr.s_id,pr.Projectcode,pr.ProjectName,pr.State,pr.Remarks,pr.Type_Label,
+    pr.TypeId,pr.WorkHours,pr.CustAccountPrcie,pr.InsidePrice,pr.ClaimantPrcie
+  </sql>
+  <select id="selectAllCarwash" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List_Emp" />,
+    <include refid="Base_Column_List_Projectsettings" />,
+    <include refid="Base_Column_List_Store" />,
+    <include refid="Base_Column_List_Carmanagement" />
+    from carwaslist sh
+    inner join projectsettings pr on sh.p_id = pr.p_id
+    inner join emp em on sh.e_id = em.e_id
+    inner join store st on sh.s_id = st.s_id
+    inner join carmanagement ca on sh.carmagid = ca.carmagid
+    inner join customer cu on sh.kehuid = cu.c_id
+  </select>
+  <!--    模糊查询联系人（备注）-->
+  <select id="selectAllCarwashlike" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List_Emp" />,
+    <include refid="Base_Column_List_Projectsettings" />,
+    <include refid="Base_Column_List_Store" />,
+    <include refid="Base_Column_List_Carmanagement" />,
+    <include refid="Base_Column_List" />,
+    <include refid="Base_Column_List_Customer" />
+    from carwaslist sh
+    inner join projectsettings pr on sh.xiangmuid = pr.p_id
+    inner join emp em on sh.e_id = em.e_id
+    inner join store st on sh.s_id = st.s_id
+    inner join carmanagement ca on sh.carmagid = ca.carmagid
+    inner join customer cu on sh.kehuid = cu.c_id
+    where em.name like CONCAT('%',#{name},'%')
+  </select>
+<!--  修改-->
+  <update id="updateCarwaslistSta" parameterType="java.lang.Integer">
+    update carwaslist
+    <set>
+      Documentstatus = 1
+    </set>
+    where carid = #{carid,jdbcType=INTEGER}
+  </update>
+<!--  增加-->
+  <insert id="insertCarwaslist" parameterType="com.trkj.asms.entity.Carwaslist">
+    insert into carwaslist (s_id, carmagid, e_id,
+      xiangmuid, kehuid, DocumentNumber, remarks,
+      AmountReceivable)
+    values (#{sId,jdbcType=INTEGER}, #{carmagid,jdbcType=INTEGER}, #{eId,jdbcType=INTEGER},
+      #{xiangmuid,jdbcType=INTEGER}, #{kehuid,jdbcType=INTEGER}, #{documentnumber,jdbcType=VARCHAR},
+       #{remarks,jdbcType=VARCHAR},#{amountreceivable,jdbcType=DECIMAL})
+  </insert>
 
-    <resultMap id="BaseResultMap" type="com.trkj.asms.entity.Carwaslist">
-        <!--@Table carwaslist-->
-        <result property="carid" column="CarId" jdbcType="INTEGER"/>
-        <result property="sId" column="s_id" jdbcType="INTEGER"/>
-        <result property="documentnumber" column="DocumentNumber" jdbcType="VARCHAR"/>
-        <result property="documentdate" column="Documentdate" jdbcType="TIMESTAMP"/>
-        <result property="documentstatus" column="Documentstatus" jdbcType="INTEGER"/>
-        <result property="carmagid" column="carmagid" jdbcType="INTEGER"/>
-        <result property="phone" column="Phone" jdbcType="VARCHAR"/>
-        <result property="amountreceivable" column="Amountreceivable" jdbcType="NUMERIC"/>
-        <result property="deliverystatus" column="Deliverystatus" jdbcType="VARCHAR"/>
-        <result property="completionstatus" column="Completionstatus" jdbcType="VARCHAR"/>
-        <result property="eId" column="e_id" jdbcType="INTEGER"/>
-        <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
-        <result property="pId" column="p_id" jdbcType="INTEGER"/>
-    </resultMap>
-
-    <!--查询单个-->
-    <select id="queryById" resultMap="BaseResultMap">
-        select
-          CarId, s_id, DocumentNumber, Documentdate, Documentstatus, carmagid, Phone, Amountreceivable, Deliverystatus, Completionstatus, e_id, remarks, p_id
-        from asms.carwaslist
-        where CarId = #{carid}
-    </select>
-
-    <!--查询指定行数据-->
-    <select id="queryAllByLimit" resultMap="BaseResultMap">
-        select
-          CarId, s_id, DocumentNumber, Documentdate, Documentstatus, carmagid, Phone, Amountreceivable, Deliverystatus, Completionstatus, e_id, remarks, p_id
-        from asms.carwaslist
-        limit #{offset}, #{limit}
-    </select>
-
-    <!--通过实体作为筛选条件查询-->
-    <select id="queryAll" resultMap="BaseResultMap">
-        select
-          CarId, s_id, DocumentNumber, Documentdate, Documentstatus, carmagid, Phone, Amountreceivable, Deliverystatus, Completionstatus, e_id, remarks, p_id
-        from asms.carwaslist
-        <where>
-            <if test="carid != null">
-                and CarId = #{carid}
-            </if>
-            <if test="sId != null">
-                and s_id = #{sId}
-            </if>
-            <if test="documentnumber != null and documentnumber != ''">
-                and DocumentNumber = #{documentnumber}
-            </if>
-            <if test="documentdate != null">
-                and Documentdate = #{documentdate}
-            </if>
-            <if test="documentstatus != null">
-                and Documentstatus = #{documentstatus}
-            </if>
-            <if test="carmagid != null">
-                and carmagid = #{carmagid}
-            </if>
-            <if test="phone != null and phone != ''">
-                and Phone = #{phone}
-            </if>
-            <if test="amountreceivable != null">
-                and Amountreceivable = #{amountreceivable}
-            </if>
-            <if test="deliverystatus != null and deliverystatus != ''">
-                and Deliverystatus = #{deliverystatus}
-            </if>
-            <if test="completionstatus != null and completionstatus != ''">
-                and Completionstatus = #{completionstatus}
-            </if>
-            <if test="eId != null">
-                and e_id = #{eId}
-            </if>
-            <if test="remarks != null and remarks != ''">
-                and remarks = #{remarks}
-            </if>
-            <if test="pId != null">
-                and p_id = #{pId}
-            </if>
-        </where>
-    </select>
-
-    <!--新增所有列-->
-    <insert id="insert" keyProperty="carid" useGeneratedKeys="true">
-        insert into asms.carwaslist(s_id, DocumentNumber, Documentdate, Documentstatus, carmagid, Phone, Amountreceivable, Deliverystatus, Completionstatus, e_id, remarks, p_id)
-        values (#{sId}, #{documentnumber}, #{documentdate}, #{documentstatus}, #{carmagid}, #{phone}, #{amountreceivable}, #{deliverystatus}, #{completionstatus}, #{eId}, #{remarks}, #{pId})
-    </insert>
-
-    <!--通过主键修改数据-->
-    <update id="update">
-        update asms.carwaslist
-        <set>
-            <if test="sId != null">
-                s_id = #{sId},
-            </if>
-            <if test="documentnumber != null and documentnumber != ''">
-                DocumentNumber = #{documentnumber},
-            </if>
-            <if test="documentdate != null">
-                Documentdate = #{documentdate},
-            </if>
-            <if test="documentstatus != null">
-                Documentstatus = #{documentstatus},
-            </if>
-            <if test="carmagid != null">
-                carmagid = #{carmagid},
-            </if>
-            <if test="phone != null and phone != ''">
-                Phone = #{phone},
-            </if>
-            <if test="amountreceivable != null">
-                Amountreceivable = #{amountreceivable},
-            </if>
-            <if test="deliverystatus != null and deliverystatus != ''">
-                Deliverystatus = #{deliverystatus},
-            </if>
-            <if test="completionstatus != null and completionstatus != ''">
-                Completionstatus = #{completionstatus},
-            </if>
-            <if test="eId != null">
-                e_id = #{eId},
-            </if>
-            <if test="remarks != null and remarks != ''">
-                remarks = #{remarks},
-            </if>
-            <if test="pId != null">
-                p_id = #{pId},
-            </if>
-        </set>
-        where CarId = #{carid}
-    </update>
-
-    <!--通过主键删除-->
-    <delete id="deleteById">
-        delete from asms.carwaslist where CarId = #{carid}
-    </delete>
-
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from carwaslist
+    where CarId = #{carid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from carwaslist
+    where CarId = #{carid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insertSelective" keyColumn="CarId" keyProperty="carid" parameterType="com.trkj.asms.entity.Carwaslist" useGeneratedKeys="true">
+    insert into carwaslist
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sId != null">
+        s_id,
+      </if>
+      <if test="carmagid != null">
+        carmagid,
+      </if>
+      <if test="eId != null">
+        e_id,
+      </if>
+      <if test="pId != null">
+        p_id,
+      </if>
+      <if test="kehuid != null">
+        kehuid,
+      </if>
+      <if test="documentnumber != null">
+        DocumentNumber,
+      </if>
+      <if test="documentdate != null">
+        Documentdate,
+      </if>
+      <if test="documentstatus != null">
+        Documentstatus,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="amountreceivable != null">
+        AmountReceivable,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sId != null">
+        #{sId,jdbcType=INTEGER},
+      </if>
+      <if test="carmagid != null">
+        #{carmagid,jdbcType=INTEGER},
+      </if>
+      <if test="eId != null">
+        #{eId,jdbcType=INTEGER},
+      </if>
+      <if test="pId != null">
+        #{pId,jdbcType=INTEGER},
+      </if>
+      <if test="kehuid != null">
+        #{kehuid,jdbcType=INTEGER},
+      </if>
+      <if test="documentnumber != null">
+        #{documentnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="documentdate != null">
+        #{documentdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="documentstatus != null">
+        #{documentstatus,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="amountreceivable != null">
+        #{amountreceivable,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateAllCarwaslist" parameterType="com.trkj.asms.entity.Carwaslist">
+    update carwaslist
+    <set>
+      <if test="sId != null">
+        s_id = #{sId,jdbcType=INTEGER},
+      </if>
+      <if test="carmagid != null">
+        carmagid = #{carmagid,jdbcType=INTEGER},
+      </if>
+      <if test="eId != null">
+        e_id = #{eId,jdbcType=INTEGER},
+      </if>
+      <if test="xiangmuid != null">
+        xiangmuid = #{xiangmuid,jdbcType=INTEGER},
+      </if>
+      <if test="kehuid != null">
+        kehuid = #{kehuid,jdbcType=INTEGER},
+      </if>
+      <if test="documentnumber != null">
+        DocumentNumber = #{documentnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="documentdate != null">
+        Documentdate = #{documentdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="documentstatus != null">
+        Documentstatus = #{documentstatus,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="amountreceivable != null">
+        AmountReceivable = #{amountreceivable,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where CarId = #{carid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.trkj.asms.entity.Carwaslist">
+    update carwaslist
+    set s_id = #{sId,jdbcType=INTEGER},
+      carmagid = #{carmagid,jdbcType=INTEGER},
+      e_id = #{eId,jdbcType=INTEGER},
+      p_id = #{pId,jdbcType=INTEGER},
+      kehuid = #{kehuid,jdbcType=INTEGER},
+      DocumentNumber = #{documentnumber,jdbcType=VARCHAR},
+      Documentdate = #{documentdate,jdbcType=TIMESTAMP},
+      Documentstatus = #{documentstatus,jdbcType=INTEGER},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      AmountReceivable = #{amountreceivable,jdbcType=DECIMAL}
+    where CarId = #{carid,jdbcType=INTEGER}
+  </update>
 </mapper>

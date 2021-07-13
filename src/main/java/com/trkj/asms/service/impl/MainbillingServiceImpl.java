@@ -46,6 +46,13 @@ public class MainbillingServiceImpl implements MainbillingService {
         dueinDao.insertSelective(duein);
         return mainbilling;
     }
+
+    @Override
+    public Mainbilling updateAllMainbilling(Mainbilling mainbilling) {
+        mainbillingDao.updateAllMainbilling(mainbilling);
+        return mainbilling;
+    }
+
     @Override
     public List<WxmxhzVo> wxmxhz() {
         List<WxmxhzVo> list = this.mainbillingDao.wxmxhz();

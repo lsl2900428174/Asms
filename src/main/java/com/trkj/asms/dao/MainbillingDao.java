@@ -13,6 +13,7 @@ public interface MainbillingDao {
     List<Mainbilling> selectMainbilling();
     int insertMainbilling(Mainbilling record);
     int updateMainbilling(Mainbilling record);
+    int updateAllMainbilling(Mainbilling record);
 
 
     /**

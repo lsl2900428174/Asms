@@ -9,4 +9,5 @@ public interface MaintenanceappService {
     Maintenanceapp insertMaintenanceapp(Maintenanceapp maintenanceapp);
     Maintenanceapp updatemaintenanceapp(Maintenanceapp maintenanceapp);
     Maintenanceapp updatemaintenanceappmony(Maintenanceapp maintenanceapp);
+    Maintenanceapp updateAllapp(Maintenanceapp maintenanceapp);
 }

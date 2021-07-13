@@ -20,14 +20,50 @@
         <result property="lxaddress" column="lxaddress" jdbcType="VARCHAR"/>
         <result property="cjtime" column="cjtime" jdbcType="TIMESTAMP"/>
         <result property="beizhu" column="beizhu" jdbcType="VARCHAR"/>
+        <association javaType="com.trkj.asms.entity.Suppliertype" property="suppliertype">
+            <id column="suptypeid" jdbcType="INTEGER" property="suptypeid" />
+            <result column="supname" jdbcType="VARCHAR" property="supname" />
+        </association>
+        <association javaType="com.trkj.asms.entity.Address" property="address">
+            <id column="addressid" jdbcType="INTEGER" property="addressid" />
+            <result column="address" jdbcType="VARCHAR" property="address" />
+        </association>
+        <association javaType="com.trkj.asms.entity.Store" property="store">
+            <result property="sId" column="s_id" jdbcType="INTEGER"/>
+            <result property="sNumber" column="s_number" jdbcType="VARCHAR"/>
+            <result property="sName" column="s_name" jdbcType="VARCHAR"/>
+            <result property="sFullname" column="s_fullname" jdbcType="VARCHAR"/>
+            <result property="sLeader" column="s_leader" jdbcType="VARCHAR"/>
+            <result property="sAddress" column="s_address" jdbcType="VARCHAR"/>
+            <result property="sPhone" column="s_phone" jdbcType="VARCHAR"/>
+            <result property="sStatus" column="s_status" jdbcType="INTEGER"/>
+        </association>
     </resultMap>
-
-    <!--查询单个-->
-    <select id="queryById" resultMap="SupplierMap">
+    <sql id="Base_Column_List">
+        sp.id,sp.supplierCode,sp.suppliername,sp.contacts,sp.contactnumber,sp.suptypeid,sp.addressid,sp.sId,
+        sp.payablemoney,sp.paidMoney,sp.sStore,sp.money,sp.statik,sp.ismoren,sp.lxaddress,sp.cjtime,sp.beizhu
+    </sql>
+    <sql id="Base_Column_List_Address">
+        ad.addressid, su.address
+    </sql>
+    <sql id="Base_Column_List_Suptype">
+    su.suptypeid, su.supname
+  </sql>
+    <sql id="Base_Column_List_Store">
+    st.s_id,st.s_number,st.s_name,st.s_fullname,st.s_leader,st.s_address,st.s_phone,st.s_status
+  </sql>
+    <!--模糊查询-->
+    <select id="selectSupplierlike" resultMap="SupplierMap">
         select
-          id, supplier_code, suppliername, contacts, contactnumber, suptypeid, addressid, s_id, payablemoney, Paid_money, s_store, money, statik, ismoren, lxaddress, cjtime, beizhu
-        from asms.supplier
-        where id = #{id}
+        <include refid="Base_Column_List" />,
+        <include refid="Base_Column_List_Address" />,
+        <include refid="Base_Column_List_Suptype" />,
+        <include refid="Base_Column_List_Store" />
+        from supplier sp
+        inner join suppliertype su on sp.suptypeid = su.suptypeid
+        inner join address ad on sp.addressid = ad.addressid
+        inner join store st on sp.sId = st.s_id
+        where sp.suppliername like CONCAT('%',#{suppliername},'%')
     </select>
 
     <!--查询指定行数据-->

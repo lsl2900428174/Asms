@@ -26,6 +26,12 @@ import java.util.Map;
 public class MainbillingController {
     @Autowired
     private MainbillingService mainbillingService;
+    //    修改
+    @PutMapping("/updateAllMainbilling")
+    public Mainbilling updateAllMainbilling(@RequestBody Mainbilling mainbilling){
+        mainbillingService.updateAllMainbilling(mainbilling);
+        return mainbilling;
+    }
     @GetMapping("/selectMainbilling")
     public List<Mainbilling> selectMainbilling(){
         List<Mainbilling> findSourcePage = mainbillingService.selectMainbilling();

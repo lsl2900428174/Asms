@@ -15,13 +15,8 @@ import java.util.List;
 @Mapper
 public interface SupplierDao {
 
-    /**
-     * 通过ID查询单条数据
-     *
-     * @param id 主键
-     * @return 实例对象
-     */
-    Supplier queryById(Integer id);
+//  模糊查询
+    List<Supplier> selectSupplierlike(String suppliername);
 
     /**
      * 查询指定行数据

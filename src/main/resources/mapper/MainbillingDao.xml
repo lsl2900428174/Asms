@@ -10,7 +10,7 @@
     <result column="xiangmuid" jdbcType="INTEGER" property="xiangmuid" />
     <result column="cailiaoid" jdbcType="INTEGER" property="cailiaoid" />
     <result column="mendianid" jdbcType="INTEGER" property="mendianid" />
-    <result column="chepai" jdbcType="INTEGER" property="chepai" />
+    <result column="chepaiid" jdbcType="INTEGER" property="chepaiid" />
     <result column="mainbillingno" jdbcType="VARCHAR" property="mainbillingno" />
     <result column="mainorder" jdbcType="TIMESTAMP" property="mainorder" />
     <result column="mainorderstuta" jdbcType="INTEGER" property="mainorderstuta" />
@@ -157,7 +157,7 @@
   </resultMap>
   <sql id="Base_Column_List">
     mai.mainbillingid, mai.serviceid, mai.maintenanceappid, mai.kehuid, mai.empid, mai.xiangmuid, mai.cailiaoid,
-    mai.mendianid, mai.chepai, mai.mainbillingno, mai.mainorder, mai.mainorderstuta, mai.yujisetcar, mai.yujisetcartime,
+    mai.mendianid, mai.chepaiid, mai.mainbillingno, mai.mainorder, mai.mainorderstuta, mai.yujisetcar, mai.yujisetcartime,
     mai.kehudepict, mai.suichewup, mai.favourable, mai.yujiallmony, mai.overmonytime, mai.orfanxiu, mai.beizhu
   </sql>
   <sql id="Base_Column_List_ma">
@@ -207,7 +207,7 @@
     inner join projectsettings pr on mai.xiangmuid = pr.p_id
     inner join commodity co on mai.cailiaoid = co.co_id
     inner join store st on mai.mendianid = st.s_id
-    inner join carmanagement ca on mai.chepai = ca.carmagid
+    inner join carmanagement ca on mai.chepaiid = ca.carmagid
     inner join maintenanceapp ma on mai.maintenanceappid = ma.maintenanceappid
   </select>
 <!--  增加-->
@@ -227,7 +227,31 @@
     </set>
     where mainbillingid = #{mainbillingid,jdbcType=INTEGER}
   </update>
-
+<!--    修改-->
+    <update id="updateAllMainbilling" parameterType="java.lang.Integer">
+        update mainbilling
+        <set>
+            serviceid = #{serviceid},
+            maintenanceappid = #{maintenanceappid},
+            kehuid = #{kehuid},
+            empid = #{empid},
+            xiangmuid = #{xiangmuid},
+            cailiaoid = #{cailiaoid},
+            mendianid = #{mendianid},
+            chepaiid = #{chepaiid},
+            mainbillingno = #{mainbillingno},
+            yujisetcar = #{yujisetcar},
+            yujisetcartime = #{yujisetcartime},
+            kehudepict = #{kehudepict},
+            suichewup = #{suichewup},
+            favourable = #{favourable},
+            yujiallmony = #{yujiallmony},
+            overmonytime= #{overmonytime},
+            orfanxiu= #{orfanxiu},
+            beizhu = #{beizhu}
+        </set>
+        where mainbillingid = #{mainbillingid,jdbcType=INTEGER}
+    </update>
     <resultMap type="com.trkj.asms.vo.WxmxhzVo" id="WxmxhzVo">
         <result property="sName" column="s_name" jdbcType="VARCHAR"/>
         <result property="mainbilingno" column="mainbillingno" jdbcType="VARCHAR"/>
