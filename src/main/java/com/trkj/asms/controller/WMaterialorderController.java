@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -116,6 +117,26 @@ public class WMaterialorderController {
             List<WReturnedmaterials> list1 = wReturnedmaterialsService.queryAll(wReturnedmaterials);
             item.setWReturnedmaterials(list1);
         }
+        return AjaxResponse.success(list);
+    }
+
+    /**
+     * 获取所有库存数据
+     */
+    @GetMapping("selectAllStock3")
+    public AjaxResponse selectAllStock3(){
+        List<Stock3> list = stock2Service.selectAlls();
+
+        return AjaxResponse.success(list);
+    }
+
+    /**
+     * 查询预警库存
+     */
+    @GetMapping("selectByWarning")
+    public AjaxResponse selectByWarning(){
+        List<Stock3> list = stock2Service.selectByWarn();
+
         return AjaxResponse.success(list);
     }
 

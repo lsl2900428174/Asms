@@ -15,6 +15,24 @@
         <result property="number" column="number" jdbcType="INTEGER"/>
     </resultMap>
 
+    <resultMap type="com.trkj.asms.entity.Stock3" id="Stock3Map">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="number" column="number" jdbcType="INTEGER"/>
+        <result property="sName" column="sName" jdbcType="VARCHAR"/>
+        <result property="storeName" column="store_name" jdbcType="VARCHAR"/>
+        <result property="coName" column="co_name" jdbcType="VARCHAR"/>
+        <result property="coCode" column="co_code" jdbcType="VARCHAR"/>
+        <result property="mName" column="m_name" jdbcType="VARCHAR"/>
+        <result property="mdTitle" column="md_title" jdbcType="VARCHAR"/>
+        <result property="isName" column="is_name" jdbcType="VARCHAR"/>
+        <result property="ciName" column="ci_name" jdbcType="VARCHAR"/>
+        <result property="applimodel" column="applimodel" jdbcType="VARCHAR"/>
+        <result property="specialmodel" column="specialmodel" jdbcType="VARCHAR"/>
+        <result property="coRetailprice" column="co_retailprice" jdbcType="NUMERIC"/>
+        <result property="barcode" column="barcode" jdbcType="VARCHAR"/>
+        <result property="cusprice" column="cusprice" jdbcType="NUMERIC"/>
+    </resultMap>
+
 
 
     <!--查询单个-->
@@ -25,14 +43,28 @@
         where id = #{id}
     </select>
 
-    <!--查询所有库存数据-->
-    <select id="selectAlls" resultMap="Stock2Map">
-        SELECT f.id,f.number,g.co_name,g.co_code,g.m_name,g.md_title,g.is_name,g.ci_name,g.co_retailprice,g.cusprice FROM stock2 AS f LEFT JOIN
-	(SELECT a.co_id,a.co_code,a.co_name,a.co_retailprice,a.cusprice,b.m_name,c.md_title,d.is_name,e.ci_name FROM commodity AS a
+    <!-- 根据预警查询库存 -->
+    <select id="selectByWarn" resultMap="Stock3Map">
+        SELECT f.id,f.number,g.s_name AS sName,g.store_name,g.co_name,g.co_code,g.m_name,g.md_title,g.is_name,g.ci_name,g.applimodel,g.specialmodel,g.co_retailprice,g.barcode,g.cusprice,g.upx,g.lox FROM stock2 AS f LEFT JOIN
+	(SELECT a.co_id,a.co_code,a.upx,a.lox,a.co_name,a.co_retailprice,a.specialmodel,a.barcode,a.cusprice,a.applimodel,b.m_name,c.md_title,d.is_name,e.ci_name,h.s_name,i.store_name FROM commodity AS a
 	LEFT JOIN materialbrand AS b ON a.m_id = b.m_id
 	LEFT JOIN measuringunit AS c ON a.mu_id = c.mu_id
 	LEFT JOIN installationsites AS d ON a.is_id = d.is_id
-	LEFT JOIN materialclassification AS e ON a.ci_id = e.ci_id) AS g ON f.co_id = g.co_id
+	LEFT JOIN materialclassification AS e ON a.ci_id = e.ci_id
+	LEFT JOIN store AS h ON a.s_id = h.s_id
+	LEFT JOIN warehouse AS i ON a.w_id = i.w_id WHERE a.warning = 1) AS g ON f.co_id = g.co_id
+    </select>
+
+    <!--查询所有库存数据-->
+    <select id="selectAlls" resultMap="Stock3Map">
+        SELECT f.id,f.number,g.s_name as sName,g.store_name,g.co_name,g.co_code,g.m_name,g.md_title,g.is_name,g.ci_name,g.applimodel,g.specialmodel,g.co_retailprice,g.barcode,g.cusprice FROM stock2 AS f LEFT JOIN
+	(SELECT a.co_id,a.co_code,a.co_name,a.co_retailprice,a.specialmodel,a.barcode,a.cusprice,a.applimodel,b.m_name,c.md_title,d.is_name,e.ci_name,h.s_name,i.store_name FROM commodity AS a
+	LEFT JOIN materialbrand AS b ON a.m_id = b.m_id
+	LEFT JOIN measuringunit AS c ON a.mu_id = c.mu_id
+	LEFT JOIN installationsites AS d ON a.is_id = d.is_id
+	LEFT JOIN materialclassification AS e ON a.ci_id = e.ci_id
+	LEFT JOIN store AS h ON a.s_id = h.s_id
+	LEFT JOIN warehouse AS i ON a.w_id = i.w_id) AS g ON f.co_id = g.co_id
     </select>
 
     <!--查询部分库存数据-->

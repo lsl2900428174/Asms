@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.asms.dao.RefundorderDao">
+  <resultMap id="BaseResultMap" type="com.trkj.asms.entity.Refundorder">
+    <id column="r_id" jdbcType="INTEGER" property="rId" />
+    <result column="s_id" jdbcType="INTEGER" property="sId" />
+    <result column="c_id" jdbcType="INTEGER" property="cId" />
+    <result column="DocumentNumber" jdbcType="VARCHAR" property="documentnumber" />
+    <result column="DocumentType" jdbcType="VARCHAR" property="documenttype" />
+    <result column="Documentstatus" jdbcType="INTEGER" property="documentstatus"/>
+    <result column="DocumentDate" jdbcType="TIMESTAMP" property="documentdate" />
+    <result column="YFAmount" jdbcType="DECIMAL" property="yfamount" />
+    <result column="BCAmount" jdbcType="DECIMAL" property="bcamount" />
+    <result column="Sum" jdbcType="DECIMAL" property="sum" />
+    <result column="Operator" jdbcType="VARCHAR" property="operator" />
+    <result column="ReceiptNumber" jdbcType="VARCHAR" property="receiptnumber" />
+    <result column="DeleteName" jdbcType="VARCHAR" property="deletename" />
+    <result column="DeleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+    <result column="Timeliness" jdbcType="INTEGER" property="timeliness" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="ReturnedmaterialsId" jdbcType="VARCHAR" property="returnedmaterialsid" />
+    <association property="customer" javaType="com.trkj.asms.entity.Customer">
+      <result property="cId" column="c_id" jdbcType="INTEGER"/>
+      <result property="cName" column="c_name" jdbcType="VARCHAR"/>
+      <result property="sId" column="s_id" jdbcType="INTEGER"/>
+      <result property="mId" column="m_id" jdbcType="INTEGER"/>
+      <result property="cGender" column="c_gender" jdbcType="VARCHAR"/>
+      <result property="cContacts" column="c_contacts" jdbcType="VARCHAR"/>
+      <result property="cPhone" column="c_phone" jdbcType="VARCHAR"/>
+      <result property="ctId" column="ct_id" jdbcType="INTEGER"/>
+      <result property="cAddress" column="c_address" jdbcType="VARCHAR"/>
+      <result property="cText" column="c_text" jdbcType="VARCHAR"/>
+      <result property="eId" column="e_id" jdbcType="INTEGER"/>
+      <result property="cDate" column="c_date" jdbcType="TIMESTAMP"/>
+    </association>
+    <association property="store" javaType="com.trkj.asms.entity.Store">
+      <result property="sId" column="s_id" jdbcType="INTEGER"/>
+      <result property="sNumber" column="s_number" jdbcType="VARCHAR"/>
+      <result property="sName" column="s_name" jdbcType="VARCHAR"/>
+      <result property="sFullname" column="s_fullname" jdbcType="VARCHAR"/>
+      <result property="sLeader" column="s_leader" jdbcType="VARCHAR"/>
+      <result property="sAddress" column="s_address" jdbcType="VARCHAR"/>
+      <result property="sPhone" column="s_phone" jdbcType="VARCHAR"/>
+      <result property="sStatus" column="s_status" jdbcType="INTEGER"/>
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List">
+    r.r_id, r.s_id, r.c_id, r.DocumentNumber, r.DocumentType, r.Documentstatus, r.DocumentDate, r.YFAmount,
+    r.BCAmount, r.`Sum`, r.`Operator`, r.ReceiptNumber, r.DeleteName, r.DeleteTime, r.Timeliness, r.remarks,
+    r.ReturnedmaterialsId
+  </sql>
+  <sql id="customer">
+    c.c_id,c.c_name,c.c_phone,c.c_gender,c.c_contacts,c.c_address,c.c_text,c.c_date
+ </sql>
+  <sql id="store">
+     s.s_id, s.s_number, s.s_name, s.s_fullname, s.s_leader, s.s_address, s.s_phone, s.s_status
+  </sql>
+<!--  退货单-->
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />,<include refid="customer"/>,
+    <include refid="store"/>
+    from refundorder r inner join customer c on r.c_id=c.c_id
+    inner join store s on r.s_id=s.s_id
+    where r.Documentstatus=0
+    order by r.DocumentDate desc
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from refundorder
+    where r_id = #{rId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="r_id" keyProperty="rId" parameterType="com.trkj.asms.entity.Refundorder" useGeneratedKeys="true">
+    insert into refundorder (s_id, c_id, DocumentNumber, 
+      DocumentType, Documentstatus, DocumentDate, 
+      YFAmount, BCAmount, `Sum`, 
+      `Operator`, ReceiptNumber, DeleteName, 
+      DeleteTime, Timeliness, remarks, 
+      ReturnedmaterialsId)
+    values (#{sId,jdbcType=INTEGER}, #{cId,jdbcType=INTEGER}, #{documentnumber,jdbcType=VARCHAR}, 
+      #{documenttype,jdbcType=VARCHAR}, #{documentstatus,jdbcType=INTEGER}, #{documentdate,jdbcType=TIMESTAMP}, 
+      #{yfamount,jdbcType=DECIMAL}, #{bcamount,jdbcType=DECIMAL}, #{sum,jdbcType=DECIMAL}, 
+      #{operator,jdbcType=VARCHAR}, #{receiptnumber,jdbcType=VARCHAR}, #{deletename,jdbcType=VARCHAR}, 
+      #{deletetime,jdbcType=TIMESTAMP}, #{timeliness,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, 
+      #{returnedmaterialsid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="r_id" keyProperty="rId" parameterType="com.trkj.asms.entity.Refundorder" useGeneratedKeys="true">
+    insert into refundorder
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sId != null">
+        s_id,
+      </if>
+      <if test="cId != null">
+        c_id,
+      </if>
+      <if test="documentnumber != null">
+        DocumentNumber,
+      </if>
+      <if test="documenttype != null">
+        DocumentType,
+      </if>
+      <if test="documentstatus != null">
+        Documentstatus,
+      </if>
+      <if test="documentdate != null">
+        DocumentDate,
+      </if>
+      <if test="yfamount != null">
+        YFAmount,
+      </if>
+      <if test="bcamount != null">
+        BCAmount,
+      </if>
+      <if test="sum != null">
+        `Sum`,
+      </if>
+      <if test="operator != null">
+        `Operator`,
+      </if>
+      <if test="receiptnumber != null">
+        ReceiptNumber,
+      </if>
+      <if test="deletename != null">
+        DeleteName,
+      </if>
+      <if test="deletetime != null">
+        DeleteTime,
+      </if>
+      <if test="timeliness != null">
+        Timeliness,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="returnedmaterialsid != null">
+        ReturnedmaterialsId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sId != null">
+        #{sId,jdbcType=INTEGER},
+      </if>
+      <if test="cId != null">
+        #{cId,jdbcType=INTEGER},
+      </if>
+      <if test="documentnumber != null">
+        #{documentnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="documenttype != null">
+        #{documenttype,jdbcType=VARCHAR},
+      </if>
+      <if test="documentstatus != null">
+        #{documentstatus,jdbcType=INTEGER},
+      </if>
+      <if test="documentdate != null">
+        #{documentdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="yfamount != null">
+        #{yfamount,jdbcType=DECIMAL},
+      </if>
+      <if test="bcamount != null">
+        #{bcamount,jdbcType=DECIMAL},
+      </if>
+      <if test="sum != null">
+        #{sum,jdbcType=DECIMAL},
+      </if>
+      <if test="operator != null">
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptnumber != null">
+        #{receiptnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="deletename != null">
+        #{deletename,jdbcType=VARCHAR},
+      </if>
+      <if test="deletetime != null">
+        #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeliness != null">
+        #{timeliness,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="returnedmaterialsid != null">
+        #{returnedmaterialsid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.trkj.asms.entity.Refundorder">
+    update refundorder
+    <set>
+      <if test="sId != null">
+        s_id = #{sId,jdbcType=INTEGER},
+      </if>
+      <if test="cId != null">
+        c_id = #{cId,jdbcType=INTEGER},
+      </if>
+      <if test="documentnumber != null">
+        DocumentNumber = #{documentnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="documenttype != null">
+        DocumentType = #{documenttype,jdbcType=VARCHAR},
+      </if>
+      <if test="documentstatus != null">
+        Documentstatus = #{documentstatus,jdbcType=INTEGER},
+      </if>
+      <if test="documentdate != null">
+        DocumentDate = #{documentdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="yfamount != null">
+        YFAmount = #{yfamount,jdbcType=DECIMAL},
+      </if>
+      <if test="bcamount != null">
+        BCAmount = #{bcamount,jdbcType=DECIMAL},
+      </if>
+      <if test="sum != null">
+        `Sum` = #{sum,jdbcType=DECIMAL},
+      </if>
+      <if test="operator != null">
+        `Operator` = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptnumber != null">
+        ReceiptNumber = #{receiptnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="deletename != null">
+        DeleteName = #{deletename,jdbcType=VARCHAR},
+      </if>
+      <if test="deletetime != null">
+        DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeliness != null">
+        Timeliness = #{timeliness,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="returnedmaterialsid != null">
+        ReturnedmaterialsId = #{returnedmaterialsid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where r_id = #{rId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.trkj.asms.entity.Refundorder">
+    update refundorder
+    set s_id = #{sId,jdbcType=INTEGER},
+      c_id = #{cId,jdbcType=INTEGER},
+      DocumentNumber = #{documentnumber,jdbcType=VARCHAR},
+      DocumentType = #{documenttype,jdbcType=VARCHAR},
+      Documentstatus = #{documentstatus,jdbcType=INTEGER},
+      DocumentDate = #{documentdate,jdbcType=TIMESTAMP},
+      YFAmount = #{yfamount,jdbcType=DECIMAL},
+      BCAmount = #{bcamount,jdbcType=DECIMAL},
+      `Sum` = #{sum,jdbcType=DECIMAL},
+      `Operator` = #{operator,jdbcType=VARCHAR},
+      ReceiptNumber = #{receiptnumber,jdbcType=VARCHAR},
+      DeleteName = #{deletename,jdbcType=VARCHAR},
+      DeleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      Timeliness = #{timeliness,jdbcType=INTEGER},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      ReturnedmaterialsId = #{returnedmaterialsid,jdbcType=VARCHAR}
+    where r_id = #{rId,jdbcType=INTEGER}
+  </update>
+</mapper>

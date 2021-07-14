@@ -15,6 +15,8 @@ import java.util.List;
  */
 @Mapper
 public interface SavingsDao {
+
+    Savings findbyname(@Param("cName")String cName);
     /**
      * 查询储值卡信息
      * @return
@@ -29,11 +31,17 @@ public interface SavingsDao {
     int updatemoney(@Param("symony") double symony,@Param("savingsno") String savingsno);
 
     /**
+     * 根据客户名称减客户储值卡余额
+     * @param cname
+     * @return
+     */
+    int updatemoneybycname(@Param("cname")String cname,@Param("symony")Double symony);
+    /**
      * 根据储值卡号查询是否存在当前储值卡
      * @param savingsno
      * @return
      */
-    int findbynumber(String savingsno);
+    Savings findbynumber(String savingsno);
 
     /**
      * 通过ID查询单条数据

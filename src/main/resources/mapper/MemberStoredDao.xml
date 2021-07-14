@@ -5,8 +5,10 @@
     <resultMap type="com.trkj.asms.entity.MemberStored" id="MemberStoredMap">
         <result property="mId" column="m_id" jdbcType="INTEGER"/>
         <result property="sId" column="s_id" jdbcType="INTEGER"/>
+        <result property="sName" column="s_name" jdbcType="VARCHAR"/>
         <result property="billCode" column="bill_code" jdbcType="VARCHAR"/>
         <result property="billDate" column="bill_date" jdbcType="TIMESTAMP"/>
+        <result property="cId" column="c_id" jdbcType="INTEGER"/>
         <result property="cName" column="c_name" jdbcType="VARCHAR"/>
         <result property="cPhone" column="c_phone" jdbcType="VARCHAR"/>
         <result property="billState" column="bill_state" jdbcType="INTEGER"/>
@@ -18,13 +20,45 @@
         <result property="address" column="address" jdbcType="VARCHAR"/>
         <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
     </resultMap>
+    <resultMap id="HuiyuanVo" type="com.trkj.asms.vo.HuiyuanVo">
+        <result property="savingsno" column="savingsno" jdbcType="VARCHAR"/>
+        <result property="cphone" column="c_phone" jdbcType="VARCHAR"/>
+        <result property="cname" column="c_name" jdbcType="VARCHAR"/>
+        <result property="sname" column="s_name" jdbcType="VARCHAR"/>
+        <result property="address" column="c_address" jdbcType="VARCHAR"/>
+        <result property="billcode" column="bill_code" jdbcType="VARCHAR"/>
+        <result property="billdate" column="bill_date" jdbcType="TIMESTAMP"/>
+        <result property="billstate" column="bill_state" jdbcType="INTEGER"/>
+        <result property="giveamount" column="give_amount" jdbcType="NUMERIC"/>
+        <result property="storedvalue" column="stored_value" jdbcType="NUMERIC"/>
+        <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
+        <result property="storedtype" column="stored_type" jdbcType="VARCHAR"/>
+        <result property="username" column="user_name" jdbcType="VARCHAR"/>
+    </resultMap>
 
-    <select id="findall" resultMap="MemberStoredMap">
-        SELECT s.s_name,m.bill_code,m.bill_date,m.bill_state,m.c_name,m.c_phone,m.address,m.savingsno,m.stored_type,m.stored_value,m.give_amount,m.user_name,m.remarks
+    <update id="updatetype">
+        update member_stored set stored_type = #{storedType} where savingsno = #{savingsno}
+    </update>
+    <select id="findall" resultMap="HuiyuanVo">
+        SELECT m.s_name,m.bill_code,m.bill_date,m.bill_state,m.c_name,m.c_phone,c.c_address,m.savingsno,m.stored_type,m.stored_value,m.give_amount,m.user_name,m.remarks
         FROM member_stored m
         LEFT JOIN store s ON s.`s_id` = m.s_id
-        ORDER BY m.bill_date
+        LEFT JOIN customer c ON c.`c_id` = m.c_id
+        ORDER BY m.bill_date desc
     </select>
+    <select id="findallbyname" resultMap="HuiyuanVo">
+        SELECT m.s_name,m.bill_code,m.bill_date,m.bill_state,m.c_name,m.c_phone,c.c_address,m.savingsno,m.stored_type,m.stored_value,m.give_amount,m.user_name,m.remarks
+        FROM member_stored m
+        LEFT JOIN store s ON s.`s_id` = m.s_id
+        LEFT JOIN customer c ON c.`c_id` = m.c_id
+        <where>
+            <if test="cName != null and cName != ''">
+                and m.c_name = #{cName}
+            </if>
+        </where>
+        ORDER BY m.bill_date desc
+    </select>
+
     <!--查询单个-->
     <select id="queryById" resultMap="MemberStoredMap">
         select
@@ -95,8 +129,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="mId" useGeneratedKeys="true">
-        insert into asms.member_stored(s_id, bill_code, bill_date, c_name, c_phone, bill_state, savingsno, stored_value, give_amount, stored_type, user_name, address, remarks)
-        values (#{sId}, #{billCode}, #{billDate}, #{cName}, #{cPhone}, #{billState}, #{savingsno}, #{storedValue}, #{giveAmount}, #{storedType}, #{userName}, #{address}, #{remarks})
+        insert into asms.member_stored(s_id,s_name, bill_code, bill_date,c_id, c_name, c_phone, bill_state, savingsno, stored_value, give_amount, stored_type, user_name, address, remarks)
+        values (#{sId},#{sName}, #{billCode}, #{billDate},#{cId}, #{cName}, #{cPhone}, #{billState}, #{savingsno}, #{storedValue}, #{giveAmount}, #{storedType}, #{userName}, #{address}, #{remarks})
     </insert>
 
     <insert id="insertBatch" keyProperty="mId" useGeneratedKeys="true">

@@ -24,6 +24,11 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerDao customerDao;
 
     @Override
+    public KehuVo findbycname(String cName) {
+        return this.customerDao.findbycname(cName);
+    }
+
+    @Override
     public List<Customer> findall() {
         return this.customerDao.findall2();
     }

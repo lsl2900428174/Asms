@@ -22,6 +22,8 @@ public class MemberStored implements Serializable {
      * 门店id
      */
     private Integer sId;
+
+    private String sName;
     /**
      * 会员单据编号
      */
@@ -30,6 +32,10 @@ public class MemberStored implements Serializable {
      * 单据时间
      */
     private Date billDate;
+    /**
+     * 客户id
+     */
+    private Integer cId;
     /**
      * 客户名称
      */

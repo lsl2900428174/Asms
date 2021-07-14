@@ -80,6 +80,7 @@
     inner join store s on p.s_id=s.s_id
     where p.Documentstatus=1
   </select>
+<!--  模糊查询-->
   <select id="selectmohu" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />,<include refid="customer"/>,<include refid="store"/>
@@ -92,6 +93,7 @@
     <if test="s_name!=null">
       and s.s_name like CONCAT(CONCAT('%',#{s_name,jdbcType=VARCHAR},'%'))
     </if>
+    order by p.DocumentDate desc
   </select>
   <select id="selectyimohu" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
@@ -105,6 +107,7 @@
     <if test="documenttype!=null">
       and p.DocumentType like CONCAT(CONCAT('%',#{documenttype,jdbcType=VARCHAR},'%'))
     </if>
+    order by p.DocumentDate desc
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from pendingpayment

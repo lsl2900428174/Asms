@@ -18,10 +18,12 @@ public class Pendingpayment implements Serializable {
     /**
      * 门店id
      */
+    private Store store;
     private Integer sId;
     /**
      * 客户编号
      */
+    private Customer customer;
     private Integer customerid;
     /**
      * 采购订单编号
