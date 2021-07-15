@@ -12,5 +12,7 @@ public interface DueinService {
     Duein adddueinAll(Duein duein);
 //    删除：改变时效性1
 Duein deleteduein(Duein record);
+//模糊查询
+List<Duein> finddueinmohu(String documentnumber ,String s_name,String documenttype);
 
 }

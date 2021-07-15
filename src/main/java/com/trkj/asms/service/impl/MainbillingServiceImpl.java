@@ -2,78 +2,40 @@ package com.trkj.asms.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.trkj.asms.entity.Mainbilling;
 import com.trkj.asms.dao.MainbillingDao;
+import com.trkj.asms.entity.Mainbilling;
 import com.trkj.asms.service.MainbillingService;
+
 import com.trkj.asms.vo.*;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
-
-/**
- * 维修开单表(Mainbilling)表服务实现类
- *
- * @author makejava
- * @since 2021-07-11 23:53:59
- */
-@Service("mainbillingService")
+@Service
 public class MainbillingServiceImpl implements MainbillingService {
     @Resource
     private MainbillingDao mainbillingDao;
-
-    /**
-     * 通过ID查询单条数据
-     *
-     * @param mainbillingid 主键
-     * @return 实例对象
-     */
     @Override
-    public Mainbilling queryById(Integer mainbillingid) {
-        return this.mainbillingDao.queryById(mainbillingid);
+    public List<Mainbilling> selectMainbilling() {
+        return mainbillingDao.selectMainbilling();
     }
 
-//    模糊查询显示
     @Override
-    public List<MainbillingVo> queryAllByLimit(String c_name) {
-        return this.mainbillingDao.queryAllByLimit(c_name);
-    }
-
-    /**
-     * 新增数据
-     *
-     * @param mainbilling 实例对象
-     * @return 实例对象
-     */
-    @Override
-    public Mainbilling insert(Mainbilling mainbilling) {
-        this.mainbillingDao.insert(mainbilling);
+    public Mainbilling insertMainbilling(Mainbilling mainbilling) {
+        mainbillingDao.insertMainbilling(mainbilling);
         return mainbilling;
     }
 
-    /**
-     * 修改数据
-     *
-     * @param mainbilling 实例对象
-     * @return 实例对象
-     */
     @Override
-    public Mainbilling update(Mainbilling mainbilling) {
-        this.mainbillingDao.update(mainbilling);
-        return this.queryById(mainbilling.getMainbillingid());
+    public Mainbilling updateMainbilling(Mainbilling mainbilling) {
+        mainbillingDao.updateMainbilling(mainbilling);
+        return mainbilling;
     }
 
-    /**
-     * 通过主键删除数据
-     *
-     * @param mainbillingid 主键
-     * @return 是否成功
-     */
     @Override
-    public boolean deleteById(Integer mainbillingid) {
-        return this.mainbillingDao.deleteById(mainbillingid) > 0;
+    public int updateAllMainbilling(Mainbilling mainbilling) {
+        return this.mainbillingDao.updateAllMainbilling(mainbilling);
     }
-
 
     @Override
     public PageInfo<WxmxhzVo> wxmxhz(int currentPage, int pageSize) {
